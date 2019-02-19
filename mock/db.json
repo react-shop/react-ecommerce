@@ -1,16 +1,70 @@
 {
   "login": [
-    { "id": 1, "username": "admin", "password": "123456" },
-    { "id": 2, "username": "guest", "password": "123456" }
+    {
+      "id": 1,
+      "username": "admin",
+      "password": "123456"
+    },
+    {
+      "id": 2,
+      "username": "guest",
+      "password": "123456"
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 3
+    },
+    {
+      "username": "admin",
+      "password": "123456",
+      "id": 4
+    }
   ],
   "products": [
-    { "id": 1, "name": "T-shirt", "color": "blue", "size": "S", "sku": "987654321", "quantity": 10 },
-    { "id": 1, "name": "T-shirt", "color": "green", "size": "S", "sku": "987654322", "quantity": 5 },
-    { "id": 1, "name": "T-shirt", "color": "green", "size": "M", "sku": "987654323", "quantity": 2 },
-    { "id": 2, "name": "Jersey", "color": "orange", "size": "M", "sku": "887654321", "quantity": 4 }
+    {
+      "id": 1,
+      "name": "T-shirt",
+      "color": "blue",
+      "size": "S",
+      "sku": "987654321",
+      "quantity": 10
+    },
+    {
+      "id": 1,
+      "name": "T-shirt",
+      "color": "green",
+      "size": "S",
+      "sku": "987654322",
+      "quantity": 5
+    },
+    {
+      "id": 1,
+      "name": "T-shirt",
+      "color": "green",
+      "size": "M",
+      "sku": "987654323",
+      "quantity": 2
+    },
+    {
+      "id": 2,
+      "name": "Jersey",
+      "color": "orange",
+      "size": "M",
+      "sku": "887654321",
+      "quantity": 4
+    }
   ],
   "employees": [
-    { "name": "Vinicius", "store": 5, "role": 1 },
-    { "name": "Sarah", "store": 5, "role": 0 }
+    {
+      "name": "Vinicius",
+      "store": 5,
+      "role": 1
+    },
+    {
+      "name": "Sarah",
+      "store": 5,
+      "role": 0
+    }
   ]
 }

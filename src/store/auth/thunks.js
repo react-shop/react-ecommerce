@@ -2,6 +2,8 @@ import { signInRequest, signInRejected , signOut } from './actions'
 import { test } from './queries'
 
 export const login = user => async (dispatch, getState) => {
+  // signRequest tem que ficar no comeco
+  dispatch(signInRequest())
   const response = await test(user)
   console.log('response', response)
   
@@ -11,7 +13,8 @@ export const login = user => async (dispatch, getState) => {
     dispatch(signInRejected(errors || message))
   }
   
-  dispatch(signInRequest(user))
+  // signInFulfilled tem que ficar no final com o response.data ou reponse.data.user depende da resposta da api
+  dispatch(signInFulfilled(response.data))
   return true
 }
 
