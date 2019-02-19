@@ -1,6 +1,14 @@
 import { signIn, signOut } from './actions'
+import { test } from './queries'
 
 export const login = user => async (dispatch, getState) => {
+  const response = await test(user)
+  console.log('response', response)
+  
+  if(!response) {
+    console.log('Erro no login')
+  }
+  
   dispatch(signIn(user))
   return true
 }

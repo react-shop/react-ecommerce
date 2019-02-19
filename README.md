@@ -14,4 +14,6 @@ In this example we are using:
 
 ```npm start```
 
+Mock: ```json-server --watch mock/db.json --port 3004```
+
 Enjoy!
