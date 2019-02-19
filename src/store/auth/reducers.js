@@ -1,21 +1,45 @@
-import { SIGN_IN, SIGN_OUT } from "./action-types";
+import { SIGN_IN_REQUESTED, SIGN_IN_FULFILLED, SIGN_IN_REJECTED, SIGN_OUT } from "./action-types";
 
 const INITIAL_STATE = {
-  logged: false
+  logged: false,
+  loading: false,
+  user: null,
+  error: null
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SIGN_IN: {
+    // Esse vai ser o de início
+    case SIGN_IN_REQUESTED: {
       return {
         ...state,
-        logged: true
+        loading: true,
+        logged: false,
+        user: null,
+        error: null
       };
     }
+    // Esse vai ser o de sucesso
+    case SIGN_IN_FULFILLED: {
+      return {
+        ...state,
+        loading: false,
+        logged: true,
+        user: action.payload,
+        error: null
+      };
+    }
+    // Esse vai ser o de erro
+    case SIGN_IN_REJECTED: {
+      return {
+        ...INITIAL_STATE,
+        error: action.payload
+      };
+    }
+    // Esse vai ser o de saída
     case SIGN_OUT: {
         return {
-          ...state,
-          logged: false
+            ...INITIAL_STATE,
         };
       }
     default:
