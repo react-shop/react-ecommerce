@@ -1,6 +1,10 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
-import Text from '../../../layout/styled-components/title'
+import Form from '../components/form'
+import LogoForm from '../components/logoForm'
+import Icon from '../components/icon'
+import Text from '../components/text'
+import Button from '../components/button'
 import { required } from '../../../../utils/validators'
 import inputText from '../components/inputText'
 import { ClipLoader } from 'react-spinners'
@@ -10,7 +14,10 @@ class LoginForm extends React.Component {
     const {handleSubmit, submitting, error} = this.props;
 
     return (
-      <div>
+      <Form>
+        <LogoForm>
+          <Icon className="fa fa-apple-alt"/>
+        </LogoForm>
         { !!error && <spam>{error}</spam> }
         <Field
           validate={[required]}
@@ -27,15 +34,15 @@ class LoginForm extends React.Component {
           returnKeyType="send"
           type="password"
           label='Senha' />
-      <button onClick={handleSubmit}>
+      <Button onClick={handleSubmit}>
         { submitting ? 
         <ClipLoader
           sizeUnit={"px"}
           size={20}
           color={'#123abc'}
         /> : <Text>Entrar</Text> }
-      </button>
-      </div>
+      </Button>
+      </Form>
     )
   }
 }

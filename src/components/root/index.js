@@ -10,7 +10,7 @@ import Login from '../views/login/login'
 import Home from '../views/home/home'
 import Post from '../views/post/post'
 
-const Root = ({store}) => {
+const Root = ({store}) => {    
     baseStyles();
     return (<Provider store={store}>
         <Router>

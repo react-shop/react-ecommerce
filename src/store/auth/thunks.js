@@ -1,4 +1,4 @@
-import { signInRequest, signInRejected , signOut } from './actions'
+import { signInRequest, signInFulfilled, signInRejected , signOut } from './actions'
 import { test } from './queries'
 
 export const login = user => async (dispatch, getState) => {

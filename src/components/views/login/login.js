@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import { login } from '../../../store/auth/thunks'
 import Form from './containers/loginForm'
+import Content from './components/content'
 import Button from '../../layout/styled-components/button'
 import Title from '../../layout/styled-components/title'
 
@@ -20,10 +21,9 @@ class Login extends React.Component {
         }
 
         return (
-            <div>
-                <Title>You need to be logged to see the route: {from.pathname}</Title>
+            <Content>
                 <Form onSubmit={this.handleSubmit} />
-            </div>
+            </Content>
         )
     }
 }
