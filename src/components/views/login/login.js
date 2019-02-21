@@ -22,6 +22,7 @@ class Login extends React.Component {
 
         return (
             <Content>
+                {console.log(this.props)}
                 <Form onSubmit={this.handleSubmit} />
             </Content>
         )

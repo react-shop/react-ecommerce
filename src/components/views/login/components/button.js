@@ -11,6 +11,8 @@ const Button = styled.button`
   box-shadow: 0 10px 12px rgba(0,0,0,0.2);
   padding: 10px 30px;
   margin: 10px 0;
+  width: 100px;
+  align-self: center;
   &:hover {
     background-color: #3682A3;
   }

@@ -3,7 +3,7 @@ import url from '../../api/api'
 
 export const test = (credentials) => {
   console.log(credentials)
-  return axios.post(url.dev + '/login', {
+  return axios.post(url.dev + '/authenticate', {
     username: credentials.username,
     password: credentials.password
   })

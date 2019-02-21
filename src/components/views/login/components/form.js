@@ -9,6 +9,8 @@ const Form = styled.div`
   width: 400px;
   text-align: center;
   position: relative;
+  display: flex;
+  flex-flow: column;
 `;
 
 

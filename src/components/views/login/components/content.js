@@ -9,7 +9,7 @@ const Content = styled.div`
   justify-content: center;
   align-items: center;
   background: rgb(176,219,238);
-  background: linear-gradient(0deg, rgba(176,219,238,1) 0%, rgba(85,159,191,1) 35%, rgba(29,111,147,1) 100%);
+  background: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
 `;
 
 export default Content;

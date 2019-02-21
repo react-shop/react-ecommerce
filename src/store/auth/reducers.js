@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   logged: false,
   loading: false,
   user: null,
-  error: null
+  error: null,
+  token: null
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -26,7 +27,8 @@ export default function(state = INITIAL_STATE, action) {
         loading: false,
         logged: true,
         user: action.payload,
-        error: null
+        error: null,
+        token: action.payload.auth_token
       };
     }
     // Esse vai ser o de erro
