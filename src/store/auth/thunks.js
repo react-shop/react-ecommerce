@@ -1,11 +1,11 @@
 import { signInRequest, signInFulfilled, signInRejected , signOut } from './actions'
-import { test } from './queries'
+import { requestLogin } from './queries'
 import {SubmissionError} from 'redux-form'
 
 export const login = user => async (dispatch, getState) => {
   // signRequest tem que ficar no comeco
   dispatch(signInRequest())
-  const response = await test(user)
+  const response = await requestLogin(user)
   
   if(!response.data) {
     const {errors} = response;

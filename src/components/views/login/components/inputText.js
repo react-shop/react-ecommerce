@@ -36,12 +36,13 @@ const inputText = ({
   label,
   type,
   classname,
+  placeholder,
   meta: { touched, error }
 }) => (
   <InputContent>
     <Label>{label}</Label>
     <div>
-      <Input {...input} placeholder={label} type={type} className={classname} />
+      <Input {...input} placeholder={placeholder} type={type} className={classname} />
       {touched &&
         (error && <Error>{error}</Error>)
       }

@@ -12,6 +12,7 @@ import inputText from '../components/inputText'
 import { ClipLoader } from 'react-spinners'
 
 class LoginForm extends React.Component {
+
   render() {
     const {handleSubmit, submitting, error, auth} = this.props;
 
@@ -27,14 +28,16 @@ class LoginForm extends React.Component {
           component={inputText}
           returnKeyType="next"
           type="text"
+          placeholder="Usuário"
           label='Usuário:' />
         <Field
-            validate={[required]}
-            name="password"
-            component={inputText}
-            returnKeyType="send"
-            type="password"
-            label='Senha:' />
+          validate={[required]}
+          name="password"
+          component={inputText}
+          returnKeyType="send"
+          type="password"
+          placeholder="Senha"
+          label='Senha:' />
         <Button onClick={handleSubmit}>
           { submitting ? 
           <ClipLoader
