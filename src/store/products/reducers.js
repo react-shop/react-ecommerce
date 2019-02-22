@@ -1,4 +1,11 @@
-import { LIST_PRODUCTS_REQUESTED, LIST_PRODUCTS_FULFILLED, LIST_PRODUCTS_REJECTED } from "./action-types";
+import { 
+  LIST_PRODUCTS_REQUESTED, 
+  LIST_PRODUCTS_FULFILLED, 
+  LIST_PRODUCTS_REJECTED,
+  DETAIL_PRODUCT_REQUESTED,
+  DETAIL_PRODUCT_FULFILLED,
+  DETAIL_PRODUCT_REJECTED
+} from "./action-types";
 
 const INITIAL_STATE = {
   logged: false,
@@ -10,7 +17,8 @@ const INITIAL_STATE = {
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     // Esse vai ser o de início
-    case LIST_PRODUCTS_REQUESTED: {
+    case LIST_PRODUCTS_REQUESTED:
+    case DETAIL_PRODUCT_REQUESTED: {
       return {
         ...state,
         loading: true,
@@ -19,7 +27,8 @@ export default function(state = INITIAL_STATE, action) {
       };
     }
     // Esse vai ser o de sucesso
-    case LIST_PRODUCTS_FULFILLED: {
+    case LIST_PRODUCTS_FULFILLED:
+    case DETAIL_PRODUCT_FULFILLED: {
       return {
         ...state,
         loading: false,
@@ -28,7 +37,8 @@ export default function(state = INITIAL_STATE, action) {
       };
     }
     // Esse vai ser o de erro
-    case LIST_PRODUCTS_REJECTED: {
+    case LIST_PRODUCTS_REJECTED:
+    case DETAIL_PRODUCT_REJECTED: {
       return {
         ...INITIAL_STATE,
         error: action.payload

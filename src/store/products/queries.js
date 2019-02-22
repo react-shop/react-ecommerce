@@ -10,3 +10,13 @@ export const listProducts = (token) => {
   .then(res => res.data)
   .catch(err => err.response.data)
 }
+
+export const requestProduct = (token, id) => {
+  return axios.get(url.dev + '/products/' + id , {
+    headers: {
+      'Authorization': token
+    }
+  })
+  .then(res => res.data)
+  .catch(err => err.response.data)
+}
