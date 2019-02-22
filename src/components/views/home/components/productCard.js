@@ -76,6 +76,10 @@ const Icon = styled.i`
   cursor: pointer;
 `;
 
+const CardLink = styled(Link)`
+  color: #fff;
+`;
+
 const Card = (props) => (
   <CardContent>
     <TopCard color={props.color}>
@@ -87,9 +91,9 @@ const Card = (props) => (
     <PriceCard>
       <ShareProduct>
         <Icon className="fa fa-share" />
-        <Link to={'/product/' + props.link}>
+        <CardLink to={'/product/' + props.link}>
           <Icon className="fa fa-info-circle" />
-        </Link>
+        </CardLink>
       </ShareProduct>
       <DetailProduct>
         {'R$' + props.price}

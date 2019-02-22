@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import {connect} from 'react-redux'
 import {logout} from "../../store/auth/thunks"
 import NavBar from "./styled-components/navbar";
@@ -8,10 +8,13 @@ const Header = (props) => {
     return (
         <NavBar title='TestSite' >
             <NavLink to='/'>Home</NavLink>
-            <NavLink to='/post'>Post</NavLink>
+            <NavLink to='/post'>Contato</NavLink>
             {
                 props.auth.logged ?
-                    <NavLink to='/' onClick={props.logout}>Logout</NavLink>
+                    <Fragment>
+                        <NavLink to='/admin'>Admin</NavLink>
+                        <NavLink to='/' onClick={props.logout}>Logout</NavLink>
+                    </Fragment>
                     :
                     <NavLink to='/login'>Login</NavLink>
             }
