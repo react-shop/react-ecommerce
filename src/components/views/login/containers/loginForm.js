@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
     return (
       <Form>
         <LogoForm>
-          <Icon className="fa fa-apple-alt"/>
+          <Icon className="fa fa-crown"/>
         </LogoForm>
         { !!error && <Error>{error}</Error> }
         <Field

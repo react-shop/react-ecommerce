@@ -12,6 +12,7 @@ import Home from '../views/home/home'
 import Post from '../views/post/post'
 import Product from '../views/product'
 import Admin from '../views/admin'
+import Profile from '../views/profile'
 
 const Root = ({store, auth: auth}) => {    
     baseStyles();
@@ -27,6 +28,7 @@ const Root = ({store, auth: auth}) => {
                         <PrivateRoute path="/post" component={Post}/>
                         <PrivateRoute path="/product/:id" component={Product}/>
                         <PrivateRoute path="/admin" component={Admin}/>
+                        <PrivateRoute path="/profile" component={Profile}/>
                         <PrivateRoute path="/" component={Home}/>
                     </Switch>
                 </Fragment>

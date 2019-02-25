@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import colors from './colors'
 
 const Nav = styled.div`
     height: 50px;
@@ -7,7 +8,7 @@ const Nav = styled.div`
     display: flex;
     align-items: center;
     padding: 0 20px;    
-    background: #f8f9fa;
+    background: ${props => props.bg ? props.bg : '#e6e6e6'};
     position: ${props => props.fixed ? 'fixed' : 'relative'};
 `;
 
@@ -23,7 +24,7 @@ const Title = styled.h1`
 `;
 
 const NavBar = (props) => (
-    <Nav>
+    <Nav bg={props.bg}>
         <Title>{props.title || ''}</Title>
         <Right>
             {props.children}

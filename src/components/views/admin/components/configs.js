@@ -6,7 +6,7 @@ import ConfigItem from './configs/configItem'
 const DashboardConfig = styled.div`
   padding: 15px 10px;
   flex: 1;
-  max-width: 70%;
+  max-width: 75%;
   display: flex;
   flex-flow: row wrap;
 `;
@@ -17,6 +17,9 @@ const Configs = () => (
       <ConfigItem>Anúncios</ConfigItem>
       <ConfigItem>Vendas</ConfigItem>
       <ConfigItem>Encomendas</ConfigItem>
+      <ConfigItem>Mais vendido</ConfigItem>
+      <ConfigItem>Total no mês</ConfigItem>
+      <ConfigItem>Total no dia</ConfigItem>
     </ConfigList>
   </DashboardConfig>
 )
