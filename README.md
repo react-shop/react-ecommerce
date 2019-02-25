@@ -14,6 +14,6 @@ In this example we are using:
 
 ```npm start```
 
-Api: https://github.com/viniarruda/api-pdv [Rails]
+Api: https://github.com/viniarruda/api-ecommerce [Rails]
 
 Enjoy!
