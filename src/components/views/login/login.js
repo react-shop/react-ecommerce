@@ -10,9 +10,8 @@ import Title from '../../layout/styled-components/title'
 class Login extends React.Component {
     
     handleSubmit = async ({username, password}) => {
-        return await this.props.login({username, password});
+      return await this.props.login({username, password});
     };
-
     render() {
         const {from} = this.props.location.state || {from: {pathname: "/"}};
 

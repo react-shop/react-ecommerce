@@ -7,7 +7,6 @@ const Content = styled.div`
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  background-color: #e6e6e6;
 `;
 
 

@@ -6,6 +6,7 @@
     "@fortawesome/fontawesome-free": "^5.7.0",
     "axios": "^0.18.0",
     "dateformat": "^3.0.3",
+    "lodash": "^4.17.11",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "react-redux": "^5.1.1",

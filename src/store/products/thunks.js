@@ -4,7 +4,8 @@ import {
   listProductsRejected,
   detailProductRequest,
   detailProductFulfilled,
-  detailProductRejected
+  detailProductRejected,
+  attProducts
 } from './actions'
 import { listProducts, requestProduct } from './queries'
 
@@ -36,5 +37,11 @@ export const detailProduct = (token,id) => async (dispatch, getState) => {
     throw 'Error' 
   }
   dispatch(detailProductFulfilled(response.data))
+  return true
+}
+
+export const filterProducts = (filtered) => async (dispatch, getState) => {
+  dispatch(attProducts(filtered))
+
   return true
 }

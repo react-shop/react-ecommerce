@@ -1,5 +1,5 @@
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, reduxForm, submit } from 'redux-form'
 import { connect } from 'react-redux'
 import Form from '../components/form'
 import LogoForm from '../components/logoForm'
@@ -13,11 +13,18 @@ import { ClipLoader } from 'react-spinners'
 
 class LoginForm extends React.Component {
 
+  handleKeyPress = async(e) => {
+    if(e.keyCode == 13 && e.shiftKey == false) {
+      e.preventDefault();
+      return await this.props.dispatch(submit('loginForm'))
+    }
+  }
+
   render() {
-    const {handleSubmit, submitting, error, auth} = this.props;
+    const {handleSubmit, onKeyDown, submitting, error, auth} = this.props;
 
     return (
-      <Form>
+      <Form onKeyDown={(e) => this.handleKeyPress(e)}>
         <LogoForm>
           <Icon className="fa fa-crown"/>
         </LogoForm>

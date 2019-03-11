@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Loading from '../../layout/styled-components/spinner'
 import { detailProduct } from '../../../store/products/thunks'
+import Title from './components/title'
 
 class Product extends React.Component {
   constructor(props){
@@ -19,11 +20,11 @@ class Product extends React.Component {
     <div>
       <Loading show={products.loading} />
       {
-        products.list && 
+        products.product && 
           <div>
-            <h1>{products.list.item}</h1>
-            <h2>{products.list.price}</h2>
-            <span>{products.list.sku}</span>
+            <Title>{products.product.item}</Title>
+            <h2>R${products.product.price}</h2>
+            <span>Sku:{products.product.sku}</span>
           </div>
       }
       </div>
