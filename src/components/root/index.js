@@ -13,6 +13,7 @@ import Post from '../views/post/post'
 import Product from '../views/product'
 import Admin from '../views/admin'
 import Profile from '../views/profile'
+import Cart from '../views/cart'
 
 const Root = ({store, auth: auth}) => {    
     baseStyles();
@@ -32,6 +33,9 @@ const Root = ({store, auth: auth}) => {
                         <PrivateRoute path="/" component={Home}/>
                     </Switch>
                 </Fragment>
+                {
+                    auth.logged && <Cart />
+                }
             </Content>
         </Router>
     </Provider>)
