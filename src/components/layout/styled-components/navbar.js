@@ -15,6 +15,9 @@ const Nav = styled.div`
 const Right = styled.nav`
     flex: 1;
     text-align: right;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
 `;
 
 const Title = styled.h1`
