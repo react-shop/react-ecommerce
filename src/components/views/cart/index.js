@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { removeCart, showCart } from '../../../store/cart/thunks'
 import Drawer from '@material-ui/core/Drawer';
+import CartList from './components/cartList'
+import CartItem from './components/cartItem'
 
 const Content = styled.div`
   background-color: #e6e6e6;
@@ -17,15 +19,18 @@ const Cart = (props) => (
     >
       <Content>
 			Carrinho
-			{
-				props.cart.list &&
-					props.cart.list.map((p, key) => 
-						<div key={key}>
-							<div>{p.item}</div>
-							<span onClick={() => props.removeCart(key)}>remove</span>
-						</div>
-					)
+			<CartList>
+				{
+					props.cart.items &&
+						props.cart.items.map((p, key) => 
+							<CartItem key={key}>
+								<div>{p.item}</div>
+								<button onClick={() => props.removeCart(p.sku)}>remove</button>
+								<span>{p.quantity} x</span>
+							</CartItem>
+						)
 				}
+			</CartList>
 			</Content>
     </div>
 	</Drawer>
