@@ -9,10 +9,10 @@ import {
 } from './actions'
 import { listProducts, requestProduct } from './queries'
 
-export const requestProducts = token => async (dispatch, getState) => {
+export const requestProducts = () => async (dispatch, getState) => {
   
   dispatch(listProductsRequest())
-  const response = await listProducts(token)
+  const response = await listProducts()
   
   if(!response.data) {
     const error = 'No have products'
@@ -25,10 +25,10 @@ export const requestProducts = token => async (dispatch, getState) => {
   return true
 }
 
-export const detailProduct = (token,id) => async (dispatch, getState) => {
+export const detailProduct = (id) => async (dispatch, getState) => {
   
   dispatch(detailProductRequest())
-  const response = await requestProduct(token, id)
+  const response = await requestProduct(id)
   
   if(!response.data) {
     const error = 'Fail load product'

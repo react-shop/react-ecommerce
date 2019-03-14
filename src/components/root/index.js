@@ -20,22 +20,18 @@ const Root = ({store, auth: auth}) => {
     return (<Provider store={store}>
         <Router>
             <Content>
-                {
-                    auth.logged && <Header/>
-                }
+                <Header/>
                 <Fragment>
                     <Switch>
-                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/login" component={Login}/>
+                        <Route path="/product/:id" component={Product}/>
                         <PrivateRoute path="/post" component={Post}/>
-                        <PrivateRoute path="/product/:id" component={Product}/>
                         <PrivateRoute path="/admin" component={Admin}/>
                         <PrivateRoute path="/profile" component={Profile}/>
-                        <PrivateRoute path="/" component={Home}/>
                     </Switch>
                 </Fragment>
-                {
-                    auth.logged && <Cart />
-                }
+                <Cart />
             </Content>
         </Router>
     </Provider>)

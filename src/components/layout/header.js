@@ -2,6 +2,7 @@ import React, { Component, Fragment, useState } from 'react'
 import {connect} from 'react-redux'
 import {logout} from "../../store/auth/thunks"
 import {filterProducts} from "../../store/products/thunks"
+import { showCart } from '../../store/cart/thunks'
 import NavBar from "./styled-components/navbar"
 import NavLink from "./styled-components/nav-link"
 import UserMenu from './styled-components/userMenu'
@@ -10,6 +11,7 @@ import IconUser from './styled-components/iconUser'
 import {
   filter as _filter
 } from 'lodash'
+import IconCart from './styled-components/iconWithBadge'
 
 const Header = (props) => {
     const [openUserMenu, setUserMenu] = useState(false)
@@ -31,6 +33,12 @@ const Header = (props) => {
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/post'>Contato</NavLink>
             <Search onSubmit={handleSubmit} />
+            <IconCart 
+              icon="shopping-cart" bg="primary" 
+              color="white" margin="12px" 
+              badgeContent={props.cart.length} 
+              onClick={() => props.showCart(true)}
+            />
             {
                 props.auth.logged ?
                     <Fragment>
@@ -55,10 +63,12 @@ const Header = (props) => {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  products: state.products
+  products: state.products,
+  cart: state.cart
 });
 
 export default connect(mapStateToProps, {
   logout,
-  filterProducts
+  filterProducts,
+  showCart
 })(Header)

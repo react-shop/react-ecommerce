@@ -20,8 +20,8 @@ class Home extends React.Component {
 		this.handleSidebar = this.handleSidebar.bind(this)
 	}
 	componentDidMount() {
-		const { requestProducts, auth } = this.props
-		requestProducts(auth.user.auth_token);
+		const { requestProducts } = this.props
+		requestProducts();
 	}
 	
 	handleSidebar() {
@@ -36,16 +36,15 @@ class Home extends React.Component {
 		}
 	}
 	render() {
-		const { auth, products } = this.props
+		const { products } = this.props
 		return (
 			<Content>
 				<Loading show={products.loading} />
-				<Filter>
-					<i className="fa fa-filter" onClick={this.handleSidebar} />
-					<Title>Bem vindo {auth.user.name}</Title>
-				</Filter>
+				<Sidebar open={this.state.openSidebar} />
 				<Grid>
-					<Sidebar open={this.state.openSidebar} />
+					<Filter>
+						<i className="fa fa-filter" onClick={this.handleSidebar} />
+					</Filter>
 					<ProductList {...products} />
 				</Grid>
 				{/* <Button red>Colors!</Button>
@@ -58,10 +57,9 @@ class Home extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-    auth: state.auth,
     products: state.products
 });
 
 export default connect(mapStateToProps, {
-    requestProducts
+  requestProducts
 })(Home)

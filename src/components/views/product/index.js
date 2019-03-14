@@ -21,7 +21,7 @@ class Product extends React.Component {
 
   componentDidMount() {
     const { match, detailProduct, auth } = this.props
-    detailProduct(auth.user.auth_token, match.params.id)
+    detailProduct(match.params.id)
   }
 
   handleAddCart = async (product) => {

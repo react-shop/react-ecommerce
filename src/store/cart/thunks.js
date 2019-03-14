@@ -1,8 +1,9 @@
 import { 
   itemsUpdated,
   attCart,
-  closeCart,
-  addIdToCart
+  show,
+  addIdToCart,
+  cartItems
 } from './actions'
 
 export const addCart = product => async (dispatch, getState) => {
@@ -10,7 +11,6 @@ export const addCart = product => async (dispatch, getState) => {
     cart: { items, id }
   } = getState();
 
-  console.log('getState', items)
   let itemFound = false;
   let newList = [];
   if(items) {
@@ -27,7 +27,9 @@ export const addCart = product => async (dispatch, getState) => {
     product.quantity = 1;
     newList.push(product);
   }
-
+  let itemsInCart = newList.map(n => n.quantity).reduce((a,b) => a + b);
+  console.log(itemsInCart)
+  dispatch(cartItems(itemsInCart));
   dispatch(itemsUpdated(newList));
 
   if(!id) {
@@ -67,6 +69,7 @@ export const removeCart = sku => async (dispatch, getState) => {
 }
 
 export const showCart = param => async (dispatch, getState) => {
-  dispatch(closeCart(param))
+  dispatch(show(param))
+  console.log(param)
   return true
 }

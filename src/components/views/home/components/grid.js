@@ -4,8 +4,9 @@ import styled from 'styled-components'
 
 const Grid = styled.div`
   display: flex;
-  flex-flow: row wrap;
-  width: 100%;
+  flex-flow: column;
+  min-width: 80%;
+  flex: 1;
 `;
 
 
