@@ -4,19 +4,20 @@ import {
   ATT_CART,
   SHOW,
   ADD_ID_TO_CART,
-  CART_ITEMS
+  CART_ITEMS,
+  UPDATED_TOTAL_PRICE
 } from "./action-types";
 
 const INITIAL_STATE = {
   id: null,
   items: null,
   show: false,
-  length: 0
+  length: 0,
+  total: 0.00
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
-    // Esse vai ser o de início
     case ITEMS_UPDATED: {
       return {
         ...state,
@@ -47,6 +48,12 @@ export default function(state = INITIAL_STATE, action) {
       return {
         ...state,
         show: action.payload
+      }
+    }
+    case UPDATED_TOTAL_PRICE: {
+      return {
+        ...state,
+        total: action.payload
       }
     }
     default:

@@ -14,6 +14,7 @@ import Product from '../views/product'
 import Admin from '../views/admin'
 import Profile from '../views/profile'
 import Cart from '../views/cart'
+import Checkout from '../views/checkout'
 
 const Root = ({store, auth: auth}) => {    
     baseStyles();
@@ -29,6 +30,7 @@ const Root = ({store, auth: auth}) => {
                         <PrivateRoute path="/post" component={Post}/>
                         <PrivateRoute path="/admin" component={Admin}/>
                         <PrivateRoute path="/profile" component={Profile}/>
+                        <PrivateRoute path="/checkout" component={Checkout}/>
                     </Switch>
                 </Fragment>
                 <Cart />
