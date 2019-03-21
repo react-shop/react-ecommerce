@@ -42,9 +42,9 @@ class Home extends React.Component {
 				<Loading show={products.loading} />
 				<Sidebar open={this.state.openSidebar} />
 				<Grid>
-					<Filter>
+					{/*<Filter>
 						<i className="fa fa-filter" onClick={this.handleSidebar} />
-					</Filter>
+					</Filter>*/}
 					<ProductList {...products} />
 				</Grid>
 				{/* <Button red>Colors!</Button>

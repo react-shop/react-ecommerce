@@ -7,17 +7,9 @@ const Nav = styled.div`
     width: 100%;
     display: flex;
     align-items: center;
-    padding: 0 20px;    
-    background: ${props => props.bg ? props.bg : '#e6e6e6'};
+    padding: 0 50px;    
+    background: ${props => props.bg ? props.bg : colors.header};
     position: ${props => props.fixed ? 'fixed' : 'relative'};
-`;
-
-const Right = styled.nav`
-    flex: 1;
-    text-align: right;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
 `;
 
 const Title = styled.h1`
@@ -28,10 +20,7 @@ const Title = styled.h1`
 
 const NavBar = (props) => (
     <Nav bg={props.bg}>
-        <Title>{props.title || ''}</Title>
-        <Right>
-            {props.children}
-        </Right>
+        {props.children}
     </Nav>
 );
 

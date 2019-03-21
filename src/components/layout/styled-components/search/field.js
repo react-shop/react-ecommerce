@@ -1,17 +1,23 @@
 import React from 'react'
 import styled from 'styled-components'
+import colors from '../colors'
 
 const Input = styled.input`
 	flex: 1;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
-  background: rgba(255,255,255,0.7);
+  background: white;
   border: none;
-  color: #000;
-  width: 100px;
-  padding: 5px;
+  color: #555;
+  width: 300px;
+  font-size: 13px;
+  padding: 0 0 0 5px;
   &:focus {
     border: 2px solid #1D6F93;
+  }
+  ::placeholder {
+    color: #e6e6e6;
+    font-size: 12px;
   }
 `;
 

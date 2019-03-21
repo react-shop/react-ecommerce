@@ -6,6 +6,9 @@ const Button = styled.button`
 	border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
   border: none;
+  max-width: 25px;
+  color: #e6e6e6;
+  background: white;
 `;
 
 export default Button;
