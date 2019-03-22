@@ -1,4 +1,7 @@
-import { 
+import {
+  listSpotlightsRequest,
+  listSpotlightsFulfilled,
+  listSpotlightsRejected,
   listProductsRequest, 
   listProductsFulfilled, 
   listProductsRejected,
@@ -7,7 +10,25 @@ import {
   detailProductRejected,
   attProducts
 } from './actions'
-import { listProducts, requestProduct } from './queries'
+import { listProducts, requestProduct, listSpotlights } from './queries'
+
+export const requestHighlights = () => async (dispatch, getState) => {
+  
+  dispatch(listSpotlightsRequest())
+  const response = await listSpotlights()
+  
+  if(!response.data) {
+    const error = 'No have products'
+    dispatch(listSpotlightsRejected(error))
+
+    throw 'Error' 
+  }
+  
+  dispatch(listSpotlightsFulfilled(response.data))
+  return true
+}
+
+
 
 export const requestProducts = () => async (dispatch, getState) => {
   

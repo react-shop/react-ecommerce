@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Loading from '../../layout/styled-components/spinner'
-import { requestProducts } from '../../../store/products/thunks'
+import { requestHighlights } from '../../../store/products/thunks'
+import { addCart } from '../../../store/cart/thunks'
 import Content from './containers/content'
 import Filter from './components/filter'
 import Grid from './components/grid'
@@ -20,10 +21,23 @@ class Home extends React.Component {
 		this.handleSidebar = this.handleSidebar.bind(this)
 	}
 	componentDidMount() {
-		const { requestProducts } = this.props
-		requestProducts();
+		const { requestHighlights } = this.props
+		requestHighlights();
 	}
 	
+	handleAddCart = async (product) => {
+    this.setState({
+      moveToCart: 'animated zoomOutRight delay-0.5s'
+    });
+    setInterval(
+      () => this.setState({
+        moveToCart: ''
+      }),
+      1000
+    );
+    return await this.props.addCart(product);
+  };
+
 	handleSidebar() {
 		if(!this.state.openSidebar) {
 			this.setState({
@@ -45,7 +59,7 @@ class Home extends React.Component {
 					{/*<Filter>
 						<i className="fa fa-filter" onClick={this.handleSidebar} />
 					</Filter>*/}
-					<ProductList {...products} />
+					<ProductList {...this.props} onClick={this.handleAddCart} />
 				</Grid>
 				{/* <Button red>Colors!</Button>
 				<Button green>Colors!</Button>
@@ -61,5 +75,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  requestProducts
+  requestHighlights,
+  addCart
 })(Home)

@@ -1,4 +1,7 @@
 import { 
+  LIST_SPOTLIGHTS_REQUESTED,
+  LIST_SPOTLIGHTS_FULFILLED,
+  LIST_SPOTLIGHTS_REJECTED,
   LIST_PRODUCTS_REQUESTED, 
   LIST_PRODUCTS_FULFILLED, 
   LIST_PRODUCTS_REJECTED,
@@ -14,28 +17,32 @@ const INITIAL_STATE = {
   list: null,
   product: null,
   error: null,
+  spotlights: null
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch (action.type) {
     // Esse vai ser o de início
-    case LIST_PRODUCTS_REQUESTED: {
+    case LIST_SPOTLIGHTS_REQUESTED:
+    case LIST_PRODUCTS_REQUESTED:
+    case DETAIL_PRODUCT_REQUESTED: {
       return {
         ...state,
         loading: true,
         list: null,
-        error: null
-      };
-    }
-   case DETAIL_PRODUCT_REQUESTED: {
-    return {
-        ...state,
-        loading: true,
-        list: null,
+        spotlights: null,
         product: null,
         error: null
       };
-   }
+    }
+    case LIST_SPOTLIGHTS_FULFILLED: {
+      return {
+        ...state,
+        loading: false,
+        error: null,
+        spotlights: action.payload
+      }
+    }
     // Esse vai ser o de sucesso
     case LIST_PRODUCTS_FULFILLED: {
       return {
@@ -54,6 +61,7 @@ export default function(state = INITIAL_STATE, action) {
       };
     }
     // Esse vai ser o de erro
+    case LIST_SPOTLIGHTS_REJECTED:
     case LIST_PRODUCTS_REJECTED:
     case DETAIL_PRODUCT_REJECTED: {
       return {

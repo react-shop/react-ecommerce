@@ -16,7 +16,10 @@ import Button from '../../layout/styled-components/button.js'
 
 class Product extends React.Component {
   constructor(props){
-    super(props)
+    super(props);
+    this.state = {
+      moveToCart: ''
+    }
   }
 
   componentDidMount() {
@@ -25,6 +28,15 @@ class Product extends React.Component {
   }
 
   handleAddCart = async (product) => {
+    this.setState({
+      moveToCart: 'animated zoomOutRight delay-0.5s'
+    });
+    setInterval(
+      () => this.setState({
+        moveToCart: ''
+      }),
+      1000
+    );
     return await this.props.addCart(product);
   };
   
@@ -40,7 +52,7 @@ class Product extends React.Component {
       </HeaderProduct>
       {
         products.product && 
-          <ContentProduct>
+          <ContentProduct className={this.state.moveToCart}>
             <Gallery>
               <NextImages>
                 <ImagesGallery src="https://images.bewakoof.com/original/wink-new-half-sleeve-t-shirt-men-s-printed-t-shirts-197747-1538829534.jpg" />

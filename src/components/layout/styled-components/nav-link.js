@@ -14,15 +14,13 @@ const NavLink = styled(Link)`
       text-decoration: none;
       text-transform: none;
     }
-
     &:hover {
       font-size: 13px;
       font-weight: bold;
       color: white;
       transition: ease 1s;
-      background-color: white;
-      color: #555;
-      border-radius: 30px;
+      color: #fff;
+      border-bottom: 2px solid #BC9CFF;
     }
 `;
 

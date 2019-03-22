@@ -15,6 +15,7 @@ import {
   filter as _filter
 } from 'lodash'
 import IconCart from './styled-components/iconWithBadge'
+import LoginBtn from './styled-components/header/navbar/btn'
 
 const Header = (props) => {
     const [openUserMenu, setUserMenu] = useState(false)
@@ -64,8 +65,8 @@ const Header = (props) => {
               </Fragment>
                 :
               <Fragment>
-                <NavLink to='/login'>Login</NavLink>
-                <NavLink to='/register'>Register</NavLink>
+                <LoginBtn border="true" to='/login'>Login</LoginBtn>
+                <LoginBtn bg="true" color="true" to='/register'>Register</LoginBtn>
               </Fragment>
               }
           </Right>

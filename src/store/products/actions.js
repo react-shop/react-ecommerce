@@ -1,5 +1,8 @@
 import { createAction } from "redux-actions";
-import { 
+import {
+	LIST_SPOTLIGHTS_REQUESTED,
+	LIST_SPOTLIGHTS_FULFILLED,
+	LIST_SPOTLIGHTS_REJECTED,
   LIST_PRODUCTS_REQUESTED, 
   LIST_PRODUCTS_FULFILLED, 
   LIST_PRODUCTS_REJECTED,
@@ -8,6 +11,10 @@ import {
   DETAIL_PRODUCT_REJECTED,
   ATT_PRODUCTS
 } from "./action-types";
+
+export const listSpotlightsRequest = createAction(LIST_SPOTLIGHTS_REQUESTED);
+export const listSpotlightsFulfilled = createAction(LIST_SPOTLIGHTS_FULFILLED);
+export const listSpotlightsRejected = createAction(LIST_SPOTLIGHTS_REJECTED);
 
 export const listProductsRequest = createAction(LIST_PRODUCTS_REQUESTED);
 export const listProductsFulfilled = createAction(LIST_PRODUCTS_FULFILLED);
