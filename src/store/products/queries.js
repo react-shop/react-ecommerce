@@ -14,7 +14,7 @@ export const requestProduct = (id) => {
 }
 
 export const listSpotlights = () => {
-	return axios.get(url.dev + '/spotlight')
+	return axios.get(url.dev + '/products/highligths')
   .then(res => res.data)
   .catch(err => err.response.data)
 }
