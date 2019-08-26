@@ -9,13 +9,13 @@ This project is a e-commerce including:
 - Admin (Seller)
 - Profile (Buyer)
 - Contact Us
+
+## Future Features
 - Message between Seller and Buyer
 - Ratings about the Seller
 - Dashboard for Sellers
 - Notifications
 - Favorites
-
-## Future Features
 - Pwa
 - Firebase or storage
 - Socket.io
