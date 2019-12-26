@@ -1,8 +1,8 @@
-import React from "react";
-import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React from 'react';
+// import {Provider} from 'react-redux';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
-import Home from "../../modules/views/home";
+import Home from '../../modules/views/home';
 
 const Root = () => {
   return (
