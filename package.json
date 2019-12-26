@@ -5,30 +5,47 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.7.0",
     "@material-ui/core": "^3.9.2",
+    "@types/jest": "^24.0.25",
+    "@types/node": "^13.1.1",
+    "@types/react": "^16.9.17",
+    "@types/react-dom": "^16.9.4",
     "animate.css": "^3.7.0",
     "axios": "^0.19.0",
     "dateformat": "^3.0.3",
     "lodash": "^4.17.15",
-    "react": "^16.8.2",
-    "react-dom": "^16.8.2",
-    "react-redux": "^5.1.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^3.0.1",
     "react-slick": "^0.23.2",
     "react-spinners": "^0.5.1",
-    "redux": "^3.7.2",
+    "redux": "^4.0.5",
     "redux-actions": "^2.6.4",
     "redux-form": "^8.1.0",
     "redux-promise-middleware": "^5.0.0",
-    "redux-thunk": "^2.2.0",
+    "redux-saga": "^1.1.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "^3.1.6",
-    "styled-reset": "^1.1.2"
+    "styled-reset": "^1.1.2",
+    "typescript": "^3.7.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
