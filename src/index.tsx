@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import Home from "./modules/views/home";
+import Root from "./modules/root";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "animate.css";
 import "slick-carousel/slick/slick.css";
@@ -10,5 +10,5 @@ import registerServiceWorker from "./registerServiceWorker";
 
 // let store = configureStore();
 
-render(<Home />, document.getElementById("root"));
+render(<Root />, document.getElementById("root"));
 registerServiceWorker();
