@@ -1,13 +1,11 @@
 import React from 'react';
 
-import {DefaultButton} from 'design-system/src/Button';
+import { DefaultButton } from 'design-system/src/Button';
 
-const Home = () => {
-  return (
-    <div>
-      <DefaultButton>Welcome</DefaultButton>
-    </div>
-  );
-};
+const Home = () => (
+  <>
+    <DefaultButton>Welcome</DefaultButton>
+  </>
+);
 
 export default Home;
