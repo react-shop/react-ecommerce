@@ -15,6 +15,8 @@ module.exports = {
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.tsx', '**/test.ts'] }],
     '@typescript-eslint/indent': [2, 2],
     '@typescript-eslint/explicit-function-return-type': "off",
+    '@typescript-eslint/interface-name-prefix': { "prefixWithI": "always" },
+    "@typescript-eslint/no-unused-vars": [2, { "args": "none" }],
     "import/extensions": ["error", "ignorePackages", {
       "js": "never",
       "jsx": "never",
