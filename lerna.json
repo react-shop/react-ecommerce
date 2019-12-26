@@ -1,0 +1,7 @@
+{
+  "npmClient": "yarn",
+  "npmClientArgs": ["--no-lockfile"],
+  "packages": ["packages/design-system/*", "packages/web/*"],
+  "useWorkspaces": true,
+  "version": "independent"
+}

@@ -39,6 +39,10 @@ In this example we are using:
 
 `yarn workspace web start`
 
+### Lerna commands
+
+https://lerna.js.org/
+
 Api: https://github.com/viniarruda/api-ecommerce [Rails]
 
 Enjoy!

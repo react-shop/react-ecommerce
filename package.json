@@ -5,7 +5,7 @@
   "dependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "styled-components": "^3.1.6",
+    "styled-components": "^4.4.1",
     "styled-reset": "^1.1.2"
   },
   "devDependencies": {
@@ -13,6 +13,7 @@
     "@commitlint/config-conventional": "^8.2.0",
     "husky": "^3.1.0",
     "eslint": "^6.5.1",
+    "lerna": "3.19.0",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@typescript-eslint/eslint-plugin": "^2.12.0",
