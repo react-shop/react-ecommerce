@@ -1,5 +1,5 @@
-import React, {FunctionComponent, ReactChildren} from 'react';
-import styled from 'styled-components';
+import React, { FunctionComponent, ReactNode } from "react";
+import styled from "styled-components";
 
 const ContainerBtn = styled.div`
   padding: 10px 15px;
@@ -9,11 +9,11 @@ const ContainerBtn = styled.div`
 `;
 
 export interface IDefaultButton {
-  children: ReactChildren;
+  children: ReactNode;
 }
 
 export const DefaultButton: FunctionComponent<IDefaultButton> = ({
-  children,
+  children
 }) => {
   return <ContainerBtn>{children}</ContainerBtn>;
 };
