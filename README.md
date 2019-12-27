@@ -1,6 +1,18 @@
 # React E-commerce
 
-This project is a e-commerce including:
+This project is being restructured.
+
+## This project is created using:
+
+- [] Monorepo
+- [] Lerna
+- [] Design System
+- [] Hooks
+- [] Redux Hooks
+- [] Storybook
+
+## Future Features
+
 - Home (List products)
 - Detail products
 - Recommended products
@@ -9,8 +21,6 @@ This project is a e-commerce including:
 - Admin (Seller)
 - Profile (Buyer)
 - Contact Us
-
-## Future Features
 - Message between Seller and Buyer
 - Ratings about the Seller
 - Dashboard for Sellers
@@ -19,23 +29,19 @@ This project is a e-commerce including:
 - Pwa
 - Firebase or storage
 - Socket.io
-
-This project aims to be used as a boilerplate of a ReactJs project.
-In this example we are using:
-- Redux
-- Redux-form
-- Routes
-- Protected routes with automatic redirect
-- Styled Components
-- Material Ui
-- Hooks
+- App
+- SSR
 
 ## Run the project
 
-```npm install```
+`yarn`
 
-```npm start```
+`yarn start`
 
-Api: https://github.com/viniarruda/api-ecommerce [Rails]
+### Lerna commands
+
+https://lerna.js.org/
+
+Api: https://github.com/viniarruda/api-ecommerce [Elixir]
 
 Enjoy!

@@ -1,1 +1,0 @@
-export const required = value => value ? undefined : 'Erro: Preenchimento obrigatório.'
