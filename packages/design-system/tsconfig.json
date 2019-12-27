@@ -5,11 +5,8 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "isolatedModules": false,
-    "outDir": "./dist",
-    "allowJs": true,
-    "target": "es5",
-    "rootDir": "./src",
+    "outDir": "dist",
+    "rootDir": "src",
     "typeRoots": ["@types", "../../node_modules/@types"]
-  },
-  "include": ["./src/**/*"]
+  }
 }
