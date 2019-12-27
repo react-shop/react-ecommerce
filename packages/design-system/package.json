@@ -2,7 +2,8 @@
   "name": "design-system",
   "version": "0.0.1",
   "private": true,
-  "main": "src",
+  "main": "src/index.ts",
+  "main:src": "src/index.ts",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
