@@ -1,10 +1,11 @@
 import React from 'react';
-
-import { DefaultButton } from 'design-system';
+import { DefaultButton } from '@react-shop/design-system';
 
 const Home = () => (
   <>
-    <DefaultButton>Welcome</DefaultButton>
+    <DefaultButton>
+      My Button
+    </DefaultButton>
   </>
 );
 

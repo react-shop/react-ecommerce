@@ -1,14 +1,18 @@
 {
+  "include": ["src"],
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "typeRoots": ["@types", "../../node_modules/@types"]
-  },
-  "include": ["src"],
-  "references": [
-    {
-      "path": "../design-system"
-    }
-  ]
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  }
 }
