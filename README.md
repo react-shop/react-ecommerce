@@ -4,12 +4,12 @@ This project is being restructured.
 
 ## This project is created using:
 
-- [] Monorepo
-- [] Lerna
-- [] Design System
-- [] Hooks
-- [] Redux Hooks
-- [] Storybook
+- [X] Monorepo
+- [X] Lerna
+- [X] Design System
+- [ ] Hooks
+- [ ] Redux Hooks
+- [X] Storybook
 
 ## Future Features
 
