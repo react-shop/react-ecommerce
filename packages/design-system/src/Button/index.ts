@@ -1,1 +1,1 @@
-export { DefaultButton } from './web/Button';
+export { Button } from './web/Button';

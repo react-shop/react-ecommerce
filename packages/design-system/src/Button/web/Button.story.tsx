@@ -1,16 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import { DefaultButton } from './Button';
+import { Button } from './Button';
 
 const buttonText = 'Submit';
 
-storiesOf('DefaultButton', module).add(
+storiesOf('Button', module).add(
   'text test',
   () => (
     <>
-      <DefaultButton>{buttonText}</DefaultButton>
-      {' '}
+      <Button>{buttonText}</Button>
     </>
   ),
 );

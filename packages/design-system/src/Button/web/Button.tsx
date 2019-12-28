@@ -2,13 +2,13 @@ import React, { FunctionComponent, ReactNode } from 'react';
 import StyledButton from './StyledButton';
 import OutlinedButton from './OutlinedButton';
 
-export interface IDefaultButton {
+export interface IButton {
   children: ReactNode;
   outline?: boolean;
   full?: boolean;
 }
 
-export const DefaultButton: FunctionComponent<IDefaultButton> = ({
+export const Button: FunctionComponent<IButton> = ({
   children,
   outline,
   full,

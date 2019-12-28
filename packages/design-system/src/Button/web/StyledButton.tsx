@@ -13,7 +13,6 @@ const StyledButton = styled.div<IButtonProps>`
   width: ${(props) => (props.full ? '100%' : 'auto')};
   text-align: center;
   font-family: proxima-nova, sans-serif;
-  font-weight: ${theme.fonts.weight.black}
 `;
 
 export default StyledButton;
