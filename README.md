@@ -4,12 +4,12 @@ This project is being restructured.
 
 ## This project is created using:
 
-- [X] Monorepo
-- [X] Lerna
-- [X] Design System
+- [x] Monorepo
+- [x] Lerna
+- [x] Design System
 - [ ] Hooks
 - [ ] Redux Hooks
-- [X] Storybook
+- [x] Storybook
 
 ## Future Features
 
@@ -32,49 +32,48 @@ This project is being restructured.
 - App
 - SSR
 
-
 ## Sitemap
 
 ```
     ├── Home
     │
     ├── Social Media Links
-    │   ├── Twitter               
-    │   ├── Instagram                   
-    │   └── Facebook                    
-    │                      
-    ├── Shop Categories        
-    │   ├── Mens          
-    │   │   ├── T-Shirts               
+    │   ├── Twitter
+    │   ├── Instagram
+    │   └── Facebook
+    │
+    ├── Shop Categories
+    │   ├── Mens
+    │   │   ├── T-Shirts
     │   │   └── Caps
-    │   │      
-    │   ├── Womans     
-    │   │     
-    │   │    
-    │   └── News                   
+    │   │
+    │   ├── Womans
+    │   │
+    │   │
+    │   └── News
     │       └── Any
     │
-    ├── About Us                          
+    ├── About Us
     │   └── Out Story
-    │                          
-    ├── Contact  
+    │
+    ├── Contact
     │   ├── Info/Form
     │   ├── Terms
     │   └── FAQ
-    │                          
-    ├── Account  
+    │
+    ├── Account
     │   ├── Profile
     │   ├── Payment Methods
     │   ├── Saved Address
     │   ├── Order History
     │   └── Password
-    │  
+    │
     ├── Forms
     │   ├── Login
     │   ├── Register
     │   ├── Forgot Password
     │   └── Contact
-    │                          
+    │
     └── Cart / Checkout
         ├── Cart Overview
         ├── Shipping Address
@@ -83,18 +82,15 @@ This project is being restructured.
         └── Order Summary
 ```
 
-
-
-
-
-
-
-
 ## Run the project
 
 `yarn`
 
 `yarn start`
+
+## Storybook for Design System
+
+`yarn story`
 
 ### Lerna commands
 
