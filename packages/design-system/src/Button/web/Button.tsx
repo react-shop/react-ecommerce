@@ -1,17 +1,21 @@
 import React, { FunctionComponent, ReactNode } from 'react';
-import styled from 'styled-components';
+import StyledButton from './StyledButton';
+import OutlinedButton from './OutlinedButton';
 
-const ContainerBtn = styled.div`
-  padding: 10px 15px;
-  border-radius: 5px;
-  background-color: red;
-  color: #fff;
-`;
-
-export interface IDefaultButton {
+export interface IButton {
   children: ReactNode;
+  outline?: boolean;
+  full?: boolean;
 }
 
-export const DefaultButton: FunctionComponent<IDefaultButton> = ({
+export const Button: FunctionComponent<IButton> = ({
   children,
-}) => <ContainerBtn>{children}</ContainerBtn>;
+  outline,
+  full,
+}) => (
+  <>
+    {
+      outline ? <OutlinedButton full={full}>{children}</OutlinedButton> : <StyledButton full={full}>{children}</StyledButton>
+    }
+  </>
+);
