@@ -25,5 +25,6 @@ module.exports = {
     }],
     "import/no-extraneous-dependencies": "off",
     'react/prop-types': 0,
+    "max-len": ["error", { "code": 120 }]
   },
 };
