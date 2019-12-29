@@ -1,18 +1,11 @@
 import styled from 'styled-components';
 import theme from '../../theme';
 
-export interface IButtonProps {
-  full?: boolean;
-}
+import DefaultButton from './DefaultButton';
 
-const StyledButton = styled.div<IButtonProps>`
-  padding: 10px 15px;
-  border-radius: 5px;
-  background-color: ${theme.colors.primary};
-  color: ${theme.colors.black};
-  width: ${(props) => (props.full ? '100%' : 'auto')};
-  text-align: center;
-  font-family: proxima-nova, sans-serif;
+const StyledButton = styled(DefaultButton)`
+  background-color: ${(props) => (props.secondary ? theme.colors.secondary : theme.colors.primary)};
+  color: ${(props) => (props.secondary ? theme.colors.white : theme.colors.black)};
 `;
 
 export default StyledButton;

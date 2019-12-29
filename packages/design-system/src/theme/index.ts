@@ -18,6 +18,12 @@ const viewports = {
 };
 
 const fonts = {
+  sizes: {
+    heading: '32px',
+    subHeading: '24px',
+    body: '16px',
+    text: '14px',
+  },
   weight: {
     thin: 100,
     semiBold: 600,
