@@ -9,7 +9,7 @@
   "author": "Vinicius Arruda",
   "scripts": {
     "story": "start-storybook",
-    "libbuild": "tsc && tsc -w --build tsconfig.esm.json"
+    "libbuild": "tsc && tsc --build tsconfig.esm.json"
   },
   "peerDependencies": {
     "react": "^16.12.0",

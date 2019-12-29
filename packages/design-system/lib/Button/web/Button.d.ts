@@ -1,5 +1,8 @@
 import { FunctionComponent, ReactNode } from 'react';
-export interface IDefaultButton {
+export interface IButton {
     children: ReactNode;
+    outline?: boolean;
+    full?: boolean;
+    secondary?: boolean;
 }
-export declare const DefaultButton: FunctionComponent<IDefaultButton>;
+export declare const Button: FunctionComponent<IButton>;

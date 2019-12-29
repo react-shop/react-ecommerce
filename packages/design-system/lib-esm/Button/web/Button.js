@@ -1,9 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
-const ContainerBtn = styled.div `
-  padding: 10px 15px;
-  border-radius: 5px;
-  background-color: red;
-  color: #fff;
-`;
-export const DefaultButton = ({ children, }) => React.createElement(ContainerBtn, null, children);
+import StyledButton from './StyledButton';
+import OutlinedButton from './OutlinedButton';
+export const Button = ({ children, outline, full, secondary, }) => (React.createElement(React.Fragment, null, outline ? React.createElement(OutlinedButton, { full: full, secondary: secondary }, children) : React.createElement(StyledButton, { full: full, secondary: secondary }, children)));
