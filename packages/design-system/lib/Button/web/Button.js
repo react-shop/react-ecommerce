@@ -1,17 +1,12 @@
 "use strict";
-var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
-    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
-    return cooked;
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
 var react_1 = __importDefault(require("react"));
-var styled_components_1 = __importDefault(require("styled-components"));
-var ContainerBtn = styled_components_1["default"].div(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  padding: 10px 15px;\n  border-radius: 5px;\n  background-color: red;\n  color: #fff;\n"], ["\n  padding: 10px 15px;\n  border-radius: 5px;\n  background-color: red;\n  color: #fff;\n"])));
-exports.DefaultButton = function (_a) {
-    var children = _a.children;
-    return react_1["default"].createElement(ContainerBtn, null, children);
+var StyledButton_1 = __importDefault(require("./StyledButton"));
+var OutlinedButton_1 = __importDefault(require("./OutlinedButton"));
+exports.Button = function (_a) {
+    var children = _a.children, outline = _a.outline, full = _a.full, secondary = _a.secondary;
+    return (react_1["default"].createElement(react_1["default"].Fragment, null, outline ? react_1["default"].createElement(OutlinedButton_1["default"], { full: full, secondary: secondary }, children) : react_1["default"].createElement(StyledButton_1["default"], { full: full, secondary: secondary }, children)));
 };
-var templateObject_1;

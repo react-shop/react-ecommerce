@@ -1,12 +1,12 @@
 import React from 'react';
-import { DefaultButton } from '@react-shop/design-system';
+import { Button, Container } from '@react-shop/design-system';
 
 const Home = () => (
-  <>
-    <DefaultButton>
-      My Button
-    </DefaultButton>
-  </>
+  <Container>
+    <Button>
+      My Button 1
+    </Button>
+  </Container>
 );
 
 export default Home;
