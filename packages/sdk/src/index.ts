@@ -1,1 +1,1 @@
-export { getProducts } from './products/product.provider';
+export { ProductProvider } from './products/product.provider';

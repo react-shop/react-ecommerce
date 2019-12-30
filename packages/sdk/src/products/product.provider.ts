@@ -10,4 +10,10 @@ export const ENDPOINTS = {
   PRODUCTS: `${ROOT_PRODUCTS}`,
 };
 
-export const getProducts: TGetProducts = async () => httpClient.get(`${ENDPOINTS.PRODUCTS}`);
+export interface IProductProvider {
+  getProducts: TGetProducts;
+}
+
+export const ProductProvider: IProductProvider = {
+  getProducts: async () => httpClient.get(`${ENDPOINTS.PRODUCTS}`),
+};
