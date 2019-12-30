@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { Button, Container } from '@react-shop/design-system';
-import { getProducts } from '@react-shop/sdk';
+import { ProductProvider } from '@react-shop/sdk';
 
 const Home = () => {
   const fetchProducts = async () => {
-    const response = await getProducts();
+    const response = await ProductProvider.getProducts();
 
     console.log('response', response);
   };

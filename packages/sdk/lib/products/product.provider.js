@@ -41,6 +41,8 @@ var ROOT_PRODUCTS = '/products';
 exports.ENDPOINTS = {
     PRODUCTS: "" + ROOT_PRODUCTS
 };
-exports.getProducts = function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-    return [2 /*return*/, httpClient_1.http.get("" + exports.ENDPOINTS.PRODUCTS)];
-}); }); };
+exports.ProductProvider = {
+    getProducts: function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
+        return [2 /*return*/, httpClient_1.http.get("" + exports.ENDPOINTS.PRODUCTS)];
+    }); }); }
+};
