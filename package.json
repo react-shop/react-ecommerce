@@ -22,8 +22,6 @@
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
-    "@storybook/addon-a11y": "^5.2.8",
-    "@storybook/addon-knobs": "^5.2.8",
     "@types/react": "^16.9.17",
     "@types/react-dom": "^16.9.4",
     "@types/styled-components": "^4.4.1",

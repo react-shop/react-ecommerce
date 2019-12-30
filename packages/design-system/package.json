@@ -18,6 +18,8 @@
   "devDependencies": {
     "@babel/core": "^7.6.4",
     "@storybook/addon-docs": "^5.2.8",
+    "@storybook/addon-a11y": "^5.2.8",
+    "@storybook/addon-knobs": "^5.2.8",
     "@storybook/react": "^5.2.5",
     "@types/storybook__react": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
