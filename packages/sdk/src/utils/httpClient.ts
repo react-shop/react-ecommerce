@@ -2,10 +2,7 @@
 /* eslint-disable no-param-reassign */
 import axios from 'axios';
 
-export const api = {
-  BASE_URL: 'https://api.github.com/users/viniarruda/repos',
-};
-
+import { api } from './routes.constants';
 // Create a basic Axios instance to all requests (this object can be customized before making the call)
 export const http = axios.create({
   baseURL: api.BASE_URL,
