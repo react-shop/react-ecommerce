@@ -6,8 +6,9 @@ export interface IButtonProps {
   secondary?: boolean;
 }
 
-const DefaultButton = styled.div<IButtonProps>`
+const DefaultButton = styled.button<IButtonProps>`
   padding: 15px 55px;
+  border: none;
   border-radius: 6px;
   width: ${(props) => (props.full ? '100%' : 'auto')};
   text-align: center;
