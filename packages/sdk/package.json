@@ -1,0 +1,16 @@
+{
+  "name": "@react-shop/sdk",
+  "version": "0.0.1",
+  "private": true,
+  "description": "a Sdk provider for react-ecommerce",
+  "main": "./lib/index.js",
+  "module": "./lib-esm/index.js",
+  "types": "./lib/index.d.ts",
+  "author": "Vinicius Arruda",
+  "scripts": {
+    "libbuild": "tsc && tsc --build tsconfig.esm.json"
+  },
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
+}

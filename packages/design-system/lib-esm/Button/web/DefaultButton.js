@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import theme from '../../theme';
-const DefaultButton = styled.div `
+const DefaultButton = styled.button `
   padding: 15px 55px;
+  border: none;
   border-radius: 6px;
   width: ${(props) => (props.full ? '100%' : 'auto')};
   text-align: center;
