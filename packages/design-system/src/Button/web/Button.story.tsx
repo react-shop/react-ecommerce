@@ -1,27 +1,23 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import {
+  withKnobs, text, boolean,
+} from '@storybook/addon-knobs';
 
 import { Button } from './Button';
 import { Container } from '../../Grid';
 
-const buttonText = 'Submit';
+const buttonText = text('Name', 'Submit');
 
-storiesOf('Button', module).add(
+const stories = storiesOf('Button', module);
+
+stories.addDecorator(withKnobs);
+
+stories.add(
   'Default Button',
   () => (
     <Container>
-      <Button>{buttonText}</Button>
-    </Container>
-  ),
-).add('Default Button Secondary', () => (
-  <Container>
-    <Button secondary>{buttonText}</Button>
-  </Container>
-)).add(
-  'Outlined Button',
-  () => (
-    <Container>
-      <Button outline secondary>{buttonText}</Button>
+      <Button outline={boolean('Outline', false)} secondary={boolean('Secondary', false)}>{buttonText}</Button>
     </Container>
   ),
 );
