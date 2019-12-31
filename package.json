@@ -7,8 +7,7 @@
   "author": "Vinicius Arruda",
   "scripts": {
     "story": "lerna run story --stream",
-    "prestart": "lerna run libbuild --stream",
-    "start": "lerna run start --stream"
+    "start": "lerna run start --scope '{web,@react-shop/design-system,@react-shop/sdk}'"
   },
   "workspaces": [
     "packages/*"

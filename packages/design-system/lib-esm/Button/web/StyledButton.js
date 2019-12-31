@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import theme from '../../theme';
 import DefaultButton from './DefaultButton';
 const StyledButton = styled(DefaultButton) `
+  border: 1px solid red;
   background-color: ${(props) => (props.secondary ? theme.colors.secondary : theme.colors.primary)};
   color: ${(props) => (props.secondary ? theme.colors.white : theme.colors.black)};
 `;

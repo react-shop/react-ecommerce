@@ -10,6 +10,6 @@ exports.__esModule = true;
 var styled_components_1 = __importDefault(require("styled-components"));
 var theme_1 = __importDefault(require("../../theme"));
 var DefaultButton_1 = __importDefault(require("./DefaultButton"));
-var StyledButton = styled_components_1["default"](DefaultButton_1["default"])(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  background-color: ", ";\n  color: ", ";\n"], ["\n  background-color: ", ";\n  color: ", ";\n"])), function (props) { return (props.secondary ? theme_1["default"].colors.secondary : theme_1["default"].colors.primary); }, function (props) { return (props.secondary ? theme_1["default"].colors.white : theme_1["default"].colors.black); });
+var StyledButton = styled_components_1["default"](DefaultButton_1["default"])(templateObject_1 || (templateObject_1 = __makeTemplateObject(["\n  border: 0px solid #000;\n  background-color: ", ";\n  color: ", ";\n"], ["\n  border: 0px solid #000;\n  background-color: ", ";\n  color: ", ";\n"])), function (props) { return (props.secondary ? theme_1["default"].colors.secondary : theme_1["default"].colors.primary); }, function (props) { return (props.secondary ? theme_1["default"].colors.white : theme_1["default"].colors.black); });
 exports["default"] = StyledButton;
 var templateObject_1;
