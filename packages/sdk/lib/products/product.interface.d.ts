@@ -1,4 +1,4 @@
 export interface IProduct {
-    name: string;
+  name: string;
 }
 export declare type TGetProducts = () => Promise<IProduct[]>;
