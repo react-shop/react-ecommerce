@@ -9,9 +9,16 @@
   "author": "Vinicius Arruda",
   "scripts": {
     "libbuild": "tsc && tsc --build tsconfig.esm.json",
-    "start": "tsc && tsc --build tsconfig.esm.json -w"
+    "start": "tsc && tsc --build tsconfig.esm.json -w",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.25",
+    "@types/yup": "^0.26.27",
+    "jest": "^24.9.0",
+    "yup": "^0.28.0"
   }
 }

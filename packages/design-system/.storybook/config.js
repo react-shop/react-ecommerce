@@ -5,7 +5,6 @@ import { DocsPage, DocsContainer } from '@storybook/addon-docs/blocks'
 
 const req = require.context('../src', true, /\.story\.(ts|tsx|mdx)$/);
 
-addDecorator(withA11y);
 
 addParameters({
   options: {
@@ -16,6 +15,8 @@ addParameters({
     page: DocsPage,
   },
 });
+
+addDecorator(withA11y);
 
 configure(() => {
   req.keys().forEach(filename => req(filename))
