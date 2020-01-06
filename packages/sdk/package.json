@@ -9,9 +9,28 @@
   "author": "Vinicius Arruda",
   "scripts": {
     "libbuild": "tsc && tsc --build tsconfig.esm.json",
-    "start": "tsc && tsc --build tsconfig.esm.json -w"
+    "start": "tsc && tsc --build tsconfig.esm.json -w",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-export-default-from": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-typescript": "^7.7.7",
+    "@types/jest": "^24.0.25",
+    "@types/yup": "^0.26.27",
+    "jest": "^24.9.0",
+    "yup": "^0.28.0"
+  },
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules"
+    ],
+    "coveragePathIgnorePatterns": [
+      "<rootDir>/node_modules"
+    ]
   }
 }
