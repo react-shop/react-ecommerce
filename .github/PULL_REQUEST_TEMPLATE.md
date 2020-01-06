@@ -28,13 +28,12 @@ Please check the type of change your PR introduces:
 
 <!-- Please describe the current behavior that you are modifying, or link to a relevant issue. -->
 
-Jira Issue Number: N/A
 
 ## What is the new behavior?
 
 <!-- Please describe the behavior or changes that are being added by this PR. -->
 
-## - Ex: Adding a new cool button at home screen
+### - Ex: Adding a new cool button at home screen
 
 <!-- Describe the change(s) made -->
 
