@@ -88,6 +88,9 @@ This project is being restructured.
 
 `yarn start`
 
+
+Install dependencies in package: `cd packages/name && yarn add -W dependencie-name`
+
 ## Storybook for Design System
 
 `yarn story`
