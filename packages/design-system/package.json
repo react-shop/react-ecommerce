@@ -10,7 +10,8 @@
   "scripts": {
     "story": "start-storybook",
     "libbuild": "tsc && tsc --build tsconfig.esm.json",
-    "start": "tsc && tsc --build tsconfig.esm.json -w"
+    "start": "tsc && tsc --build tsconfig.esm.json -w",
+    "test": "jest"
   },
   "peerDependencies": {
     "react": "^16.12.0",
@@ -22,18 +23,27 @@
     "@storybook/addon-docs": "^5.2.8",
     "@storybook/addon-knobs": "^5.2.8",
     "@storybook/react": "^5.2.5",
+    "@types/enzyme": "^3.10.4",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.25",
     "@types/storybook__react": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^2.13.0",
     "@typescript-eslint/parser": "^2.13.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.3",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.8.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^24.9.0",
+    "jest-enzyme": "^7.1.2",
     "node-sass": "^4.12.0",
     "prettier": "^1.19.1",
     "sass-loader": "^8.0.0",
     "source-map-loader": "^0.2.4",
-    "style-loader": "^1.0.0"
+    "style-loader": "^1.0.0",
+    "ts-jest": "^24.3.0"
   }
 }
