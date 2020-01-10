@@ -1,6 +1,4 @@
-interface IApiResponse<T> {
-  data: T;
-}
+import { IApiResponse } from '../utils/global.interface';
 
 export interface IProduct {
   name: string;
