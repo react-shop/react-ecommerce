@@ -103,6 +103,6 @@ Install dependencies in package: `cd packages/name && yarn add -W dependencie-na
 
 https://lerna.js.org/
 
-Api: https://github.com/viniarruda/api-ecommerce [Elixir]
+Api: https://github.com/viniarruda/elixir-ecommerce-api [Elixir]
 
 Enjoy!
