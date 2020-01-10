@@ -95,6 +95,10 @@ Install dependencies in package: `cd packages/name && yarn add -W dependencie-na
 
 `yarn story`
 
+## Tests
+
+`yarn test` to run ALL packages test at the same time or `cd packages/<package-name> && yarn test`
+
 ### Lerna commands
 
 https://lerna.js.org/

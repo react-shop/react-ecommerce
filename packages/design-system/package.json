@@ -11,7 +11,7 @@
     "story": "start-storybook",
     "libbuild": "tsc && tsc --build tsconfig.esm.json",
     "start": "tsc && tsc --build tsconfig.esm.json -w",
-    "test": "jest"
+    "test": "jest --color"
   },
   "peerDependencies": {
     "react": "^16.12.0",

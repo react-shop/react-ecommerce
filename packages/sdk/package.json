@@ -10,7 +10,7 @@
   "scripts": {
     "libbuild": "tsc && tsc --build tsconfig.esm.json",
     "start": "tsc && tsc --build tsconfig.esm.json -w",
-    "test": "jest"
+    "test": "jest --color"
   },
   "dependencies": {
     "axios": "^0.19.0"
