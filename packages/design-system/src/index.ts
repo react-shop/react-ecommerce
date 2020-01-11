@@ -1,2 +1,2 @@
-export { Button } from './Button';
-export { Container, Flex } from './Grid';
+export { Button, Container, Flex } from './web';
+export { default as GlobalStyles } from './utils/theme/globalStyle';

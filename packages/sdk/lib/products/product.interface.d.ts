@@ -1,4 +1,5 @@
+import { IApiResponse } from '../utils/global.interface';
 export interface IProduct {
-  name: string;
+    name: string;
 }
-export declare type TGetProducts = () => Promise<IProduct[]>;
+export declare type TGetProducts = () => Promise<IApiResponse<IProduct[]>>;

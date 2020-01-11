@@ -5,7 +5,7 @@ import {
 } from '@storybook/addon-knobs';
 
 import { Button } from './Button';
-import { Container } from '../../Grid';
+import { Container } from '../Grid';
 
 const buttonText = text('Name', 'Submit');
 
