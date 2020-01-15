@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import GlobalStyles from '@react-shop/design-system/src/theme/globalStyle';
+import { GlobalStyles } from '@react-shop/design-system';
 
 import store from '../store';
 

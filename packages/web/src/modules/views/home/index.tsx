@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <Container>
       <Button>
-      My Button 1
+        My Button 1
       </Button>
     </Container>
   );

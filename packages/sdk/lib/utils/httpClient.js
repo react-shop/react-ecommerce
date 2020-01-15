@@ -42,12 +42,10 @@ exports.__esModule = true;
 /* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
 var axios_1 = __importDefault(require("axios"));
-exports.api = {
-    BASE_URL: 'https://api.github.com/users/viniarruda/repos'
-};
+var routes_constants_1 = require("./routes.constants");
 // Create a basic Axios instance to all requests (this object can be customized before making the call)
 exports.http = axios_1["default"].create({
-    baseURL: exports.api.BASE_URL,
+    baseURL: routes_constants_1.api.BASE_URL,
     headers: {
         'Content-Type': 'application/json'
     }

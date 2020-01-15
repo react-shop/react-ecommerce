@@ -37,12 +37,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var httpClient_1 = require("../utils/httpClient");
-var ROOT_PRODUCTS = '/products';
-exports.ENDPOINTS = {
-    PRODUCTS: "" + ROOT_PRODUCTS
-};
+var routes_constants_1 = require("../utils/routes.constants");
 exports.ProductProvider = {
     getProducts: function () { return __awaiter(void 0, void 0, void 0, function () { return __generator(this, function (_a) {
-        return [2 /*return*/, httpClient_1.http.get("" + exports.ENDPOINTS.PRODUCTS)];
+        return [2 /*return*/, httpClient_1.http.get("" + routes_constants_1.ENDPOINTS.PRODUCTS)];
     }); }); }
 };
