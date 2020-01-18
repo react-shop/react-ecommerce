@@ -1,6 +1,18 @@
 # React E-commerce
 
-This project is a e-commerce including:
+This project is being restructured.
+
+## This project is created using:
+
+- [x] Monorepo
+- [x] Lerna
+- [x] Design System
+- [ ] Hooks
+- [ ] Redux Hooks
+- [x] Storybook
+
+## Future Features
+
 - Home (List products)
 - Detail products
 - Recommended products
@@ -9,8 +21,6 @@ This project is a e-commerce including:
 - Admin (Seller)
 - Profile (Buyer)
 - Contact Us
-
-## Future Features
 - Message between Seller and Buyer
 - Ratings about the Seller
 - Dashboard for Sellers
@@ -19,23 +29,80 @@ This project is a e-commerce including:
 - Pwa
 - Firebase or storage
 - Socket.io
+- App
+- SSR
 
-This project aims to be used as a boilerplate of a ReactJs project.
-In this example we are using:
-- Redux
-- Redux-form
-- Routes
-- Protected routes with automatic redirect
-- Styled Components
-- Material Ui
-- Hooks
+## Sitemap
+
+```
+    ├── Home
+    │
+    ├── Social Media Links
+    │   ├── Twitter
+    │   ├── Instagram
+    │   └── Facebook
+    │
+    ├── Shop Categories
+    │   ├── Mens
+    │   │   ├── T-Shirts
+    │   │   └── Caps
+    │   │
+    │   ├── Womans
+    │   │
+    │   │
+    │   └── News
+    │       └── Any
+    │
+    ├── About Us
+    │   └── Out Story
+    │
+    ├── Contact
+    │   ├── Info/Form
+    │   ├── Terms
+    │   └── FAQ
+    │
+    ├── Account
+    │   ├── Profile
+    │   ├── Payment Methods
+    │   ├── Saved Address
+    │   ├── Order History
+    │   └── Password
+    │
+    ├── Forms
+    │   ├── Login
+    │   ├── Register
+    │   ├── Forgot Password
+    │   └── Contact
+    │
+    └── Cart / Checkout
+        ├── Cart Overview
+        ├── Shipping Address
+        ├── Billing Details
+        ├── Payment Method
+        └── Order Summary
+```
 
 ## Run the project
 
-```npm install```
+`yarn`
 
-```npm start```
+`yarn start`
 
-Api: https://github.com/viniarruda/api-ecommerce [Rails]
+
+Install dependencies in package: `cd packages/name && yarn add -W dependencie-name`
+
+## Storybook for Design System
+
+`yarn story`
+
+## Tests
+
+`yarn test` to run ALL packages test at the same time or `cd packages/<package-name> && yarn test`
+
+### Lerna commands
+
+https://lerna.js.org/
+
+Api: https://github.com/viniarruda/elixir-ecommerce-api [Elixir]
 
 Enjoy!
