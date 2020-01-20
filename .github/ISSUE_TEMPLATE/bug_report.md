@@ -1,29 +1,52 @@
 ---
-name: 🐛 Report a bug
-about: Report a reproducible or regression bug.
-labels: "bug"
+name: Bug report 🐛
+about: Create a bug report for react-ecommerce.
 ---
 
-### Specify the package
+<!-- Provide a general summary of the issue in the Title above -->
 
-[design-system]
-[sdk]
-[web]
+<!-- Checked checkbox should look like this: [x] -->
 
-### Steps to reproduce
+- [ ] The issue is present in the latest release.
+- [ ] I have searched the [issues](https://github.com/react-shop/react-ecommerce/issues) of this repository and believe that this is not a duplicate.
 
-1. 2. 3.
+## Current Behavior 😯
 
-### Expected behaviour
+<!-- Describe what happens instead of the expected behavior. -->
 
-Tell us what should happen
+## Expected Behavior 🤔
 
-### Actual behaviour
+<!-- Describe what should happen. -->
 
-Tell us what happens instead
+## Steps to Reproduce 🕹
 
-**Version**: npm version or "master"
+<!-- Provide a link to a live example or your repository -->
 
-### Link to repo (highly encouraged)
+Steps:
 
-https://github.com/
+1.
+2.
+3.
+4.
+
+## Context 🔦
+
+<!--
+  What are you trying to accomplish? How has this issue affected you?
+  Providing context helps us come up with a solution that is most useful in the real world.
+-->
+
+## Your Environment 🌎
+
+<!--
+  Include as many relevant details about the environment with which you experienced the bug.
+  If you encounter issues with typescript please include version and tsconfig.
+-->
+
+| Tech            | Version |
+| --------------- | ------- |
+| react-ecommerce | v0.?.?  |
+| React           |         |
+| Browser         |         |
+| TypeScript      |         |
+| etc.            |         |
