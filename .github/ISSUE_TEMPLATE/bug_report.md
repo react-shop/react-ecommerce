@@ -4,6 +4,12 @@ about: Report a reproducible or regression bug.
 labels: "bug"
 ---
 
+### Specify the package
+
+[design-system]
+[sdk]
+[web]
+
 ### Steps to reproduce
 
 1. 2. 3.
