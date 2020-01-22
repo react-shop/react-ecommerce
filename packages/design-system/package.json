@@ -48,5 +48,9 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "^1.0.0",
     "ts-jest": "^24.3.0"
+  },
+  "dependencies": {
+    "@types/react-native": "^0.61.2",
+    "react-native": "^0.61.5"
   }
 }

@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <Container>
-      <Button>
+      <Button onClick={() => console.log('click')}>
         My Button 1
       </Button>
     </Container>
