@@ -12,7 +12,8 @@
   "dependencies": {
     "@react-shop/design-system": "*",
     "@react-shop/sdk": "*",
-    "react": "^16.12.0"
+    "react": "^16.12.0",
+    "react-native": "0.61.5"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
@@ -46,7 +47,9 @@
   "workspaces": {
     "nohoist": [
       "react-native",
-      "react-native/*"
+      "react-native/*",
+      "react",
+      "react/**"
     ]
   }
 }
