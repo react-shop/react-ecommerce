@@ -76,7 +76,8 @@ import com.android.build.OutputFile
  */
 
 project.ext.react = [
-    entryFile: "index.js",
+    entryFile: "packages/app/index.js",
+    root: "../../../../"
     enableHermes: false,  // clean and rebuild if changing
 ]
 
