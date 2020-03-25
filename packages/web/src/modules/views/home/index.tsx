@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Container } from '@react-shop/design-system';
 import { ProductProvider } from '@react-shop/sdk';
 
@@ -13,10 +13,12 @@ const Home = () => {
     fetchProducts();
   }, []);
 
+  const [text, setText] = useState<string>('My Button');
+
   return (
     <Container>
-      <Button>
-        My Button 1
+      <Button onClick={() => setText('Button update')}>
+        {text}
       </Button>
     </Container>
   );
