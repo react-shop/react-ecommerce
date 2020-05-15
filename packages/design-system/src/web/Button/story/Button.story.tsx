@@ -28,4 +28,21 @@ stories
         />
       </Grid>
     );
+  })
+  .add('Default Button Disabled', () => {
+    const buttonText = text('Name', 'Buy');
+    const label = 'Variant';
+    const options: TButtonVariants[] = ['primary', 'secondary'];
+    const buttonVariant: TButtonVariants = select(label, options, 'primary');
+
+    return (
+      <Grid width="100%" justifyContent="center" alignItems="center" display="flex" flex={1}>
+        <DefaultButton
+          text={buttonText}
+          variant={buttonVariant}
+          onClick={() => console.log('Hey, you jest clicked me!')}
+          disabled
+        />
+      </Grid>
+    );
   });

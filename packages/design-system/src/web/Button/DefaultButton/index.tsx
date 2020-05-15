@@ -4,7 +4,9 @@ import Container from './styles';
 
 import { TDefaultButtonProps, TGetVariants } from './interface';
 
-const Button: FunctionComponent<TDefaultButtonProps> = ({ text, onClick, variant }) => {
+const Button: FunctionComponent<TDefaultButtonProps> = ({
+  text, onClick, variant, disabled,
+}) => {
   const getButtonVariants = () => {
     const getVariants: TGetVariants = {
       primary: {
@@ -15,9 +17,13 @@ const Button: FunctionComponent<TDefaultButtonProps> = ({ text, onClick, variant
         bg: 'secondary',
         hoverColor: 'secondaryDark',
       },
+      disabled: {
+        bg: 'gray',
+        hoverColor: 'gray',
+      },
     };
 
-    return getVariants[variant] || getVariants.primary;
+    return disabled ? getVariants.disabled : (getVariants[variant] || getVariants.primary);
   };
 
   return (
@@ -28,6 +34,7 @@ const Button: FunctionComponent<TDefaultButtonProps> = ({ text, onClick, variant
       bg={getButtonVariants().bg}
       hoverColor={getButtonVariants().hoverColor}
       border="none"
+      disabled={disabled}
     >
       {text}
     </Container>

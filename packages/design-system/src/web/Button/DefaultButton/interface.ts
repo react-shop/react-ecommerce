@@ -7,6 +7,7 @@ export type TDefaultButtonProps = {
   text: string;
   onClick: () => void;
   variant: TButtonVariants;
+  disabled?: boolean;
 }
 
 export type TContainerStyleProps = {
@@ -27,5 +28,8 @@ export type TGetVariants = {
     bg: TColorsTypes;
     hoverColor: TColorsTypes;
   };
-
+  disabled: {
+    bg: TColorsTypes;
+    hoverColor: TColorsTypes;
+  };
 }
