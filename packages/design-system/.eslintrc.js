@@ -10,6 +10,9 @@ module.exports = {
       typescript: {},
     },
   },
+  env: {
+    "jest": true
+  },
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.tsx', '**/test.ts'] }],
@@ -28,4 +31,5 @@ module.exports = {
     "max-len": ["error", { "code": 120 }],
     "react/jsx-props-no-spreading": "off"
   },
+
 };
