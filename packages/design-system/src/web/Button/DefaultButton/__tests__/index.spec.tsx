@@ -39,6 +39,8 @@ describe('Unit | DefaultButton', () => {
     onPressHandler();
 
     expect(onPress).toBeCalledTimes(1);
+
+    wrapper.unmount();
   });
 
   it.skip('should render a Button with a Loading', () => {
@@ -51,12 +53,12 @@ describe('Unit | DefaultButton', () => {
 
   it.skip('should call the onPress function zero times if the button is loading', () => {
     const wrapper = mountWithTheme(
-      <Button loading onPress={onPress} text="Press me" />,
+      <DefaultButton testID="button" loading onPress={onPress} text="Press me" />,
     );
 
     const onPressHandler = wrapper
       .find('[testID="button"]')
-      .at(2)
+      .first()
       .prop('onPress') as () => void;
 
     onPressHandler();
@@ -64,22 +66,7 @@ describe('Unit | DefaultButton', () => {
     expect(onPress).toBeCalledTimes(0);
   });
 
-  it.skip('should call the onPress function zero times if the button is disabled', () => {
-    const wrapper = mountWithTheme(
-      <Button disabled onPress={onPress} text="Press me" />,
-    );
-
-    const onPressHandler = wrapper
-      .find('[testID="button"]')
-      .at(2)
-      .prop('onPress') as () => void;
-
-    onPressHandler();
-
-    expect(onPress).toBeCalledTimes(0);
-  });
-
-  it.skip('should compare a snapshot with a disabled style', () => {
+  it('should compare a snapshot with a disabled style', () => {
     const wrapper = mountWithTheme(
       <DefaultButton disabled onPress={onPress} text="Press me" />,
     );
