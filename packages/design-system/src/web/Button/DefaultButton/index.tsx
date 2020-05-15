@@ -5,7 +5,7 @@ import Container from './styles';
 import { TDefaultButtonProps } from './interface';
 
 const Button: FunctionComponent<TDefaultButtonProps> = ({ text, onClick, bg }) => (
-  <Container width={150} height={32} onClick={onClick} bg={bg}>
+  <Container width={150} height={32} onClick={onClick} bg={bg} border="none">
     {text}
   </Container>
 );

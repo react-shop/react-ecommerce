@@ -5,6 +5,8 @@ import '@storybook/addon-console';
 
 import {DocsPage, DocsContainer} from '@storybook/addon-docs/blocks';
 
+import themeDecorator from "./themeDecorator"
+
 const req = require.context('../src', true, /\.story\.(ts|tsx|mdx)$/);
 
 addParameters({
@@ -18,6 +20,7 @@ addParameters({
 });
 
 addDecorator(withA11y);
+addDecorator(themeDecorator);
 
 configure(() => {
   req.keys().forEach(filename => req(filename));

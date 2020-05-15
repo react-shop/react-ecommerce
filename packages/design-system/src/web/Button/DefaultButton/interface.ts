@@ -10,4 +10,5 @@ export type TContainerStyleProps = {
   width: number;
   height: number;
   bg: TColorsTypes;
+  border: string;
 }
