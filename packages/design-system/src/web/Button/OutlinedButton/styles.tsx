@@ -9,9 +9,10 @@ const Container = styled.button<TContainerStyleProps>`
   ${border}
 
   box-shadow: 0px 10px 12px rgba(0,0,0,0.2);
+  background-color: transparent;
 
   &:hover {
-    background-color: ${({ hoverColor, theme }) => theme.colors[hoverColor]}
+    background-color: ${({ theme }) => theme.colors.primaryDark}
   }
 `;
 

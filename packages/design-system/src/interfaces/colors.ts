@@ -2,6 +2,7 @@ export type TColors = {
   primary: string;
   secondary: string;
   primaryDark: string;
+  secondaryDark: string;
   error: string;
   black: string;
   blackNormal: string;
