@@ -1,4 +1,4 @@
-import React, {FunctionComponent, MouseEvent, ReactNode} from 'react';
+import React, { FunctionComponent, MouseEvent, ReactNode } from 'react';
 import StyledButton from './StyledButton';
 import OutlinedButton from './OutlinedButton';
 
@@ -25,7 +25,7 @@ type Props = {
   onClick: (e: MouseEvent) => void;
 };
 
-export const Button: FunctionComponent<Props> = ({
+const Button: FunctionComponent<Props> = ({
   children,
   outline = false,
   full = false,
@@ -44,3 +44,5 @@ export const Button: FunctionComponent<Props> = ({
     )}
   </>
 );
+
+export default Button;

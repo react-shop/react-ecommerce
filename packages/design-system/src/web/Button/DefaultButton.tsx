@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import theme from '../../utils/theme';
 
 export interface IButtonProps {
   full?: boolean;
@@ -13,7 +12,7 @@ const DefaultButton = styled.button<IButtonProps>`
   width: ${(props) => (props.full ? '100%' : 'auto')};
   text-align: center;
   font-family: proxima-nova, sans-serif;
-  font-size: ${theme.fonts.sizes.body};
+  font-size: ${({ theme }) => theme.fonts.sizes.body};
   cursor: pointer;
 
   &:hover {
