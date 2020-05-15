@@ -7,7 +7,9 @@ import { Grid } from '../..';
 
 const buttonText = text('Name', 'Buy');
 
-const stories = storiesOf('Button', module)
+const stories = storiesOf('Button', module);
+
+stories
   .addParameters({
     component: DefaultButton,
   })
