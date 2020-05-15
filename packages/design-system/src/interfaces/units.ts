@@ -1,4 +1,4 @@
-export type TSizes = {
+export type TSpacingSizes = {
   spacing1: number;
   spacing2: number;
   spacing4: number;
@@ -13,11 +13,27 @@ export type TSizes = {
 }
 
 export type TBorderRadius = {
+  xsmall: number;
   small: number;
   medium: number;
   large: number;
   full: number;
 }
 
-export type TSizesTypes = keyof TSizes;
+export type TCommonSpacingProps = {
+  padding?: TSpacingSizes;
+  margin?: TSpacingSizes;
+  p?: TSpacingSizes;
+  pt?: TSpacingSizes;
+  pb?: TSpacingSizes;
+  pr?: TSpacingSizes;
+  pl?: TSpacingSizes;
+  m?: TSpacingSizes;
+  mt?: TSpacingSizes;
+  mr?: TSpacingSizes;
+  mb?: TSpacingSizes;
+  ml?: TSpacingSizes;
+};
+
+export type TSpacingSizesTypes = keyof TSpacingSizes;
 export type TBorderRadiusTypes = keyof TBorderRadius;

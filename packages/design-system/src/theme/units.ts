@@ -13,9 +13,10 @@ const sizes = {
 };
 
 const borderRadius = {
-  small: sizes.spacing2,
-  medium: sizes.spacing4,
-  large: sizes.spacing8,
+  xsmall: sizes.spacing2,
+  small: sizes.spacing4,
+  medium: sizes.spacing8,
+  large: sizes.spacing12,
   full: sizes.spacing32,
 };
 

@@ -5,14 +5,16 @@ import units from './units';
 
 import {
   TColors,
-  TSizes,
+  TSpacingSizes,
+  TBorderRadius,
 } from '../interfaces';
 
 declare module 'styled-components' {
   // eslint-disable-next-line @typescript-eslint/interface-name-prefix
   export interface DefaultTheme {
     colors: TColors;
-    space: TSizes;
+    space: TSpacingSizes;
+    radii: TBorderRadius;
   }
 }
 
@@ -41,5 +43,12 @@ export const theme: DefaultTheme = {
     spacing20: units.sizes.spacing20,
     spacing24: units.sizes.spacing24,
     spacing32: units.sizes.spacing32,
+  },
+  radii: {
+    xsmall: units.borderRadius.xsmall,
+    small: units.borderRadius.small,
+    medium: units.borderRadius.medium,
+    large: units.borderRadius.large,
+    full: units.borderRadius.full,
   },
 };

@@ -1,4 +1,3 @@
-export { TColorsTypes, TColors } from './colors';
-export {
-  TSizes, TSizesTypes, TBorderRadius, TBorderRadiusTypes,
-} from './units';
+export * from './colors';
+export * from './units';
+export * from './align';

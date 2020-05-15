@@ -1,2 +1,4 @@
-export { Container } from './Container';
-export { Flex } from './Flex';
+import { FunctionComponent } from 'react';
+import { TGridProps } from './interface';
+declare const Grid: FunctionComponent<TGridProps>;
+export default Grid;

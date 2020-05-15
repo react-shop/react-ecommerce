@@ -1,4 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var Button_1 = require("./Button");
-exports.Button = Button_1.Button;
+/* eslint-disable import/prefer-default-export */
+var DefaultButton_1 = require("./DefaultButton");
+exports.DefaultButton = DefaultButton_1["default"];
