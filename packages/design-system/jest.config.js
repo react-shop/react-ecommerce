@@ -1,23 +1,29 @@
 module.exports = {
-  roots: ["<rootDir>/src"],
+  roots: ['<rootDir>/src'],
   transform: {
-    "^.+\\.(ts|tsx)$": "ts-jest"
+    '^.+\\.(ts|tsx)$': 'ts-jest',
   },
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-  testEnvironment: "jsdom",
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  testEnvironment: 'jsdom',
   globals: {
-    "ts-jest": {
+    'ts-jest': {
       diagnostics: {
-        warnOnly: true
-      }
-    }
+        warnOnly: true,
+      },
+    },
   },
+  testPathIgnorePatterns: [
+    '<rootDir>/__tests__/helpers',
+  ],
+  collectCoverageFrom: [
+    '<rootDir>/src/**/*.tsx',
+  ],
 
   // Setup Enzyme
-  snapshotSerializers: ["enzyme-to-json/serializer"],
-  setupFilesAfterEnv: ["<rootDir>/src/utils/config/setupEnzyme.ts"],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
+  setupFilesAfterEnv: ['<rootDir>/src/utils/config/setupEnzyme.ts'],
   coveragePathIgnorePatterns: [
-    "<rootDir>/node_modules",
+    '<rootDir>/node_modules',
   ],
 };

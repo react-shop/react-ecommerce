@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit | DefaultButton should compare a snapshot with a disabled style 1`] = `
+<Button
+  disabled={true}
+  onPress={[MockFunction]}
+  text="Press me"
+>
+  <styled.button
+    bg="gray"
+    border="none"
+    disabled={true}
+    height={32}
+    hoverColor="gray"
+    width={150}
+  >
+    <StyledComponent
+      bg="gray"
+      border="none"
+      disabled={true}
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bdVaJa",
+            "isStatic": false,
+            "lastClassName": "gxfjJc",
+            "rules": Array [
+              "
+  ",
+              [Function],
+              "
+  ",
+              [Function],
+              "
+  ",
+              [Function],
+              "
+
+  box-shadow: 0px 10px 12px rgba(0,0,0,0.2);
+
+  &:hover {
+    background-color: ",
+              [Function],
+              "
+  }
+",
+            ],
+          },
+          "displayName": "styled.button",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bdVaJa",
+          "target": "button",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      height={32}
+      hoverColor="gray"
+      width={150}
+    >
+      <button
+        className="sc-bdVaJa gxfjJc"
+        disabled={true}
+        height={32}
+        width={150}
+      >
+        Press me
+      </button>
+    </StyledComponent>
+  </styled.button>
+</Button>
+`;
+
+exports[`Unit | DefaultButton should create snapshot 1`] = `"Press me"`;

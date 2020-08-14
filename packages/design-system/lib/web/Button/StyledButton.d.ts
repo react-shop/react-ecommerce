@@ -1,2 +1,2 @@
-declare const StyledButton: import("styled-components").StyledComponent<"button", any, import("./DefaultButton").IButtonProps, never>;
+declare const StyledButton: import("styled-components").StyledComponent<"button", import("styled-components").DefaultTheme, import("./DefaultButton").IButtonProps, never>;
 export default StyledButton;

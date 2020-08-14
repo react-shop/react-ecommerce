@@ -21,5 +21,5 @@ declare type Props = {
      */
     onClick: (e: MouseEvent) => void;
 };
-export declare const Button: FunctionComponent<Props>;
-export {};
+declare const Button: FunctionComponent<Props>;
+export default Button;

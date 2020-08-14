@@ -1,38 +1,37 @@
-const colors = {
-    primary: '#43FECB',
-    secondary: '#743AF2',
-    primaryDark: '#1BE0AB',
-    error: '#FF3773',
-    black: '#1F1F24',
-    blackNormal: '#34353D',
-    blackDark: '#27272D',
-    blackLight: '#484854',
-    white: '#FFFFFF',
-    gray: '#737380',
-};
-const viewports = {
-    smartphone: '360px',
-    tablet: '720px',
-    desktop: '1280px',
-};
-const fonts = {
-    sizes: {
-        heading: '32px',
-        subHeading: '24px',
-        body: '16px',
-        text: '14px',
+import colors from './colors';
+import units from './units';
+export const theme = {
+    colors: {
+        primary: colors.primary,
+        secondary: colors.secondary,
+        primaryDark: colors.primaryDark,
+        secondaryDark: colors.secondaryDark,
+        error: colors.error,
+        black: colors.black,
+        blackNormal: colors.blackNormal,
+        blackDark: colors.blackDark,
+        blackLight: colors.blackLight,
+        white: colors.white,
+        gray: colors.gray,
     },
-    weight: {
-        thin: 100,
-        semiBold: 600,
-        regular: 400,
-        bold: 700,
-        black: 900,
+    space: {
+        spacing1: units.sizes.spacing1,
+        spacing2: units.sizes.spacing2,
+        spacing4: units.sizes.spacing4,
+        spacing8: units.sizes.spacing8,
+        spacing10: units.sizes.spacing10,
+        spacing12: units.sizes.spacing12,
+        spacing16: units.sizes.spacing16,
+        spacing18: units.sizes.spacing18,
+        spacing20: units.sizes.spacing20,
+        spacing24: units.sizes.spacing24,
+        spacing32: units.sizes.spacing32,
+    },
+    radii: {
+        xsmall: units.borderRadius.xsmall,
+        small: units.borderRadius.small,
+        medium: units.borderRadius.medium,
+        large: units.borderRadius.large,
+        full: units.borderRadius.full,
     },
 };
-const theme = Object.freeze({
-    colors,
-    viewports,
-    fonts,
-});
-export default theme;

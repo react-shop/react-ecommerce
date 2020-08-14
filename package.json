@@ -10,11 +10,13 @@
     "start": "lerna run start --parallel --scope '{web,@react-shop/design-system,@react-shop/sdk}'",
     "test": "lerna run test --stream "
   },
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
   "dependencies": {
-    "react": "^16.12.0",
+    "react": "16.13.1",
     "react-dom": "^16.12.0",
     "styled-components": "^4.4.1",
     "styled-reset": "^1.1.2"
@@ -39,7 +41,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "husky": "^3.1.0",
     "lerna": "3.19.0",
-    "typescript": "3.6.4"
+    "typescript": "ˆ3.9.2"
   },
   "husky": {
     "hooks": {
