@@ -20,11 +20,8 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-
-**/lib-esm
-
 # IDE
 .idea/
 
-/packages/design-system/lib
-/packages/design-system/lib-esm
+/packages/**/lib
+/packages/**/lib-esm
