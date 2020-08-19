@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [2, { extensions: ['.js', '.jsx', '.ts', '.tsx'] }],
     'import/no-extraneous-dependencies': [2, { devDependencies: ['**/test.tsx', '**/test.ts'] }],
+    'import/prefer-default-export': "off",
     '@typescript-eslint/indent': [2, 2],
     '@typescript-eslint/explicit-function-return-type': "off",
     '@typescript-eslint/interface-name-prefix': ["error", { "prefixWithI": "always" }],
