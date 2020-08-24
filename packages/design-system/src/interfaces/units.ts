@@ -21,18 +21,18 @@ export type TBorderRadius = {
 }
 
 export type TCommonSpacingProps = {
-  padding?: TSpacingSizes;
-  margin?: TSpacingSizes;
-  p?: TSpacingSizes;
-  pt?: TSpacingSizes;
-  pb?: TSpacingSizes;
-  pr?: TSpacingSizes;
-  pl?: TSpacingSizes;
-  m?: TSpacingSizes;
-  mt?: TSpacingSizes;
-  mr?: TSpacingSizes;
-  mb?: TSpacingSizes;
-  ml?: TSpacingSizes;
+  padding?: TSpacingSizesTypes;
+  margin?: TSpacingSizesTypes;
+  p?: TSpacingSizesTypes;
+  pt?: TSpacingSizesTypes;
+  pb?: TSpacingSizesTypes;
+  pr?: TSpacingSizesTypes;
+  pl?: TSpacingSizesTypes;
+  m?: TSpacingSizesTypes;
+  mt?: TSpacingSizesTypes;
+  mr?: TSpacingSizesTypes;
+  mb?: TSpacingSizesTypes;
+  ml?: TSpacingSizesTypes;
 };
 
 export type TSpacingSizesTypes = keyof TSpacingSizes;

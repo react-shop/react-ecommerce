@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container } from '@react-shop/design-system';
+import { Grid, DefaultButton, Header } from '@react-shop/design-system';
 import { ProductProvider } from '@react-shop/sdk';
+
+const items = [{
+  text: 'Link 1',
+}, {
+  text: 'Link 2',
+}];
 
 const Home = () => {
   const fetchProducts = async () => {
@@ -16,11 +22,12 @@ const Home = () => {
   const [text, setText] = useState<string>('My Button');
 
   return (
-    <Container>
-      <Button onClick={() => setText('Button update')}>
+    <Grid>
+      <Header buttonItems={items} />
+      <DefaultButton onClick={() => setText('Button update')}>
         {text}
-      </Button>
-    </Container>
+      </DefaultButton>
+    </Grid>
   );
 };
 

@@ -36,5 +36,5 @@ TCommonSpacingProps & {
   skeleton?: boolean;
   skeletonWidth?: number;
   skeletonHeight?: number;
-  display: string;
+  display?: string;
 };

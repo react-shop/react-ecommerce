@@ -39,6 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+exports.http = void 0;
 /* eslint-disable no-undef */
 /* eslint-disable no-param-reassign */
 var axios_1 = __importDefault(require("axios"));

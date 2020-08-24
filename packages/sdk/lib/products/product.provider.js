@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
+exports.ProductProvider = void 0;
 var httpClient_1 = require("../utils/httpClient");
 var routes_constants_1 = require("../utils/routes.constants");
 exports.ProductProvider = {
