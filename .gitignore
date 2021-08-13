@@ -25,3 +25,9 @@ yarn-error.log*
 
 /packages/**/lib
 /packages/**/lib-esm
+
+
+# next.js
+/packages/**/out
+/packages/**/.next
+/packages/**/.vercel
