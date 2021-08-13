@@ -30,8 +30,6 @@
     "@types/jest": "^24.0.25",
     "@types/storybook__react": "^4.0.2",
     "@types/styled-system": "^5.1.9",
-    "@typescript-eslint/eslint-plugin": "^2.13.0",
-    "@typescript-eslint/parser": "^2.13.0",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
     "enzyme": "^3.11.0",
