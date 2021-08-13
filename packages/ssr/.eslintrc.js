@@ -66,7 +66,7 @@ module.exports = {
             position: `before`,
           },
           {
-            pattern: `@tradersclub/**`,
+            pattern: `@react-shop/**`,
             group: `external`,
             position: `after`,
           },
