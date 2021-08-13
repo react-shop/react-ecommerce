@@ -28,6 +28,6 @@ yarn-error.log*
 
 
 # next.js
-/packages/**/out
-/packages/**/.next
-/packages/**/.vercel
+/packages/ssr/out
+/packages/ssr/.next
+/packages/ssr/.vercel
