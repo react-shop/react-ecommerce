@@ -23,5 +23,11 @@ yarn-error.log*
 # IDE
 .idea/
 
-/packages/**/lib
-/packages/**/lib-esm
+packages/**/lib
+packages/**/lib-esm
+
+
+# next.js
+packages/ssr/out
+packages/ssr/.next
+packages/ssr/.vercel
