@@ -5,10 +5,11 @@ import * as jwt from 'jsonwebtoken';
 import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { HttpStatus } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
 import { UserEntity } from '@user/user.entity';
 import { UserModel } from '@user/user.interface';
-import { CreateUserDto } from '@user/user.dto';
+import { CreateUserDto, LoginUserDto } from '@user/dto';
 
 @Injectable()
 export class UserService {
@@ -21,6 +22,19 @@ export class UserService {
     const user = await this.userRepository.findOne({ email: email });
 
     return this.buildUserRO(user);
+  }
+
+  async findOne({ email, password }: LoginUserDto) {
+    const user = await this.userRepository.findOne({ email });
+    if (!user) {
+      return null;
+    }
+
+    if (await bcrypt.compare(password, user.password)) {
+      return user;
+    }
+
+    return null;
   }
 
   async findById(id: number): Promise<UserModel> {
