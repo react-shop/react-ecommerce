@@ -21,8 +21,8 @@
     "styled-components": "^5.3.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "12.1.4",
-    "@commitlint/config-conventional": "12.1.4",
+    "@commitlint/cli": "13.1.0",
+    "@commitlint/config-conventional": "13.1.0",
     "@types/jest": "26.0.23",
     "@types/node": "16.4.0",
     "@types/react": "17.0.14",

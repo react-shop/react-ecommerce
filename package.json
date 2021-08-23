@@ -18,13 +18,16 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "@commitlint/*"
     ]
   },
   "npmClient": "yarn",
   "useWorkspaces": true,
   "devDependencies": {
-    "@commitlint/cli": "^8.2.0",
-    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/cli": "^13.1.0",
+    "@commitlint/config-conventional": "^13.1.0",
     "@types/react": "17.0.14",
     "@types/react-dom": "17.0.9",
     "@types/styled-components": "^5.1.12",
