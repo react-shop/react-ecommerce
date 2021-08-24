@@ -13,7 +13,7 @@ async function bootstrap() {
     .setTitle('React Ecommerce Swagger')
     .setDescription('React ecommerce api documentation')
     .setVersion('1.0')
-    .addTag('cats')
+    .addTag('react')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/docs', app, document);
