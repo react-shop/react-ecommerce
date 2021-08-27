@@ -14,6 +14,7 @@ import { GqlAuthGuard } from '@auth/auth.guard';
 export class UserResolver {
   constructor(private userService: UserService) {}
 
+  @UseGuards(GqlAuthGuard)
   @Query(() => User)
   async findById(@Args('id') id: string): Promise<UserData> {
     const user = this.userService.findById(id);
