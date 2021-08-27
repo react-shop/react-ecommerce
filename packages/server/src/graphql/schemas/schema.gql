@@ -1,0 +1,55 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  role: Roles!
+  status: Status!
+  name: String!
+  username: String!
+  email: String!
+  bio: String!
+  image: String!
+}
+
+"""User possible roles"""
+enum Roles {
+  MEMBER
+  ADMIN
+  SELLER
+}
+
+"""Account status"""
+enum Status {
+  ACTIVE
+  DISABLED
+}
+
+type AuthType {
+  user: User!
+  token: String!
+}
+
+type Query {
+  findById(id: String!): User!
+  findByEmail(email: String!): User!
+}
+
+type Mutation {
+  create(data: CreateUserDto!): User!
+  login(data: AuthDto!): AuthType!
+}
+
+input CreateUserDto {
+  username: String!
+  name: String!
+  email: String!
+  password: String!
+  confirmPassword: String!
+}
+
+input AuthDto {
+  email: String!
+  password: String!
+}

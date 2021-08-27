@@ -1,43 +1,28 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository } from 'typeorm';
-import * as jwt from 'jsonwebtoken';
 import { validate } from 'class-validator';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { HttpStatus } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
 
-import { UserEntity } from '@user/user.entity';
-import { UserModel } from '@user/user.interface';
-import { CreateUserDto, LoginUserDto } from '@user/dto';
+import { User } from '@user/user.entity';
+import { UserData } from '@user/user.interface';
+import { CreateUserDto } from '@user/dto';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
-  async findByEmail(email: string): Promise<UserModel> {
+  async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository.findOne({ email: email });
 
-    return this.buildUserRO(user);
+    return user;
   }
 
-  async findOne({ email, password }: LoginUserDto) {
-    const user = await this.userRepository.findOne({ email });
-    if (!user) {
-      return null;
-    }
-
-    if (await bcrypt.compare(password, user.password)) {
-      return user;
-    }
-
-    return null;
-  }
-
-  async findById(id: number): Promise<UserModel> {
+  async findById(id: string): Promise<UserData> {
     const user = await this.userRepository.findOne(id);
 
     if (!user) {
@@ -45,13 +30,13 @@ export class UserService {
       throw new HttpException({ errors }, 401);
     }
 
-    return this.buildUserRO(user);
+    return user;
   }
 
-  async create(dto: CreateUserDto): Promise<UserModel> {
+  async create(dto: CreateUserDto): Promise<UserData> {
     // check uniqueness of username/email
     const { username, email, password, name, confirmPassword } = dto;
-    const qb = await getRepository(UserEntity)
+    const qb = await getRepository(User)
       .createQueryBuilder('user')
       .where('user.username = :username', { username })
       .orWhere('user.email = :email', { email });
@@ -71,7 +56,7 @@ export class UserService {
     }
 
     // create new user
-    const newUser = new UserEntity();
+    const newUser = new User();
     newUser.username = username;
     newUser.email = email;
     newUser.password = password;
@@ -86,38 +71,8 @@ export class UserService {
       );
     } else {
       const savedUser = await this.userRepository.save(newUser);
-      return this.buildUserRO(savedUser);
+
+      return savedUser;
     }
-  }
-
-  public generateJWT(user): string {
-    const today = new Date();
-    const exp = new Date(today);
-    exp.setDate(today.getDate() + 60);
-
-    return jwt.sign(
-      {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        exp: exp.getTime() / 1000,
-      },
-      process.env.SECRET,
-    );
-  }
-
-  private buildUserRO(user: UserEntity) {
-    const userRO = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      bio: user.bio,
-      token: this.generateJWT(user),
-      image: user.image,
-      status: user.status,
-      role: user.role,
-    };
-
-    return { user: userRO };
   }
 }

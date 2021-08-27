@@ -14,7 +14,9 @@
     "baseUrl": "./src",
     "paths": {
       "@user/*": ["./user/*"],
-      "@shared/*": ["./shared/*"]
+      "@auth/*": ["./auth/*"],
+      "@shared/*": ["./shared/*"],
+      "@graphql/*": ["./graphql/*"]
     }
   },
   "exclude": ["node_modules"],

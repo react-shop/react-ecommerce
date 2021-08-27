@@ -1,24 +1,13 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { UserController } from './user.controller';
-import { UserEntity } from './user.entity';
-import { UserService } from './user.service';
-import { AuthMiddleware } from './auth.middleware';
+import { UserResolver } from '@user/user.resolver';
+import { User } from '@user/user.entity';
+import { UserService } from '@user/user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity])],
-  providers: [UserService],
-  controllers: [UserController],
+  imports: [TypeOrmModule.forFeature([User])],
+  providers: [UserService, UserResolver],
   exports: [UserService],
 })
-export class UserModule implements NestModule {
-  public configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes(
-        { path: 'user', method: RequestMethod.GET },
-        { path: 'user', method: RequestMethod.PUT },
-      );
-  }
-}
+export class UserModule {}
