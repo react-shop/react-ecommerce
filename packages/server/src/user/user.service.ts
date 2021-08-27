@@ -37,7 +37,7 @@ export class UserService {
     return null;
   }
 
-  async findById(id: number): Promise<UserModel> {
+  async findById(id: string): Promise<UserModel> {
     const user = await this.userRepository.findOne(id);
 
     if (!user) {

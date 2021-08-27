@@ -1,14 +1,19 @@
 import { Module } from '@nestjs/common';
+import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 
 import { UserModule } from '@user/user.module';
 import { AppController } from './app.controller';
+import { join } from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: ['.env.development', '.env.production'],
+    }),
+    GraphQLModule.forRoot({
+      autoSchemaFile: join(process.cwd(), 'src/graphql/schemas/schema.gql'),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',

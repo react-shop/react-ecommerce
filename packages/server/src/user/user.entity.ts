@@ -1,12 +1,15 @@
+import { Field, ObjectType, ID } from '@nestjs/graphql';
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { Roles, Status } from '@user/user.interface';
 import { IsEmail } from 'class-validator';
 
+@ObjectType()
 @Entity('users')
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
+  @Field(() => ID)
   id: string;
 
   @Column({
