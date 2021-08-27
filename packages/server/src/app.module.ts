@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { join } from 'path';
 
 import { UserModule } from '@user/user.module';
+import { AuthModule } from '@auth/auth.module';
 import { AppController } from './app.controller';
-import { join } from 'path';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { join } from 'path';
     }),
     GraphQLModule.forRoot({
       autoSchemaFile: join(process.cwd(), 'src/graphql/schemas/schema.gql'),
+      context: ({ req }) => ({ req }),
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
@@ -26,6 +28,7 @@ import { join } from 'path';
       synchronize: true,
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
 })

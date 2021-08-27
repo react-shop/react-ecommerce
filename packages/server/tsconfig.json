@@ -14,6 +14,7 @@
     "baseUrl": "./src",
     "paths": {
       "@user/*": ["./user/*"],
+      "@auth/*": ["./auth/*"],
       "@shared/*": ["./shared/*"],
       "@graphql/*": ["./graphql/*"]
     }

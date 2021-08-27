@@ -1,23 +1,30 @@
-import { IsNotEmpty } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { InputType, Field } from '@nestjs/graphql';
+import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
+
+@InputType()
 export class CreateUserDto {
-  @ApiProperty()
-  @IsNotEmpty()
+  @Field()
+  @IsString()
+  @IsNotEmpty({ message: 'Field required ' })
   readonly username: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
+  @Field()
+  @IsString()
+  @IsNotEmpty({ message: 'Field required ' })
   readonly name: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
+  @Field()
+  @IsEmail()
+  @IsNotEmpty({ message: 'Field required ' })
   readonly email: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
+  @Field()
+  @IsString()
+  @IsNotEmpty({ message: 'Field required ' })
   readonly password: string;
 
-  @ApiProperty()
-  @IsNotEmpty()
+  @Field()
+  @IsString()
+  @IsNotEmpty({ message: 'Field required ' })
   readonly confirmPassword: string;
 }

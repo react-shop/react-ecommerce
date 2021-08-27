@@ -1,13 +1,13 @@
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, ID, HideField } from '@nestjs/graphql';
 import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { IsEmail } from 'class-validator';
 
 import { Roles, Status } from '@user/user.interface';
-import { IsEmail } from 'class-validator';
 
 @ObjectType()
 @Entity('users')
-export class UserEntity {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
@@ -37,6 +37,7 @@ export class UserEntity {
     enum: Roles,
     default: Roles.MEMBER,
   })
+  @Field(() => Roles)
   role: Roles;
 
   @Column({
@@ -44,8 +45,10 @@ export class UserEntity {
     enum: Status,
     default: Status.ACTIVE,
   })
+  @Field(() => Status)
   status: Status;
 
+  @HideField()
   @Column()
   password: string;
 
