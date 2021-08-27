@@ -7,9 +7,12 @@ This project is being restructured.
 - [x] Monorepo
 - [x] Lerna
 - [x] Design System
+- [x] NextJs (SSR)
 - [ ] Hooks
 - [ ] Redux Hooks
 - [x] Storybook
+- [x] NestJs
+- [x] Graphql
 
 ## Future Features
 
