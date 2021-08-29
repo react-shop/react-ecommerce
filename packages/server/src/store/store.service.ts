@@ -28,7 +28,7 @@ export class StoreService {
     return stores;
   }
 
-  async findById(id: number): Promise<Store> {
+  async findById(id: string): Promise<Store> {
     const store = await this.storeRepository.findOne(id, {
       relations: ['employees', 'products'],
     });

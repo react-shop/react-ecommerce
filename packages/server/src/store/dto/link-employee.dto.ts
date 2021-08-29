@@ -6,7 +6,7 @@ export class LinkEmployeeToStoreDto {
   @Field()
   @IsNumber()
   @IsNotEmpty({ message: 'Field required ' })
-  readonly storeId: number;
+  readonly storeId: string;
 
   @Field(() => [ID])
   readonly employeesId: string[];

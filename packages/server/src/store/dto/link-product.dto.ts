@@ -6,8 +6,8 @@ export class LinkProductToStoreDto {
   @Field(() => ID)
   @IsString()
   @IsNotEmpty({ message: 'Field required ' })
-  readonly storeId: number;
+  readonly storeId: string;
 
   @Field(() => [ID])
-  readonly productsId: number[];
+  readonly productsId: string[];
 }

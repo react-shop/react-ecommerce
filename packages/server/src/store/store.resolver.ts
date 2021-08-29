@@ -43,7 +43,7 @@ export class StoreResolver {
   @Query(() => Store, {
     nullable: true,
   })
-  async findStoreById(@Args('id') id: number): Promise<Store> {
+  async findStoreById(@Args('id') id: string): Promise<Store> {
     const store = await this.storeService.findById(id);
 
     return store;

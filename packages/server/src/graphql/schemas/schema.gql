@@ -116,7 +116,7 @@ type Query {
   findByEmail(email: String!): User!
   getAllProducts: [Product!]
   getAllColors: [Color!]
-  findStoreById(id: Float!): Store
+  findStoreById(id: String!): Store
   getAllStores: [Store!]
 }
 
@@ -174,7 +174,7 @@ input CreateStoreDto {
 }
 
 input LinkEmployeeToStoreDto {
-  storeId: Float!
+  storeId: String!
   employeesId: [ID!]!
 }
 
