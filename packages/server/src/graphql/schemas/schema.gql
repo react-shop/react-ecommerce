@@ -31,14 +31,45 @@ type AuthType {
   token: String!
 }
 
+type Color {
+  id: ID!
+  hex: String!
+  name: String!
+}
+
+type Product {
+  id: ID!
+  colors: [Color!]
+  title: String!
+  description: String!
+  brand: String!
+  sku: String!
+  price: Float!
+  thumbnail: String!
+  images: String!
+  reviews: Float!
+  quantity: Float!
+  dimension: String!
+}
+
+input ColorInput {
+  id: ID!
+  hex: String!
+  name: String!
+}
+
 type Query {
   findById(id: String!): User!
   findByEmail(email: String!): User!
+  getAllProducts: [Product!]
+  getAllColors: [Color!]
 }
 
 type Mutation {
-  create(data: CreateUserDto!): User!
+  createUser(data: CreateUserDto!): User!
   login(data: AuthDto!): AuthType!
+  createProduct(data: CreateProductDto!): Product!
+  createColor(data: CreateColorDto!): Color!
 }
 
 input CreateUserDto {
@@ -52,4 +83,19 @@ input CreateUserDto {
 input AuthDto {
   email: String!
   password: String!
+}
+
+input CreateProductDto {
+  title: String!
+  description: String!
+  brand: String!
+  price: Float!
+  quantity: Float!
+  dimension: String!
+  colors: [ColorInput!]
+}
+
+input CreateColorDto {
+  hex: String!
+  name: String!
 }
