@@ -19,6 +19,7 @@
       "@graphql/*": ["./graphql/*"],
       "@product/*": ["./product/*"],
       "@color/*": ["./color/*"],
+      "@store/*": ["./store/*"],
       "@utils/*": ["./utils/*"]
     }
   },
