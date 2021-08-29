@@ -6,6 +6,9 @@ import { join } from 'path';
 
 import { UserModule } from '@user/user.module';
 import { AuthModule } from '@auth/auth.module';
+import { ProductModule } from '@product/product.module';
+import { ColorModule } from '@color/color.module';
+
 import { AppController } from './app.controller';
 
 @Module({
@@ -29,6 +32,8 @@ import { AppController } from './app.controller';
     }),
     UserModule,
     AuthModule,
+    ProductModule,
+    ColorModule,
   ],
   controllers: [AppController],
 })

@@ -1,12 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, getRepository } from 'typeorm';
 import { validate } from 'class-validator';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { HttpStatus } from '@nestjs/common';
 
 import { User } from '@user/user.entity';
-import { UserData } from '@user/user.interface';
+import { Status, UserData } from '@user/user.interface';
 import { CreateUserDto } from '@user/dto';
 
 @Injectable()
@@ -74,5 +72,18 @@ export class UserService {
 
       return savedUser;
     }
+  }
+
+  async delete(id: string): Promise<UserData> {
+    const user = await this.userRepository.findOne(id);
+
+    if (!user) {
+      const errors = { User: ' not found' };
+      throw new HttpException({ errors }, 401);
+    }
+
+    await this.userRepository.update(id, { status: Status.DISABLED });
+
+    return user;
   }
 }

@@ -16,7 +16,10 @@
       "@user/*": ["./user/*"],
       "@auth/*": ["./auth/*"],
       "@shared/*": ["./shared/*"],
-      "@graphql/*": ["./graphql/*"]
+      "@graphql/*": ["./graphql/*"],
+      "@product/*": ["./product/*"],
+      "@color/*": ["./color/*"],
+      "@utils/*": ["./utils/*"]
     }
   },
   "exclude": ["node_modules"],

@@ -32,7 +32,7 @@ export class UserResolver {
 
   @UsePipes(new ValidationPipe())
   @Mutation(() => User)
-  async create(@Args('data') data: CreateUserDto): Promise<UserData> {
+  async createUser(@Args('data') data: CreateUserDto): Promise<UserData> {
     const user = await this.userService.create(data);
 
     return user;
