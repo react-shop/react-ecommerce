@@ -6,6 +6,8 @@ type User {
   id: ID!
   role: Roles!
   status: Status!
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   username: String!
   email: String!
@@ -25,6 +27,11 @@ enum Status {
   ACTIVE
   DISABLED
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type AuthType {
   user: User!
@@ -52,10 +59,56 @@ type Product {
   dimension: String!
 }
 
+type Store {
+  id: ID!
+  products: [Product!]
+  employees: [User!]
+  name: String!
+  bio: String!
+  rate: Float!
+  slug: String!
+  street: String!
+  city: String!
+  state: String!
+  country: String!
+  neighborhood: String!
+  number: String!
+  zipCode: String!
+  sales: Float!
+}
+
+input UserInput {
+  id: ID!
+  role: Roles!
+  status: Status!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  username: String!
+  email: String!
+  bio: String!
+  image: String!
+}
+
 input ColorInput {
   id: ID!
   hex: String!
   name: String!
+}
+
+input ProductInput {
+  id: ID!
+  colors: [ColorInput!]
+  title: String!
+  description: String!
+  brand: String!
+  sku: String!
+  price: Float!
+  thumbnail: String!
+  images: String!
+  reviews: Float!
+  quantity: Float!
+  dimension: String!
 }
 
 type Query {
@@ -63,6 +116,8 @@ type Query {
   findByEmail(email: String!): User!
   getAllProducts: [Product!]
   getAllColors: [Color!]
+  findStoreById(id: Float!): Store
+  getAllStores: [Store!]
 }
 
 type Mutation {
@@ -70,6 +125,9 @@ type Mutation {
   login(data: AuthDto!): AuthType!
   createProduct(data: CreateProductDto!): Product!
   createColor(data: CreateColorDto!): Color!
+  createStore(data: CreateStoreDto!): Store!
+  linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
+  linkProductToStore(data: LinkProductToStoreDto!): Store
 }
 
 input CreateUserDto {
@@ -98,4 +156,29 @@ input CreateProductDto {
 input CreateColorDto {
   hex: String!
   name: String!
+}
+
+input CreateStoreDto {
+  name: String!
+  bio: String!
+  slug: String!
+  street: String!
+  city: String!
+  state: String!
+  country: String!
+  neighborhood: String!
+  zipCode: String!
+  number: String!
+  products: [ProductInput!]
+  employees: [UserInput!]
+}
+
+input LinkEmployeeToStoreDto {
+  storeId: Float!
+  employeesId: [ID!]!
+}
+
+input LinkProductToStoreDto {
+  storeId: ID!
+  productsId: [ID!]!
 }

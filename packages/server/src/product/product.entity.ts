@@ -1,9 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Color } from '@color/color.entity';
 
 @ObjectType()
+@InputType('ProductInput')
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn('increment')

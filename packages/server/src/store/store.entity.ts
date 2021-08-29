@@ -68,13 +68,3 @@ export class Store {
   })
   employees: User[];
 }
-
-export type LinkEmployeeParams = {
-  storeId: Store['id'];
-  employeeId: User['id'];
-}
-
-export type LinkProductParams = {
-  storeId: Store['id'];
-  productId: Product['id'];
-}

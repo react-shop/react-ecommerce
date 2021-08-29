@@ -1,16 +1,30 @@
-import { Field, ObjectType, ID, HideField } from '@nestjs/graphql';
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ObjectType, ID, HideField, InputType } from '@nestjs/graphql';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { IsEmail } from 'class-validator';
 
 import { Roles, Status } from '@user/user.interface';
 
 @ObjectType()
+@InputType('UserInput')
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   @Field(() => ID)
   id: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @Column({
     length: '256',

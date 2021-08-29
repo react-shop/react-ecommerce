@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { getRepository, Repository } from 'typeorm';
 import { validate } from 'class-validator';
 
-import { Store, LinkEmployeeParams, LinkProductParams } from '@store/store.entity';
-import { CreateStoreDto } from '@store/dto/create-store.dto';
+import { Store } from '@store/store.entity';
+import { CreateStoreDto, LinkProductToStoreDto, LinkEmployeeToStoreDto } from '@store/dto';
 
 import { User } from '@user/user.entity';
 import { Product } from '@product/product.entity';
@@ -19,6 +19,22 @@ export class StoreService {
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
   ) {}
+
+  async findAll(): Promise<Store[]> {
+    const stores = await this.storeRepository.find({
+      relations: ['employees', 'products', 'products.colors'],
+    });
+
+    return stores;
+  }
+
+  async findById(id: number): Promise<Store> {
+    const store = await this.storeRepository.findOne(id, {
+      relations: ['employees', 'products'],
+    });
+
+    return store;
+  }
 
   async create(dto: CreateStoreDto): Promise<Store> {
     const {
@@ -76,46 +92,67 @@ export class StoreService {
     }
   }
 
-  async linkEmployee({ storeId, employeeId }: LinkEmployeeParams): Promise<Store> {
-    const store = await this.storeRepository.findOne(storeId);
-    const employee = await this.userRepository.findOne(employeeId);
+  async linkEmployees({ storeId, employeesId }: LinkEmployeeToStoreDto): Promise<Store> {
+    const store = await this.storeRepository.findOne(storeId, {
+      relations: ['employees', 'products'],
+    });
+    const employees = await this.userRepository.findByIds(employeesId);
 
     if (!store) {
       const errors = { Store: 'not found' };
       throw new HttpException({ errors }, 401);
     }
 
-    if (!employee) {
-      const errors = { User: 'not found' };
-      throw new HttpException({ errors }, 401);
-    }
-
-    const storeUpdated = await this.storeRepository.save({
-      ...store,
-      employees: [...store.employees, employee],
+    employees.forEach(async employee => {
+      if (!employee) {
+        const errors = { User: 'not found' };
+        throw new HttpException({ errors }, 401);
+      }
     });
 
-    return storeUpdated;
+    store.employees.forEach(employee => {
+      employeesId.forEach(id => {
+        if (employee.id === id) {
+          const errors = { User: 'Employee already registered to store' };
+          throw new HttpException({ errors }, 401);
+        }
+      });
+    });
+
+    await getRepository(Store)
+      .createQueryBuilder()
+      .relation(Store, 'employees')
+      .of(storeId)
+      .add(employeesId);
+
+    return store;
   }
 
-  async linkProducts({ storeId, productId }: LinkProductParams): Promise<Store> {
-    const store = await this.storeRepository.findOne(storeId);
-    const product = await this.productRepository.findOne(productId);
+  async linkProducts({ storeId, productsId }: LinkProductToStoreDto): Promise<Store> {
+    const store = await this.storeRepository.findOne(storeId, {
+      relations: ['products', 'employees'],
+    });
+    const products = await this.productRepository.findByIds(productsId);
 
     if (!store) {
       const errors = { Store: 'not found' };
       throw new HttpException({ errors }, 401);
     }
 
-    if (!product) {
-      const errors = { Product: 'not found' };
-      throw new HttpException({ errors }, 401);
-    }
-
-    const storeUpdated = await this.storeRepository.save({
-      ...store,
-      products: [...store.employees, product],
+    products.forEach(async product => {
+      if (!product) {
+        const errors = { Product: 'not found' };
+        throw new HttpException({ errors }, 401);
+      }
     });
+
+    await getRepository(Store)
+      .createQueryBuilder()
+      .relation(Store, 'products')
+      .of(storeId)
+      .add(productsId);
+
+    const storeUpdated = await this.storeRepository.findOne(storeId);
 
     return storeUpdated;
   }

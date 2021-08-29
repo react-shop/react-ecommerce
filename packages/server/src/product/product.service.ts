@@ -47,7 +47,9 @@ export class ProductService {
   }
 
   async findAll(): Promise<Product[]> {
-    const products = await this.productRepository.find();
+    const products = await this.productRepository.find({
+      relations: ['colors'],
+    });
 
     return products;
   }

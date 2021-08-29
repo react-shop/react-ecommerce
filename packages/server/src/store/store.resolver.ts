@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common';
-import { Resolver, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Args, Mutation, Query } from '@nestjs/graphql';
 
 import { StoreService } from '@store/store.service';
 import { Store } from '@store/store.entity';
-import { CreateStoreDto } from '@store/dto/create-store.dto';
+import { CreateStoreDto, LinkEmployeeToStoreDto, LinkProductToStoreDto } from '@store/dto';
 
 import { GqlAuthGuard } from '@auth/auth.guard';
 
@@ -17,5 +17,45 @@ export class StoreResolver {
     const store = await this.storeService.create(data);
 
     return store;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Store, {
+    nullable: true,
+  })
+  async linkEmployeeToStore(@Args('data') data: LinkEmployeeToStoreDto): Promise<Store> {
+    const store = await this.storeService.linkEmployees(data);
+
+    return store;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Store, {
+    nullable: true,
+  })
+  async linkProductToStore(@Args('data') data: LinkProductToStoreDto): Promise<Store> {
+    const store = await this.storeService.linkProducts(data);
+
+    return store;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => Store, {
+    nullable: true,
+  })
+  async findStoreById(@Args('id') id: number): Promise<Store> {
+    const store = await this.storeService.findById(id);
+
+    return store;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Store], {
+    nullable: true,
+  })
+  async getAllStores(): Promise<Store[]> {
+    const stores = await this.storeService.findAll();
+
+    return stores;
   }
 }

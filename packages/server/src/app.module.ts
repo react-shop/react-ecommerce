@@ -8,6 +8,7 @@ import { UserModule } from '@user/user.module';
 import { AuthModule } from '@auth/auth.module';
 import { ProductModule } from '@product/product.module';
 import { ColorModule } from '@color/color.module';
+import { StoreModule } from '@store/store.module';
 
 import { AppController } from './app.controller';
 
@@ -34,6 +35,7 @@ import { AppController } from './app.controller';
     AuthModule,
     ProductModule,
     ColorModule,
+    StoreModule,
   ],
   controllers: [AppController],
 })
