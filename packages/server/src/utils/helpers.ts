@@ -11,7 +11,7 @@ export class Helpers {
     const nameCode =
       nameSplitted.length > 1
         ? `${nameSplitted[0].charAt(0)}${nameSplitted[1].charAt(0)}`
-        : `${nameSplitted[0].charAt(0)}${nameSplitted[0].charAt(1)}`;
+        : nameSplitted[0].substr(0, 2);
 
     const colorCode = colorName.substr(0, 2); //TODO - Create a new columns at colors table that have an color code
 

@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinTable,
+  OneToMany,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Color } from '@color/color.entity';
@@ -10,6 +19,12 @@ export class Product {
   @PrimaryGeneratedColumn('increment')
   @Field(() => ID)
   id: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @Column()
   title: string;

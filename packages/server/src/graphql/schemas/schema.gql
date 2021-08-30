@@ -13,6 +13,8 @@ type Product {
   id: ID!
   colors: [Color!]
   store: Store
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   description: String!
   brand: String!
@@ -25,10 +27,17 @@ type Product {
   dimension: String!
 }
 
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Store {
   id: ID!
   products: [Product!]
   employees: [User!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   bio: String!
   rate: Float!
@@ -70,11 +79,6 @@ enum Status {
   DISABLED
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
 type AuthType {
   user: User!
   token: String!
@@ -91,6 +95,8 @@ input ProductInput {
   id: ID!
   colors: [ColorInput!]
   store: StoreInput
+  createdAt: DateTime!
+  updatedAt: DateTime!
   title: String!
   description: String!
   brand: String!
@@ -107,6 +113,8 @@ input StoreInput {
   id: ID!
   products: [ProductInput!]
   employees: [UserInput!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
   name: String!
   bio: String!
   rate: Float!

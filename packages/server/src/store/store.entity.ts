@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Product } from '@product/product.entity';
@@ -12,6 +12,12 @@ export class Store {
   @PrimaryGeneratedColumn('increment')
   @Field(() => ID)
   id: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @Column()
   name: string;
