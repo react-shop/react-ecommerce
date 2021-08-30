@@ -3,26 +3,33 @@ import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Product } from '@product/product.entity';
 
+import { Types } from '@attribute/attribute.interface';
+
 @ObjectType()
-@InputType('ColorInput')
+@InputType('AttributeInput')
 @Entity()
-export class Color {
+export class Attribute {
   @PrimaryGeneratedColumn('increment')
   @Field(() => ID)
   id: string;
 
   @Column({
-    length: '7',
-    unique: true,
+    type: 'enum',
+    enum: Types,
+    nullable: true,
   })
-  hex: string;
+  @Field(() => Types)
+  type: Types;
+
+  @Column()
+  value: string;
 
   @Column()
   name: string;
 
   @ManyToOne(
     () => Product,
-    product => product.colors,
+    product => product.attributes,
   )
   @Field(() => Product, {
     nullable: true,

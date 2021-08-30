@@ -1,3 +1,8 @@
+TODO - Change colors to attributes(id, type, value, name)
+TODO - Add table category
+TODO - Add table sub category
+TODO - Add table tags
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>

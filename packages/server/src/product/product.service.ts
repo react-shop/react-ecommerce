@@ -4,23 +4,23 @@ import { Repository, getRepository } from 'typeorm';
 import { validate } from 'class-validator';
 
 import { Product } from '@product/product.entity';
-import { CreateProductDto, LinkColorToProductDto } from '@product/dto';
+import { CreateProductDto, LinkAttributeToProductDto } from '@product/dto';
 
 import { Helpers } from '@utils/helpers';
-import { Color } from '@color/color.entity';
+import { Attribute } from '@attribute/attribute.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
-    @InjectRepository(Color)
-    private colorRepository: Repository<Color>,
+    @InjectRepository(Attribute)
+    private attributeRepository: Repository<Attribute>,
     private helpers: Helpers,
   ) {}
 
   async create(dto: CreateProductDto): Promise<Product> {
-    const { title, description, price, dimension, quantity, colors, brand } = dto;
+    const { title, description, price, dimension, quantity, attributes, brand } = dto;
 
     const newProduct = new Product();
     newProduct.title = title;
@@ -29,13 +29,13 @@ export class ProductService {
     newProduct.price = price;
     newProduct.brand = brand;
     newProduct.quantity = quantity;
-    newProduct.colors = colors;
+    newProduct.attributes = attributes;
 
-    colors.forEach(color => {
+    attributes.forEach(attribute => {
       newProduct.sku = this.helpers.generateSku({
         name: title,
         brand,
-        colorName: color.name,
+        attributeName: attribute.name,
       });
     });
 
@@ -51,38 +51,38 @@ export class ProductService {
 
   async findAll(): Promise<Product[]> {
     const products = await this.productRepository.find({
-      relations: ['colors', 'store'],
+      relations: ['attributes', 'store'],
     });
 
     return products;
   }
 
-  async linkColor({ productId, colorsId }: LinkColorToProductDto): Promise<Product> {
+  async linkAttribute({ productId, attributesId }: LinkAttributeToProductDto): Promise<Product> {
     const product = await this.productRepository.findOne(productId, {
-      relations: ['colors', 'store'],
+      relations: ['attributes', 'store'],
     });
-    const colors = await this.colorRepository.findByIds(colorsId);
+    const attributes = await this.attributeRepository.findByIds(attributesId);
 
     if (!product) {
       const errors = { Store: 'not found' };
       throw new HttpException({ errors }, 401);
     }
 
-    colors.forEach(async color => {
-      if (!color) {
-        const errors = { Color: `${color.name} not found` };
+    attributes.forEach(async attribute => {
+      if (!attribute) {
+        const errors = { Attribute: `${attribute.name} not found` };
         throw new HttpException({ errors }, 401);
       }
     });
 
     await getRepository(Product)
       .createQueryBuilder()
-      .relation(Product, 'colors')
+      .relation(Product, 'attributes')
       .of(productId)
-      .add(colorsId);
+      .add(attributesId);
 
     const productUpdated = await this.productRepository.findOne(productId, {
-      relations: ['colors', 'store'],
+      relations: ['attributes', 'store'],
     });
 
     return productUpdated;

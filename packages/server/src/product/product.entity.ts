@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
-import { Color } from '@color/color.entity';
+import { Attribute } from '@attribute/attribute.entity';
 import { Store } from '@store/store.entity';
 @ObjectType()
 @InputType('ProductInput')
@@ -59,17 +59,17 @@ export class Product {
   dimension: string;
 
   @OneToMany(
-    () => Color,
-    color => color.product,
+    () => Attribute,
+    attribute => attribute.product,
     {
       cascade: true,
     },
   )
   @JoinTable()
-  @Field(() => [Color], {
+  @Field(() => [Attribute], {
     nullable: true,
   })
-  colors: Color[];
+  attributes: Attribute[];
 
   @ManyToOne(
     () => Store,

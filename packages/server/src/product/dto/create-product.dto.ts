@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 import { IsNotEmpty, IsString, IsNumber, IsPositive } from 'class-validator';
 
-import { Color } from '@color/color.entity';
+import { Attribute } from '@attribute/attribute.entity';
 
 @InputType()
 export class CreateProductDto {
@@ -38,8 +38,8 @@ export class CreateProductDto {
   readonly dimension: string;
 
   @IsNotEmpty({ message: 'Field required ' })
-  @Field(() => [Color], {
+  @Field(() => [Attribute], {
     nullable: true,
   })
-  readonly colors: Color[];
+  readonly attributes: Attribute[];
 }

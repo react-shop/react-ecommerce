@@ -1,11 +1,11 @@
 type GenerateSkuProps = {
   name: string;
-  colorName: string;
+  attributeName: string;
   brand: string;
 };
 
 export class Helpers {
-  generateSku({ name, colorName, brand }: GenerateSkuProps) {
+  generateSku({ name, attributeName, brand }: GenerateSkuProps) {
     const nameSplitted = name.split(' ');
 
     const nameCode =
@@ -13,11 +13,11 @@ export class Helpers {
         ? `${nameSplitted[0].charAt(0)}${nameSplitted[1].charAt(0)}`
         : nameSplitted[0].substr(0, 2);
 
-    const colorCode = colorName.substr(0, 2); //TODO - Create a new columns at colors table that have an color code
+    const attributeCode = attributeName.substr(0, 2);
 
     const brandCode = brand.substr(0, 3);
 
-    const sku = `${nameCode}-${colorCode}-${brandCode}`;
+    const sku = `${nameCode}-${attributeCode}-${brandCode}`;
 
     return sku.toUpperCase();
   }

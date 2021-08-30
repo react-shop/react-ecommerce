@@ -18,9 +18,9 @@
       "@shared/*": ["./shared/*"],
       "@graphql/*": ["./graphql/*"],
       "@product/*": ["./product/*"],
-      "@color/*": ["./color/*"],
       "@store/*": ["./store/*"],
-      "@utils/*": ["./utils/*"]
+      "@utils/*": ["./utils/*"],
+      "@attribute/*": ["./attribute/*"]
     }
   },
   "exclude": ["node_modules"],

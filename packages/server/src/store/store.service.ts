@@ -22,7 +22,7 @@ export class StoreService {
 
   async findAll(): Promise<Store[]> {
     const stores = await this.storeRepository.find({
-      relations: ['employees', 'products', 'products.colors'],
+      relations: ['employees', 'products', 'products.attributes'],
     });
 
     return stores;

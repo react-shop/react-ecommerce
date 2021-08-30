@@ -2,16 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Color {
+type Attribute {
   id: ID!
+  type: Types!
   product: Product
-  hex: String!
+  value: String!
   name: String!
+}
+
+"""Attribute types"""
+enum Types {
+  COLOR
+  SIZE
 }
 
 type Product {
   id: ID!
-  colors: [Color!]
+  attributes: [Attribute!]
   store: Store
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -84,16 +91,17 @@ type AuthType {
   token: String!
 }
 
-input ColorInput {
+input AttributeInput {
   id: ID!
+  type: Types!
   product: ProductInput
-  hex: String!
+  value: String!
   name: String!
 }
 
 input ProductInput {
   id: ID!
-  colors: [ColorInput!]
+  attributes: [AttributeInput!]
   store: StoreInput
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -147,7 +155,7 @@ type Query {
   findById(id: String!): User!
   findByEmail(email: String!): User!
   getAllProducts: [Product!]
-  getAllColors: [Color!]
+  getAllAttributes: [Attribute!]
   findStoreById(id: String!): Store
   getAllStores: [Store!]
 }
@@ -156,8 +164,8 @@ type Mutation {
   createUser(data: CreateUserDto!): User!
   login(data: AuthDto!): AuthType!
   createProduct(data: CreateProductDto!): Product!
-  linkColorToProduct(data: LinkColorToProductDto!): Product
-  createColor(data: CreateColorDto!): Color!
+  linkAttributeToProduct(data: LinkAttributeToProductDto!): Product
+  createAttribute(data: CreateAttributeDto!): Attribute!
   createStore(data: CreateStoreDto!): Store!
   linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
   linkProductToStore(data: LinkProductToStoreDto!): Store
@@ -183,17 +191,18 @@ input CreateProductDto {
   price: Float!
   quantity: Float!
   dimension: String!
-  colors: [ColorInput!]
+  attributes: [AttributeInput!]
 }
 
-input LinkColorToProductDto {
+input LinkAttributeToProductDto {
   productId: ID!
-  colorsId: [ID!]!
+  attributesId: [ID!]!
 }
 
-input CreateColorDto {
-  hex: String!
+input CreateAttributeDto {
+  value: String!
   name: String!
+  type: String!
 }
 
 input CreateStoreDto {
