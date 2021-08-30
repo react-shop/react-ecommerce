@@ -65,13 +65,13 @@ export class ProductService {
 
     if (!product) {
       const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, 401);
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 
     attributes.forEach(async attribute => {
       if (!attribute) {
         const errors = { Attribute: `${attribute.name} not found` };
-        throw new HttpException({ errors }, 401);
+        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
       }
     });
 

@@ -100,13 +100,13 @@ export class StoreService {
 
     if (!store) {
       const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, 401);
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 
     employees.forEach(async employee => {
       if (!employee) {
         const errors = { User: 'not found' };
-        throw new HttpException({ errors }, 401);
+        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
       }
     });
 
@@ -114,7 +114,7 @@ export class StoreService {
       employeesId.forEach(id => {
         if (employee.id === id) {
           const errors = { User: 'Employee already registered to store' };
-          throw new HttpException({ errors }, 401);
+          throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
         }
       });
     });
@@ -140,13 +140,13 @@ export class StoreService {
 
     if (!store) {
       const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, 401);
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 
     products.forEach(async product => {
       if (!product) {
         const errors = { Product: 'not found' };
-        throw new HttpException({ errors }, 401);
+        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
       }
     });
 
