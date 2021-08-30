@@ -18,8 +18,10 @@
       "@shared/*": ["./shared/*"],
       "@graphql/*": ["./graphql/*"],
       "@product/*": ["./product/*"],
-      "@color/*": ["./color/*"],
-      "@utils/*": ["./utils/*"]
+      "@store/*": ["./store/*"],
+      "@utils/*": ["./utils/*"],
+      "@attribute/*": ["./attribute/*"],
+      "@category/*": ["./category/*"]
     }
   },
   "exclude": ["node_modules"],

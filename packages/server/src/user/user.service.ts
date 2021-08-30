@@ -24,8 +24,8 @@ export class UserService {
     const user = await this.userRepository.findOne(id);
 
     if (!user) {
-      const errors = { User: ' not found' };
-      throw new HttpException({ errors }, 401);
+      const errors = { User: 'not found' };
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 
     return user;
@@ -79,7 +79,7 @@ export class UserService {
 
     if (!user) {
       const errors = { User: ' not found' };
-      throw new HttpException({ errors }, 401);
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 
     await this.userRepository.update(id, { status: Status.DISABLED });

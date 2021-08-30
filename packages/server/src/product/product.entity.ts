@@ -1,14 +1,31 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  JoinTable,
+  OneToMany,
+  ManyToOne,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
-import { Color } from '@color/color.entity';
-
+import { Attribute } from '@attribute/attribute.entity';
+import { Store } from '@store/store.entity';
+import { Category } from '@category/category.entity';
 @ObjectType()
+@InputType('ProductInput')
 @Entity()
 export class Product {
   @PrimaryGeneratedColumn('increment')
   @Field(() => ID)
   id: string;
+
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt: Date;
 
   @Column()
   title: string;
@@ -42,10 +59,38 @@ export class Product {
   @Column()
   dimension: string;
 
-  @ManyToMany(() => Color)
+  @OneToMany(
+    () => Attribute,
+    attribute => attribute.product,
+    {
+      cascade: true,
+    },
+  )
   @JoinTable()
-  @Field(() => [Color], {
+  @Field(() => [Attribute], {
     nullable: true,
   })
-  colors: Color[];
+  attributes: Attribute[];
+
+  @ManyToOne(
+    () => Store,
+    (store: Store) => store.products,
+  )
+  @Field(() => Store, {
+    nullable: true,
+  })
+  store: Store;
+
+  @OneToMany(
+    () => Category,
+    category => category.products,
+    {
+      cascade: true,
+    },
+  )
+  @JoinTable()
+  @Field(() => [Attribute], {
+    nullable: true,
+  })
+  category: Category[];
 }
