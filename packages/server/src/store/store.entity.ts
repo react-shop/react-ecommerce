@@ -1,4 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToMany,
+  JoinTable,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Product } from '@product/product.entity';
@@ -61,18 +70,26 @@ export class Store {
   })
   sales: number;
 
-  @OneToMany(() => Product, (product: Product) => product.store, {
-    cascade: true,
-  })
+  @OneToMany(
+    () => Product,
+    (product: Product) => product.store,
+    {
+      cascade: true,
+    },
+  )
   @JoinTable()
   @Field(() => [Product], {
     nullable: true,
   })
   products: Product[];
 
-  @ManyToMany(() => User, (user: User) => user.store, {
-    cascade: true,
-  })
+  @ManyToMany(
+    () => User,
+    (user: User) => user.store,
+    {
+      cascade: true,
+    },
+  )
   @JoinTable()
   @Field(() => [User], {
     nullable: true,

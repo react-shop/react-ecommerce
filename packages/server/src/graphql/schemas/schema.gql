@@ -16,10 +16,18 @@ enum Types {
   SIZE
 }
 
+type Category {
+  id: ID!
+  name: String!
+  description: String!
+  products: [Product!]
+}
+
 type Product {
   id: ID!
   attributes: [Attribute!]
   store: Store
+  category: [Attribute!]
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
@@ -99,10 +107,18 @@ input AttributeInput {
   name: String!
 }
 
+input CategoryInput {
+  id: ID!
+  name: String!
+  description: String!
+  products: [ProductInput!]
+}
+
 input ProductInput {
   id: ID!
   attributes: [AttributeInput!]
   store: StoreInput
+  category: [AttributeInput!]
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
@@ -158,6 +174,7 @@ type Query {
   getAllAttributes: [Attribute!]
   findStoreById(id: String!): Store
   getAllStores: [Store!]
+  getAllCategories: [Category!]
 }
 
 type Mutation {
@@ -169,6 +186,7 @@ type Mutation {
   createStore(data: CreateStoreDto!): Store!
   linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
   linkProductToStore(data: LinkProductToStoreDto!): Store
+  createCategory(data: CreateCategoryDto!): Category!
 }
 
 input CreateUserDto {
@@ -228,4 +246,9 @@ input LinkEmployeeToStoreDto {
 input LinkProductToStoreDto {
   storeId: ID!
   productsId: [ID!]!
+}
+
+input CreateCategoryDto {
+  name: String!
+  description: String!
 }

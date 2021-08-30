@@ -20,7 +20,8 @@
       "@product/*": ["./product/*"],
       "@store/*": ["./store/*"],
       "@utils/*": ["./utils/*"],
-      "@attribute/*": ["./attribute/*"]
+      "@attribute/*": ["./attribute/*"],
+      "@category/*": ["./category/*"]
     }
   },
   "exclude": ["node_modules"],

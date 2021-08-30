@@ -9,6 +9,7 @@ import { AuthModule } from '@auth/auth.module';
 import { ProductModule } from '@product/product.module';
 import { StoreModule } from '@store/store.module';
 import { AttributeModule } from '@attribute/attribute.module';
+import { CategoryModule } from '@category/category.module';
 
 import { AppController } from './app.controller';
 
@@ -36,6 +37,7 @@ import { AppController } from './app.controller';
     ProductModule,
     AttributeModule,
     StoreModule,
+    CategoryModule,
   ],
   controllers: [AppController],
 })
