@@ -48,7 +48,9 @@ export class ColorService {
   }
 
   async getAll(): Promise<Color[]> {
-    const colors = await this.colorRepository.find();
+    const colors = await this.colorRepository.find({
+      relations: ['product'],
+    });
 
     return colors;
   }

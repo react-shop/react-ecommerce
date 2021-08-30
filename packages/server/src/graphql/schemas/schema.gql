@@ -2,10 +2,52 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Color {
+  id: ID!
+  product: Product
+  hex: String!
+  name: String!
+}
+
+type Product {
+  id: ID!
+  colors: [Color!]
+  store: Store
+  title: String!
+  description: String!
+  brand: String!
+  sku: String!
+  price: Float!
+  thumbnail: String!
+  images: String!
+  reviews: Float!
+  quantity: Float!
+  dimension: String!
+}
+
+type Store {
+  id: ID!
+  products: [Product!]
+  employees: [User!]
+  name: String!
+  bio: String!
+  rate: Float!
+  slug: String!
+  street: String!
+  city: String!
+  state: String!
+  country: String!
+  neighborhood: String!
+  number: String!
+  zipCode: String!
+  sales: Float!
+}
+
 type User {
   id: ID!
   role: Roles!
   status: Status!
+  store: [Store!]
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
@@ -38,15 +80,17 @@ type AuthType {
   token: String!
 }
 
-type Color {
+input ColorInput {
   id: ID!
+  product: ProductInput
   hex: String!
   name: String!
 }
 
-type Product {
+input ProductInput {
   id: ID!
-  colors: [Color!]
+  colors: [ColorInput!]
+  store: StoreInput
   title: String!
   description: String!
   brand: String!
@@ -59,10 +103,10 @@ type Product {
   dimension: String!
 }
 
-type Store {
+input StoreInput {
   id: ID!
-  products: [Product!]
-  employees: [User!]
+  products: [ProductInput!]
+  employees: [UserInput!]
   name: String!
   bio: String!
   rate: Float!
@@ -81,6 +125,7 @@ input UserInput {
   id: ID!
   role: Roles!
   status: Status!
+  store: [StoreInput!]
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
@@ -88,27 +133,6 @@ input UserInput {
   email: String!
   bio: String!
   image: String!
-}
-
-input ColorInput {
-  id: ID!
-  hex: String!
-  name: String!
-}
-
-input ProductInput {
-  id: ID!
-  colors: [ColorInput!]
-  title: String!
-  description: String!
-  brand: String!
-  sku: String!
-  price: Float!
-  thumbnail: String!
-  images: String!
-  reviews: Float!
-  quantity: Float!
-  dimension: String!
 }
 
 type Query {
@@ -124,6 +148,7 @@ type Mutation {
   createUser(data: CreateUserDto!): User!
   login(data: AuthDto!): AuthType!
   createProduct(data: CreateProductDto!): Product!
+  linkColorToProduct(data: LinkColorToProductDto!): Product
   createColor(data: CreateColorDto!): Color!
   createStore(data: CreateStoreDto!): Store!
   linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
@@ -151,6 +176,11 @@ input CreateProductDto {
   quantity: Float!
   dimension: String!
   colors: [ColorInput!]
+}
+
+input LinkColorToProductDto {
+  productId: ID!
+  colorsId: [ID!]!
 }
 
 input CreateColorDto {

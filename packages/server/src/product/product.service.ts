@@ -1,18 +1,21 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, getRepository } from 'typeorm';
 import { validate } from 'class-validator';
 
 import { Product } from '@product/product.entity';
-import { CreateProductDto } from '@product/dto/create-product.dto';
+import { CreateProductDto, LinkColorToProductDto } from '@product/dto';
 
 import { Helpers } from '@utils/helpers';
+import { Color } from '@color/color.entity';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    @InjectRepository(Color)
+    private colorRepository: Repository<Color>,
     private helpers: Helpers,
   ) {}
 
@@ -48,9 +51,40 @@ export class ProductService {
 
   async findAll(): Promise<Product[]> {
     const products = await this.productRepository.find({
-      relations: ['colors'],
+      relations: ['colors', 'store'],
     });
 
     return products;
+  }
+
+  async linkColor({ productId, colorsId }: LinkColorToProductDto): Promise<Product> {
+    const product = await this.productRepository.findOne(productId, {
+      relations: ['colors', 'store'],
+    });
+    const colors = await this.colorRepository.findByIds(colorsId);
+
+    if (!product) {
+      const errors = { Store: 'not found' };
+      throw new HttpException({ errors }, 401);
+    }
+
+    colors.forEach(async color => {
+      if (!color) {
+        const errors = { Color: `${color.name} not found` };
+        throw new HttpException({ errors }, 401);
+      }
+    });
+
+    await getRepository(Product)
+      .createQueryBuilder()
+      .relation(Product, 'colors')
+      .of(productId)
+      .add(colorsId);
+
+    const productUpdated = await this.productRepository.findOne(productId, {
+      relations: ['colors', 'store'],
+    });
+
+    return productUpdated;
   }
 }

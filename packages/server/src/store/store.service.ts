@@ -125,7 +125,11 @@ export class StoreService {
       .of(storeId)
       .add(employeesId);
 
-    return store;
+    const storeUpdated = await this.storeRepository.findOne(storeId, {
+      relations: ['products', 'employees'],
+    });
+
+    return storeUpdated;
   }
 
   async linkProducts({ storeId, productsId }: LinkProductToStoreDto): Promise<Store> {
@@ -152,7 +156,9 @@ export class StoreService {
       .of(storeId)
       .add(productsId);
 
-    const storeUpdated = await this.storeRepository.findOne(storeId);
+    const storeUpdated = await this.storeRepository.findOne(storeId, {
+      relations: ['products', 'employees'],
+    });
 
     return storeUpdated;
   }

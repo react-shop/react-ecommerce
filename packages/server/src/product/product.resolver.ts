@@ -3,7 +3,7 @@ import { Resolver, Args, Mutation, Query } from '@nestjs/graphql';
 
 import { ProductService } from '@product/product.service';
 import { Product } from '@product/product.entity';
-import { CreateProductDto } from '@product/dto/create-product.dto';
+import { CreateProductDto, LinkColorToProductDto } from '@product/dto';
 
 import { GqlAuthGuard } from '@auth/auth.guard';
 
@@ -27,5 +27,15 @@ export class ProductResolver {
     const products = await this.productService.findAll();
 
     return products;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Product, {
+    nullable: true,
+  })
+  async linkColorToProduct(@Args('data') data: LinkColorToProductDto): Promise<Product> {
+    const store = await this.productService.linkColor(data);
+
+    return store;
   }
 }

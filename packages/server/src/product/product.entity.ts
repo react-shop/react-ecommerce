@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinTable, OneToMany, ManyToOne } from 'typeorm';
 import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Color } from '@color/color.entity';
-
+import { Store } from '@store/store.entity';
 @ObjectType()
 @InputType('ProductInput')
 @Entity()
@@ -43,10 +43,25 @@ export class Product {
   @Column()
   dimension: string;
 
-  @ManyToMany(() => Color)
+  @OneToMany(
+    () => Color,
+    color => color.product,
+    {
+      cascade: true,
+    },
+  )
   @JoinTable()
   @Field(() => [Color], {
     nullable: true,
   })
   colors: Color[];
+
+  @ManyToOne(
+    () => Store,
+    (store: Store) => store.products,
+  )
+  @Field(() => Store, {
+    nullable: true,
+  })
+  store: Store;
 }

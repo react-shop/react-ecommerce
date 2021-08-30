@@ -1,11 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from 'typeorm';
-import { Field, ObjectType, ID } from '@nestjs/graphql';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, OneToMany } from 'typeorm';
+import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
 
 import { Product } from '@product/product.entity';
 
 import { User } from '@user/user.entity';
 
 @ObjectType()
+@InputType('StoreInput')
 @Entity()
 export class Store {
   @PrimaryGeneratedColumn('increment')
@@ -54,14 +55,18 @@ export class Store {
   })
   sales: number;
 
-  @ManyToMany(() => Product)
+  @OneToMany(() => Product, (product: Product) => product.store, {
+    cascade: true,
+  })
   @JoinTable()
   @Field(() => [Product], {
     nullable: true,
   })
   products: Product[];
 
-  @ManyToMany(() => User)
+  @ManyToMany(() => User, (user: User) => user.store, {
+    cascade: true,
+  })
   @JoinTable()
   @Field(() => [User], {
     nullable: true,

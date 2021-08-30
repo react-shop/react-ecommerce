@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { Field, ObjectType, ID, InputType } from '@nestjs/graphql';
+
+import { Product } from '@product/product.entity';
 
 @ObjectType()
 @InputType('ColorInput')
@@ -17,4 +19,13 @@ export class Color {
 
   @Column()
   name: string;
+
+  @ManyToOne(
+    () => Product,
+    product => product.colors,
+  )
+  @Field(() => Product, {
+    nullable: true,
+  })
+  product: Product;
 }

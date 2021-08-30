@@ -6,11 +6,14 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { IsEmail } from 'class-validator';
 
 import { Roles, Status } from '@user/user.interface';
+import { Store } from '@store/store.entity';
 
 @ObjectType()
 @InputType('UserInput')
@@ -65,6 +68,15 @@ export class User {
   @HideField()
   @Column()
   password: string;
+
+  @ManyToMany(
+    () => Store,
+    (store: Store) => store.employees,
+  )
+  @Field(() => [Store], {
+    nullable: true,
+  })
+  store: Store[];
 
   @BeforeInsert()
   async hashPassword() {
