@@ -27,7 +27,7 @@ type Product {
   id: ID!
   attributes: [Attribute!]
   store: Store
-  category: [Attribute!]
+  categories: [Category!]
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
@@ -118,7 +118,7 @@ input ProductInput {
   id: ID!
   attributes: [AttributeInput!]
   store: StoreInput
-  category: [AttributeInput!]
+  categories: [CategoryInput!]
   createdAt: DateTime!
   updatedAt: DateTime!
   title: String!
@@ -182,6 +182,7 @@ type Mutation {
   login(data: AuthDto!): AuthType!
   createProduct(data: CreateProductDto!): Product!
   linkAttributeToProduct(data: LinkAttributeToProductDto!): Product
+  linkCategoryToProduct(data: LinkCategoryToProductDto!): Product
   createAttribute(data: CreateAttributeDto!): Attribute!
   createStore(data: CreateStoreDto!): Store!
   linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
@@ -215,6 +216,11 @@ input CreateProductDto {
 input LinkAttributeToProductDto {
   productId: ID!
   attributesId: [ID!]!
+}
+
+input LinkCategoryToProductDto {
+  productId: ID!
+  categoriesId: [ID!]!
 }
 
 input CreateAttributeDto {

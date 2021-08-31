@@ -4,11 +4,15 @@ import { Repository, getRepository } from 'typeorm';
 import { validate } from 'class-validator';
 
 import { Product } from '@product/product.entity';
-import { CreateProductDto, LinkAttributeToProductDto } from '@product/dto';
+import {
+  CreateProductDto,
+  LinkAttributeToProductDto,
+  LinkCategoryToProductDto,
+} from '@product/dto';
 
 import { Helpers } from '@utils/helpers';
 import { Attribute } from '@attribute/attribute.entity';
-
+import { Category } from '@category/category.entity';
 @Injectable()
 export class ProductService {
   constructor(
@@ -16,6 +20,8 @@ export class ProductService {
     private productRepository: Repository<Product>,
     @InjectRepository(Attribute)
     private attributeRepository: Repository<Attribute>,
+    @InjectRepository(Category)
+    private categoryRepository: Repository<Category>,
     private helpers: Helpers,
   ) {}
 
@@ -51,7 +57,7 @@ export class ProductService {
 
   async findAll(): Promise<Product[]> {
     const products = await this.productRepository.find({
-      relations: ['attributes', 'store'],
+      relations: ['attributes', 'store', 'categories'],
     });
 
     return products;
@@ -59,7 +65,7 @@ export class ProductService {
 
   async linkAttribute({ productId, attributesId }: LinkAttributeToProductDto): Promise<Product> {
     const product = await this.productRepository.findOne(productId, {
-      relations: ['attributes', 'store'],
+      relations: ['attributes', 'store', 'categories'],
     });
     const attributes = await this.attributeRepository.findByIds(attributesId);
 
@@ -82,7 +88,38 @@ export class ProductService {
       .add(attributesId);
 
     const productUpdated = await this.productRepository.findOne(productId, {
-      relations: ['attributes', 'store'],
+      relations: ['attributes', 'store', 'categories'],
+    });
+
+    return productUpdated;
+  }
+
+  async linkCategory({ productId, categoriesId }: LinkCategoryToProductDto): Promise<Product> {
+    const product = await this.productRepository.findOne(productId, {
+      relations: ['attributes', 'store', 'categories'],
+    });
+    const categories = await this.categoryRepository.findByIds(categoriesId);
+
+    if (!product) {
+      const errors = { Store: 'not found' };
+      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+    }
+
+    categories.forEach(async category => {
+      if (!category) {
+        const errors = { Category: `${category.name} not found` };
+        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      }
+    });
+
+    await getRepository(Product)
+      .createQueryBuilder()
+      .relation(Product, 'categories')
+      .of(productId)
+      .add(categoriesId);
+
+    const productUpdated = await this.productRepository.findOne(productId, {
+      relations: ['attributes', 'store', 'categories'],
     });
 
     return productUpdated;

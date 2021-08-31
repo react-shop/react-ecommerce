@@ -89,8 +89,8 @@ export class Product {
     },
   )
   @JoinTable()
-  @Field(() => [Attribute], {
+  @Field(() => [Category], {
     nullable: true,
   })
-  category: Category[];
+  categories: Category[];
 }
