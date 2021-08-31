@@ -22,7 +22,7 @@ export class CategoryService {
     const category = await qb.getOne();
 
     if (category) {
-      const errors = { name: 'This category already been registered' };
+      const errors = { message: 'This category already been registered' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,

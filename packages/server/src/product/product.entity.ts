@@ -70,7 +70,7 @@ export class Product {
   @Field(() => [Attribute], {
     nullable: true,
   })
-  attributes: string[];
+  attributes: Attribute[];
 
   @ManyToOne(
     () => Store,

@@ -36,14 +36,20 @@ export class ProductService {
     newProduct.brand = brand;
     newProduct.quantity = quantity;
 
-    const [attribute] = await this.attributeRepository.findByIds(attributesId);
+    const attributes = await this.attributeRepository.findByIds(attributesId);
+
+    const attributeExists = this.helpers.dataExists({ data: attributes, dataIds: attributesId });
+
+    if (!attributeExists) {
+      throw new HttpException({ message: 'Attribute not found' }, HttpStatus.BAD_REQUEST);
+    }
 
     newProduct.sku = this.helpers.generateSku({
       name: title,
       brand,
-      attributeName: attribute.name,
+      attributeName: attributes[0].name,
     });
-    newProduct.attributes = attributesId;
+    newProduct.attributes = attributes;
 
     const errors = await validate(newProduct);
     if (errors.length > 0) {
@@ -69,17 +75,18 @@ export class ProductService {
     });
     const attributes = await this.attributeRepository.findByIds(attributesId);
 
+    const attributesExists = this.helpers.dataExists({
+      data: attributes,
+      dataIds: attributesId,
+    });
+
     if (!product) {
-      const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ message: 'Store not found' }, HttpStatus.BAD_REQUEST);
     }
 
-    attributes.forEach(async attribute => {
-      if (!attribute) {
-        const errors = { Attribute: `${attribute.name} not found` };
-        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
-      }
-    });
+    if (!attributesExists) {
+      throw new HttpException({ message: 'Attribute not found' }, HttpStatus.BAD_REQUEST);
+    }
 
     await getRepository(Product)
       .createQueryBuilder()
@@ -100,17 +107,18 @@ export class ProductService {
     });
     const categories = await this.categoryRepository.findByIds(categoriesId);
 
+    const categoriesExists = this.helpers.dataExists({
+      data: categories,
+      dataIds: categoriesId,
+    });
+
     if (!product) {
-      const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ message: 'Product not found' }, HttpStatus.BAD_REQUEST);
     }
 
-    categories.forEach(async category => {
-      if (!category) {
-        const errors = { Category: `${category.name} not found` };
-        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
-      }
-    });
+    if (!categoriesExists) {
+      throw new HttpException({ message: 'Category not found' }, HttpStatus.BAD_REQUEST);
+    }
 
     await getRepository(Product)
       .createQueryBuilder()

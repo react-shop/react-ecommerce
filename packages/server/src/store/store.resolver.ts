@@ -23,7 +23,7 @@ export class StoreResolver {
   @Mutation(() => Store, {
     nullable: true,
   })
-  async linkEmployeeToStore(@Args('data') data: LinkEmployeeToStoreDto): Promise<Store> {
+  async linkEmployeesToStore(@Args('data') data: LinkEmployeeToStoreDto): Promise<Store> {
     const store = await this.storeService.linkEmployees(data);
 
     return store;
@@ -33,7 +33,7 @@ export class StoreResolver {
   @Mutation(() => Store, {
     nullable: true,
   })
-  async linkProductToStore(@Args('data') data: LinkProductToStoreDto): Promise<Store> {
+  async linkProductsToStore(@Args('data') data: LinkProductToStoreDto): Promise<Store> {
     const store = await this.storeService.linkProducts(data);
 
     return store;

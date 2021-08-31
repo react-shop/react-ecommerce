@@ -4,6 +4,15 @@ type GenerateSkuProps = {
   brand: string;
 };
 
+type GenericProvider = {
+  id: string;
+};
+
+type GenericExists = {
+  data: GenericProvider[];
+  dataIds: string[];
+};
+
 export class Helpers {
   generateSku({ name, attributeName, brand }: GenerateSkuProps) {
     const nameSplitted = name.split(' ');
@@ -20,5 +29,9 @@ export class Helpers {
     const sku = `${nameCode}-${attributeCode}-${brandCode}`;
 
     return sku.toUpperCase();
+  }
+
+  dataExists({ data, dataIds }: GenericExists): boolean {
+    return data.some(d => dataIds.every(id => id === d.id));
   }
 }

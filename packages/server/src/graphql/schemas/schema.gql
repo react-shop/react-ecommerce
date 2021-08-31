@@ -2,13 +2,6 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Category {
-  id: ID!
-  name: String!
-  description: String!
-  products: [Product!]
-}
-
 type Attribute {
   id: ID!
   type: Types!
@@ -21,6 +14,13 @@ type Attribute {
 enum Types {
   COLOR
   SIZE
+}
+
+type Category {
+  id: ID!
+  name: String!
+  description: String!
+  products: [Product!]
 }
 
 type Product {
@@ -99,19 +99,19 @@ type AuthType {
   token: String!
 }
 
-input CategoryInput {
-  id: ID!
-  name: String!
-  description: String!
-  products: [ProductInput!]
-}
-
 input AttributeInput {
   id: ID!
   type: Types!
   product: ProductInput
   value: String!
   name: String!
+}
+
+input CategoryInput {
+  id: ID!
+  name: String!
+  description: String!
+  products: [ProductInput!]
 }
 
 input ProductInput {
@@ -185,8 +185,8 @@ type Mutation {
   linkCategoryToProduct(data: LinkCategoryToProductDto!): Product
   createAttribute(data: CreateAttributeDto!): Attribute!
   createStore(data: CreateStoreDto!): Store!
-  linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
-  linkProductToStore(data: LinkProductToStoreDto!): Store
+  linkEmployeesToStore(data: LinkEmployeeToStoreDto!): Store
+  linkProductsToStore(data: LinkProductToStoreDto!): Store
   createCategory(data: CreateCategoryDto!): Category!
 }
 
@@ -210,7 +210,7 @@ input CreateProductDto {
   price: Float!
   quantity: Float!
   dimension: String!
-  attributesId: [ID!]
+  attributesId: [ID!]!
 }
 
 input LinkAttributeToProductDto {
@@ -226,7 +226,7 @@ input LinkCategoryToProductDto {
 input CreateAttributeDto {
   value: String!
   name: String!
-  type: String!
+  type: Types!
 }
 
 input CreateStoreDto {
@@ -240,8 +240,7 @@ input CreateStoreDto {
   neighborhood: String!
   zipCode: String!
   number: String!
-  products: [ProductInput!]
-  employees: [UserInput!]
+  employeesId: [ID!]
 }
 
 input LinkEmployeeToStoreDto {

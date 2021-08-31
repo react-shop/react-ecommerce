@@ -1,6 +1,6 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Repository, In, getConnection } from 'typeorm';
 import { validate } from 'class-validator';
 
 import { Store } from '@store/store.entity';
@@ -8,6 +8,8 @@ import { CreateStoreDto, LinkProductToStoreDto, LinkEmployeeToStoreDto } from '@
 
 import { User } from '@user/user.entity';
 import { Product } from '@product/product.entity';
+import { Helpers } from '@utils/helpers';
+import { Roles } from '@user/user.interface';
 
 @Injectable()
 export class StoreService {
@@ -18,6 +20,7 @@ export class StoreService {
     private userRepository: Repository<User>,
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
+    private helpers: Helpers,
   ) {}
 
   async findAll(): Promise<Store[]> {
@@ -48,17 +51,17 @@ export class StoreService {
       street,
       state,
       zipCode,
-      employees,
-      products,
+      employeesId,
     } = dto;
-    const qb = await getRepository(Store)
-      .createQueryBuilder('store')
-      .where('store.slug = :slug', { slug });
 
-    const store = await qb.getOne();
+    const store = await this.storeRepository.findOne({
+      where: {
+        slug,
+      },
+    });
 
     if (store) {
-      const errors = { slug: 'Slug must be unique.' };
+      const errors = { message: 'Slug must be unique.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
@@ -76,10 +79,21 @@ export class StoreService {
     newStore.country = country;
     newStore.neighborhood = neighborhood;
     newStore.number = number;
-    newStore.employees = employees;
-    newStore.products = products;
+
+    if (employeesId?.length > 0) {
+      const users = await this.userRepository.findByIds(employeesId);
+
+      const userExists = this.helpers.dataExists({ data: users, dataIds: employeesId });
+
+      if (!userExists) {
+        throw new HttpException({ message: 'User not found' }, HttpStatus.BAD_REQUEST);
+      }
+
+      newStore.employees = users;
+    }
 
     const errors = await validate(newStore);
+
     if (errors.length > 0) {
       throw new HttpException(
         { message: 'Input data validation failed', errors },
@@ -96,25 +110,29 @@ export class StoreService {
     const store = await this.storeRepository.findOne(storeId, {
       relations: ['employees', 'products'],
     });
-    const employees = await this.userRepository.findByIds(employeesId);
+
+    const users = await this.userRepository.findByIds(employeesId);
+
+    const userExists = this.helpers.dataExists({
+      data: users,
+      dataIds: employeesId,
+    });
 
     if (!store) {
-      const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ message: 'Store not found' }, HttpStatus.BAD_REQUEST);
     }
 
-    employees.forEach(async employee => {
-      if (!employee) {
-        const errors = { User: 'not found' };
-        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
-      }
-    });
+    if (!userExists) {
+      throw new HttpException({ message: 'User not found' }, HttpStatus.BAD_REQUEST);
+    }
 
     store.employees.forEach(employee => {
       employeesId.forEach(id => {
         if (employee.id === id) {
-          const errors = { User: 'Employee already registered to store' };
-          throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+          throw new HttpException(
+            { message: 'Employee already registered to store' },
+            HttpStatus.BAD_REQUEST,
+          );
         }
       });
     });
@@ -129,6 +147,15 @@ export class StoreService {
       relations: ['products', 'employees'],
     });
 
+    if (storeUpdated) {
+      await getConnection()
+        .createQueryBuilder()
+        .update(User)
+        .set({ role: Roles.SELLER })
+        .where({ id: In(employeesId) })
+        .execute();
+    }
+
     return storeUpdated;
   }
 
@@ -136,19 +163,21 @@ export class StoreService {
     const store = await this.storeRepository.findOne(storeId, {
       relations: ['products', 'employees'],
     });
+
     const products = await this.productRepository.findByIds(productsId);
 
+    const productsExists = this.helpers.dataExists({
+      data: products,
+      dataIds: productsId,
+    });
+
     if (!store) {
-      const errors = { Store: 'not found' };
-      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ message: 'Store: not found' }, HttpStatus.BAD_REQUEST);
     }
 
-    products.forEach(async product => {
-      if (!product) {
-        const errors = { Product: 'not found' };
-        throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
-      }
-    });
+    if (!productsExists) {
+      throw new HttpException({ message: 'Product not found' }, HttpStatus.BAD_REQUEST);
+    }
 
     await getRepository(Store)
       .createQueryBuilder()
