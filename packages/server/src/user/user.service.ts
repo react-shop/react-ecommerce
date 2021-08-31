@@ -24,7 +24,7 @@ export class UserService {
     const user = await this.userRepository.findOne(id);
 
     if (!user) {
-      const errors = { User: 'not found' };
+      const errors = { message: 'User not found' };
       throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 
@@ -42,7 +42,7 @@ export class UserService {
     const user = await qb.getOne();
 
     if (user) {
-      const errors = { username: 'Username and email must be unique.' };
+      const errors = { message: 'Username and email must be unique.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
@@ -62,7 +62,7 @@ export class UserService {
 
     const errors = await validate(newUser);
     if (errors.length > 0) {
-      const _errors = { username: 'Userinput is not valid.' };
+      const _errors = { message: 'Userinput is not valid.' };
       throw new HttpException(
         { message: 'Input data validation failed', _errors },
         HttpStatus.BAD_REQUEST,
@@ -78,7 +78,7 @@ export class UserService {
     const user = await this.userRepository.findOne(id);
 
     if (!user) {
-      const errors = { User: ' not found' };
+      const errors = { message: 'User not found' };
       throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
     }
 

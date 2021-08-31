@@ -14,7 +14,7 @@ export class CreateAttributeDto {
   @IsNotEmpty({ message: 'Field required ' })
   readonly name: string;
 
-  @Field()
+  @Field(() => Types)
   @IsEnum(Types)
   @IsNotEmpty({ message: 'Field required ' })
   readonly type: Types;

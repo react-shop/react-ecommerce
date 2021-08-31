@@ -185,8 +185,8 @@ type Mutation {
   linkCategoryToProduct(data: LinkCategoryToProductDto!): Product
   createAttribute(data: CreateAttributeDto!): Attribute!
   createStore(data: CreateStoreDto!): Store!
-  linkEmployeeToStore(data: LinkEmployeeToStoreDto!): Store
-  linkProductToStore(data: LinkProductToStoreDto!): Store
+  linkEmployeesToStore(data: LinkEmployeeToStoreDto!): Store
+  linkProductsToStore(data: LinkProductToStoreDto!): Store
   createCategory(data: CreateCategoryDto!): Category!
 }
 
@@ -210,7 +210,7 @@ input CreateProductDto {
   price: Float!
   quantity: Float!
   dimension: String!
-  attributes: [AttributeInput!]
+  attributesId: [ID!]!
 }
 
 input LinkAttributeToProductDto {
@@ -226,7 +226,7 @@ input LinkCategoryToProductDto {
 input CreateAttributeDto {
   value: String!
   name: String!
-  type: String!
+  type: Types!
 }
 
 input CreateStoreDto {
@@ -240,8 +240,7 @@ input CreateStoreDto {
   neighborhood: String!
   zipCode: String!
   number: String!
-  products: [ProductInput!]
-  employees: [UserInput!]
+  employeesId: [ID!]
 }
 
 input LinkEmployeeToStoreDto {

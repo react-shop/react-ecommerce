@@ -13,7 +13,8 @@
   "scripts": {
     "story": "lerna run story --stream",
     "start": "lerna run start --parallel --scope '{web,@react-shop/design-system,@react-shop/sdk}'",
-    "test": "lerna run test --stream "
+    "test": "lerna run test --stream ",
+    "server:dev": "lerna run dev --scope @react-shop/server"
   },
   "workspaces": {
     "packages": [

@@ -15,14 +15,15 @@ export class AttributeService {
 
   async create(dto: CreateAttributeDto): Promise<Attribute> {
     const { value, name, type } = dto;
-    const qb = await getRepository(Attribute)
-      .createQueryBuilder('attribute')
-      .where('attribute.value = :value', { value });
 
-    const attribute = await qb.getOne();
+    const attribute = await this.attributeRepository.findOne({
+      where: {
+        value,
+      },
+    });
 
     if (attribute) {
-      const errors = { value: 'This value already been registered' };
+      const errors = { message: 'This value already been registered' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
@@ -36,7 +37,7 @@ export class AttributeService {
 
     const errors = await validate(newAttribute);
     if (errors.length > 0) {
-      const _errors = { value: 'Value is not valid.' };
+      const _errors = { message: 'Value is not valid.' };
       throw new HttpException(
         { message: 'Input data validation failed', _errors },
         HttpStatus.BAD_REQUEST,
