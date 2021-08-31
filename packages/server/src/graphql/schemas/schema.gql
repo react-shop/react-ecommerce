@@ -2,6 +2,13 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type Category {
+  id: ID!
+  name: String!
+  description: String!
+  products: [Product!]
+}
+
 type Attribute {
   id: ID!
   type: Types!
@@ -14,13 +21,6 @@ type Attribute {
 enum Types {
   COLOR
   SIZE
-}
-
-type Category {
-  id: ID!
-  name: String!
-  description: String!
-  products: [Product!]
 }
 
 type Product {
@@ -99,19 +99,19 @@ type AuthType {
   token: String!
 }
 
+input CategoryInput {
+  id: ID!
+  name: String!
+  description: String!
+  products: [ProductInput!]
+}
+
 input AttributeInput {
   id: ID!
   type: Types!
   product: ProductInput
   value: String!
   name: String!
-}
-
-input CategoryInput {
-  id: ID!
-  name: String!
-  description: String!
-  products: [ProductInput!]
 }
 
 input ProductInput {
@@ -210,7 +210,7 @@ input CreateProductDto {
   price: Float!
   quantity: Float!
   dimension: String!
-  attributes: [AttributeInput!]
+  attributesId: [ID!]
 }
 
 input LinkAttributeToProductDto {

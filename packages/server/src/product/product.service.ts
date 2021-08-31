@@ -26,7 +26,7 @@ export class ProductService {
   ) {}
 
   async create(dto: CreateProductDto): Promise<Product> {
-    const { title, description, price, dimension, quantity, attributes, brand } = dto;
+    const { title, description, price, dimension, quantity, attributesId, brand } = dto;
 
     const newProduct = new Product();
     newProduct.title = title;
@@ -35,15 +35,15 @@ export class ProductService {
     newProduct.price = price;
     newProduct.brand = brand;
     newProduct.quantity = quantity;
-    newProduct.attributes = attributes;
 
-    attributes.forEach(attribute => {
-      newProduct.sku = this.helpers.generateSku({
-        name: title,
-        brand,
-        attributeName: attribute.name,
-      });
+    const [attribute] = await this.attributeRepository.findByIds(attributesId);
+
+    newProduct.sku = this.helpers.generateSku({
+      name: title,
+      brand,
+      attributeName: attribute.name,
     });
+    newProduct.attributes = attributesId;
 
     const errors = await validate(newProduct);
     if (errors.length > 0) {
