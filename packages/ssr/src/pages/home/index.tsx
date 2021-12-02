@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <>
       <Head>
-        <title>Home - TC</title>
+        <title>Home</title>
       </Head>
       <HomeScreen />
     </>
