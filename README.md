@@ -1,111 +1,73 @@
-# React E-commerce
+# Turborepo starter
 
-This project is being restructured.
+This is an official Yarn v1 starter turborepo.
 
-## This project is created using:
+## What's inside?
 
-- [x] Monorepo
-- [x] Lerna
-- [x] Design System
-- [x] NextJs (SSR)
-- [ ] Hooks
-- [ ] Redux Hooks
-- [x] Storybook
-- [x] NestJs
-- [x] Graphql
+This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
-## Future Features
+### Apps and Packages
 
-- Home (List products)
-- Detail products
-- Recommended products
-- Cart
-- Login / Register
-- Admin (Seller)
-- Profile (Buyer)
-- Contact Us
-- Message between Seller and Buyer
-- Ratings about the Seller
-- Dashboard for Sellers
-- Notifications
-- Favorites
-- Pwa
-- Firebase or storage
-- Socket.io
-- App
-- SSR
+- `docs`: a [Next.js](https://nextjs.org/) app
+- `web`: another [Next.js](https://nextjs.org/) app
+- `ui`: a stub React component library shared by both `web` and `docs` applications
+- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
+- `tsconfig`: `tsconfig.json`s used throughout the monorepo
 
-## Sitemap
+Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+
+### Utilities
+
+This turborepo has some additional tools already setup for you:
+
+- [TypeScript](https://www.typescriptlang.org/) for static type checking
+- [ESLint](https://eslint.org/) for code linting
+- [Prettier](https://prettier.io) for code formatting
+
+### Build
+
+To build all apps and packages, run the following command:
 
 ```
-    ├── Home
-    │
-    ├── Social Media Links
-    │   ├── Twitter
-    │   ├── Instagram
-    │   └── Facebook
-    │
-    ├── Shop Categories
-    │   ├── Mens
-    │   │   ├── T-Shirts
-    │   │   └── Caps
-    │   │
-    │   ├── Womans
-    │   │
-    │   │
-    │   └── News
-    │       └── Any
-    │
-    ├── About Us
-    │   └── Out Story
-    │
-    ├── Contact
-    │   ├── Info/Form
-    │   ├── Terms
-    │   └── FAQ
-    │
-    ├── Account
-    │   ├── Profile
-    │   ├── Payment Methods
-    │   ├── Saved Address
-    │   ├── Order History
-    │   └── Password
-    │
-    ├── Forms
-    │   ├── Login
-    │   ├── Register
-    │   ├── Forgot Password
-    │   └── Contact
-    │
-    └── Cart / Checkout
-        ├── Cart Overview
-        ├── Shipping Address
-        ├── Billing Details
-        ├── Payment Method
-        └── Order Summary
+cd my-turborepo
+yarn run build
 ```
 
-## Run the project
+### Develop
 
-`yarn`
+To develop all apps and packages, run the following command:
 
-`yarn start`
+```
+cd my-turborepo
+yarn run dev
+```
 
+### Remote Caching
 
-Install dependencies in package: `cd packages/name && yarn add -W dependencie-name`
+Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
 
-## Storybook for Design System
+By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-`yarn story`
+```
+cd my-turborepo
+npx turbo login
+```
 
-## Tests
+This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
 
-`yarn test` to run ALL packages test at the same time or `cd packages/<package-name> && yarn test`
+Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
 
-### Lerna commands
+```
+npx turbo link
+```
 
-https://lerna.js.org/
+## Useful Links
 
-Api: https://github.com/viniarruda/elixir-ecommerce-api [Elixir]
+Learn more about the power of Turborepo:
 
-Enjoy!
+- [Pipelines](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
+- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
+- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
+- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
+- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
+- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)

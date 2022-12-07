@@ -1,44 +1,25 @@
 {
-  "name": "react-ecommerce",
+  "name": "my-turborepo",
+  "version": "0.0.0",
   "private": true,
-  "version": "1.0.0",
-  "description": "React E-commerce monorepo",
-  "repository": "https://github.com/react-shop/react-ecommerce",
-  "author": "Vinicius Arruda",
-  "engines": {
-    "node": "14.x",
-    "npm": "You must use yarn in this project!",
-    "yarn": "^1.22.x"
-  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "story": "lerna run story --stream",
-    "start": "lerna run start --parallel --scope '{web,@react-shop/design-system,@react-shop/sdk}'",
-    "test": "lerna run test --stream ",
-    "server:dev": "lerna run dev --scope @react-shop/server"
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ],
-    "nohoist": [
-      "@commitlint/*"
-    ]
-  },
-  "npmClient": "yarn",
-  "useWorkspaces": true,
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
-    "@types/react": "17.0.14",
-    "@types/react-dom": "17.0.9",
-    "@types/styled-components": "^5.1.12",
-    "husky": "^7.0.2",
-    "lerna": "3.19.0",
-    "typescript": "4.3.5"
+    "eslint-config-custom": "*",
+    "prettier": "latest",
+    "turbo": "latest"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
-  }
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "packageManager": "yarn@1.22.18"
 }
