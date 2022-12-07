@@ -1,4 +1,12 @@
 {
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@themes/*": ["themes/*"],
+      "@utils/*": ["utils/*"],
+    }
+  },
   "extends": "tsconfig/react-library.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]

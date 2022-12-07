@@ -42,6 +42,12 @@ cd my-turborepo
 yarn run dev
 ```
 
+### Installing packages
+
+```
+yarn workspace <workspace> add <package>
+```
+
 ### Remote Caching
 
 Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
