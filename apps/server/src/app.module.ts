@@ -12,10 +12,11 @@ import { CategoryModule } from './category/category.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { ReviewModule } from './review/review.module';
-import { TagModule } from './tag/tag.module';
-import { DiscountModule } from './discount/discount.module';
-import { PaymentModule } from './payment/payment.module';
-import { ShipmentModule } from './shipment/shipment.module';
+// Temporarily disabled - needs fixes
+// import { TagModule } from './tag/tag.module';
+// import { DiscountModule } from './discount/discount.module';
+// import { PaymentModule } from './payment/payment.module';
+// import { ShipmentModule } from './shipment/shipment.module';
 
 import { AppController } from './app.controller';
 
@@ -39,10 +40,11 @@ import { AppController } from './app.controller';
     CartModule,
     OrderModule,
     ReviewModule,
-    TagModule,
-    DiscountModule,
-    PaymentModule,
-    ShipmentModule,
+    // Temporarily disabled - needs fixes
+    // TagModule,
+    // DiscountModule,
+    // PaymentModule,
+    // ShipmentModule,
   ],
   controllers: [AppController],
 })

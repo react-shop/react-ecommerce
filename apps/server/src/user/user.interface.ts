@@ -23,15 +23,23 @@ registerEnumType(Status, {
 
 export interface UserData {
   id: string;
-  name: string;
-  username: string;
   email: string;
-  bio: string;
-  image: string;
-  role: Roles;
-  status: Status;
-  password: string;
-  token?: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  phone?: string | null;
+  avatar?: string | null;
+  role: string;
+  isActive: boolean;
+  emailVerified: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  password?: string | null;
+  // Legacy fields - not used but kept for compatibility
+  name?: string;
+  username?: string;
+  bio?: string;
+  image?: string;
+  status?: Status;
 }
 
 export interface UserModel {

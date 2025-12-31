@@ -3,11 +3,7 @@ import { Resolver, Args, Mutation, Query } from '@nestjs/graphql';
 
 import { ProductService } from '@product/product.service';
 import { Product } from '@product/product.entity';
-import {
-  CreateProductDto,
-  LinkAttributeToProductDto,
-  LinkCategoryToProductDto,
-} from '@product/dto';
+import { CreateProductDto } from '@product/dto';
 
 import { GqlAuthGuard } from '@auth/auth.guard';
 
@@ -33,23 +29,5 @@ export class ProductResolver {
     return products;
   }
 
-  @UseGuards(GqlAuthGuard)
-  @Mutation(() => Product, {
-    nullable: true,
-  })
-  async linkAttributeToProduct(@Args('data') data: LinkAttributeToProductDto): Promise<Product> {
-    const product = await this.productService.linkAttribute(data);
-
-    return product;
-  }
-
-  @UseGuards(GqlAuthGuard)
-  @Mutation(() => Product, {
-    nullable: true,
-  })
-  async linkCategoryToProduct(@Args('data') data: LinkCategoryToProductDto): Promise<Product> {
-    const product = await this.productService.linkCategory(data);
-
-    return product;
-  }
+  // TODO: Add linkCategoryToProduct and other mutations when needed
 }

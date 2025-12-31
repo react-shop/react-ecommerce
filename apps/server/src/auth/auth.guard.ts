@@ -11,3 +11,6 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
     return ctx.getContext().req;
   }
 }
+
+// Export as JwtAuthGuard for compatibility
+export { GqlAuthGuard as JwtAuthGuard };

@@ -1,41 +1,58 @@
 import { InputType, Field, ID } from '@nestjs/graphql';
-import { IsNotEmpty, IsString, IsNumber, IsPositive } from 'class-validator';
+import { IsNotEmpty, IsString, IsNumber, IsPositive, IsOptional } from 'class-validator';
 
 @InputType()
 export class CreateProductDto {
   @Field()
   @IsString()
-  @IsNotEmpty({ message: 'Field required ' })
-  readonly title: string;
+  @IsNotEmpty({ message: 'Field required' })
+  readonly name: string;
 
   @Field()
   @IsString()
-  @IsNotEmpty({ message: 'Field required ' })
-  readonly description: string;
+  @IsNotEmpty({ message: 'Field required' })
+  readonly slug: string;
 
-  @Field()
+  @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty({ message: 'Field required ' })
-  readonly brand: string;
+  @IsOptional()
+  readonly description?: string;
+
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  readonly shortDesc?: string;
 
   @Field()
   @IsPositive()
   @IsNumber()
-  @IsNotEmpty({ message: 'Field required ' })
+  @IsNotEmpty({ message: 'Field required' })
   readonly price: number;
 
-  @Field()
-  @IsPositive()
-  @IsNumber()
-  @IsNotEmpty({ message: 'Field required ' })
-  readonly quantity: number;
-
-  @Field()
+  @Field({ nullable: true })
   @IsString()
-  @IsNotEmpty({ message: 'Field required ' })
-  readonly dimension: string;
+  @IsOptional()
+  readonly sku?: string;
 
-  @IsNotEmpty({ message: 'Field required ' })
-  @Field(() => [ID])
-  readonly attributesId: string[];
+  @Field({ nullable: true })
+  @IsString()
+  @IsOptional()
+  readonly status?: string;
+
+  @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  readonly categoryIds?: string[];
+
+  @Field(() => [ID], { nullable: true })
+  @IsOptional()
+  readonly tagIds?: string[];
+
+  @Field({ nullable: true })
+  @IsOptional()
+  readonly images?: Array<{
+    url: string;
+    alt?: string;
+    sortOrder?: number;
+    isPrimary?: boolean;
+  }>;
 }
