@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Container } from "@components/Atoms/Container/Container";
 import { Grid } from "@components/Atoms/Grid/Grid";
 import { Stack } from "@components/Atoms/Stack/Stack";
@@ -156,7 +157,9 @@ export function Footer({
                   type="email"
                   placeholder="Your email"
                   value={newsletterEmail}
-                  onChange={(e) => onNewsletterEmailChange(e.currentTarget.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    onNewsletterEmailChange((e.target as HTMLInputElement).value)
+                  }
                   required
                   className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                 />
