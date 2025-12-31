@@ -84,12 +84,15 @@ export class UserService {
     return newUser;
   }
 
-  async update(id: string, data: {
-    firstName?: string;
-    lastName?: string;
-    phone?: string;
-    avatar?: string;
-  }) {
+  async update(
+    id: string,
+    data: {
+      firstName?: string;
+      lastName?: string;
+      phone?: string;
+      avatar?: string;
+    },
+  ) {
     const user = await this.prisma.user.findUnique({ where: { id } });
 
     if (!user) {
