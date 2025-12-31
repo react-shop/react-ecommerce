@@ -13,7 +13,21 @@ export class CartService {
           include: {
             product: {
               include: {
-                category: true,
+                images: {
+                  where: {
+                    isPrimary: true,
+                  },
+                  take: 1,
+                },
+                categories: {
+                  include: {
+                    category: true,
+                  },
+                  where: {
+                    isPrimary: true,
+                  },
+                  take: 1,
+                },
               },
             },
             variant: true,
@@ -32,7 +46,21 @@ export class CartService {
             include: {
               product: {
                 include: {
-                  category: true,
+                  images: {
+                    where: {
+                      isPrimary: true,
+                    },
+                    take: 1,
+                  },
+                  categories: {
+                    include: {
+                      category: true,
+                    },
+                    where: {
+                      isPrimary: true,
+                    },
+                    take: 1,
+                  },
                 },
               },
               variant: true,
