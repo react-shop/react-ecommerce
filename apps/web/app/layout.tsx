@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { SdkProvider } from '@react-shop/sdk';
-import './globals.css';
+import '@react-shop/design-system/src/styles/global.css';
 
 export const metadata: Metadata = {
   title: 'React Ecommerce - Shop the Best Products',

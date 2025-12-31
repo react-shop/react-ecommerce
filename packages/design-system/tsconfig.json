@@ -1,17 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["components/*"],
-      "@atoms/*": ["components/Atoms/*"],
-      "@molecules/*": ["components/Molecules/*"],
-      "@organisms/*": ["components/Organisms/*"],
-      "@theme/*": ["theme/*"],
-      "@utils/*": ["utils/*"]
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@atoms/*": ["./src/components/Atoms/*"],
+      "@molecules/*": ["./src/components/Molecules/*"],
+      "@organisms/*": ["./src/components/Organisms/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@styled-system/*": ["./styled-system/*"]
     }
   },
   "extends": "../tsconfig/react-library.json",
-  "include": ["."],
+  "include": ["src", "styled-system"],
   "exclude": ["dist", "build", "node_modules"]
 }
