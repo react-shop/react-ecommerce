@@ -156,7 +156,7 @@ export function Footer({
                   type="email"
                   placeholder="Your email"
                   value={newsletterEmail}
-                  onChange={(e) => onNewsletterEmailChange(e.target.value)}
+                  onChange={(e) => onNewsletterEmailChange(e.currentTarget.value)}
                   required
                   className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
                 />
