@@ -6,4 +6,12 @@ export { Navigation } from "./Navigation";
 export { CartIcon } from "./CartIcon";
 export { UserMenu } from "./UserMenu";
 export { MobileMenu } from "./MobileMenu";
-export * from "./types";
+
+export type { HeaderProps } from "./Header/types";
+export type { FooterProps } from "./Footer/types";
+export type { LogoProps } from "./Logo/types";
+export type { SearchBarProps } from "./SearchBar/types";
+export type { NavigationProps, NavLink } from "./Navigation/types";
+export type { CartIconProps } from "./CartIcon/types";
+export type { UserMenuProps, User } from "./UserMenu/types";
+export type { MobileMenuProps } from "./MobileMenu/types";

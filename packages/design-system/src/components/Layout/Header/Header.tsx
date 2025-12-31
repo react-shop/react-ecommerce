@@ -1,5 +1,5 @@
-import { Container, Flex } from "../../Atoms";
-import type { HeaderProps } from "../types";
+import { Container, Flex } from "@react-shop/design-system";
+import type { HeaderProps } from "./types";
 
 export function Header({
   LogoComponent,

@@ -1,5 +1,5 @@
-import { Input } from "../../Atoms/Input/Input";
-import type { SearchBarProps } from "../types";
+import { Input } from "@react-shop/design-system";
+import type { SearchBarProps } from "./types";
 
 export function SearchBar({
   value,

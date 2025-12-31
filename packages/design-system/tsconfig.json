@@ -8,7 +8,8 @@
       "@molecules/*": ["./src/components/Molecules/*"],
       "@organisms/*": ["./src/components/Organisms/*"],
       "@theme/*": ["./src/theme/*"],
-      "@lib/*": ["./src/lib/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@react-shop/design-system": ["./src/index.tsx"]
     }
   },
   "extends": "../tsconfig/react-library.json",
