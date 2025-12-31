@@ -1,78 +1,419 @@
-TODO - Add table category
-TODO - Add table sub category
-TODO - Add table tags
-TODO - Create pipe to validate if the seller are employee to the correct store and if have the correct role
+# Backend API Server
 
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+NestJS GraphQL API server for the React Ecommerce boilerplate.
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This is a NestJS application that provides a GraphQL API for the ecommerce platform. It uses:
 
-## Description
+- **NestJS** - Progressive Node.js framework
+- **GraphQL** - API query language with Apollo Server
+- **Prisma** - Next-generation ORM for database management
+- **PostgreSQL** - Relational database
+- **JWT** - Authentication with Passport.js
+- **Docker** - Containerized database setup
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Architecture
 
-## Installation
-
-```bash
-$ npm install
+```
+src/
+├── auth/           → Authentication (JWT, OAuth)
+├── user/           → User management
+├── product/        → Product catalog
+├── category/       → Product categories
+├── attribute/      → Product attributes
+├── cart/           → Shopping cart
+├── order/          → Order management
+├── review/         → Product reviews
+├── store/          → Store management
+├── prisma/         → Prisma service
+├── graphql/        → GraphQL schema definitions
+└── shared/         → Shared utilities and pipes
 ```
 
-## Running the app
+## Prerequisites
+
+Before you begin, ensure you have installed:
+
+- **Node.js** (v18 or higher)
+- **Yarn** (v1.22 or higher)
+- **Docker** and **Docker Compose** (for database)
+
+## Getting Started
+
+### 1. Environment Setup
+
+Create a `.env` file in the `apps/server` directory:
 
 ```bash
-# development
-$ npm run start
+# Database
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/ecommerce?schema=public"
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USER=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=ecommerce
 
-# watch mode
-$ npm run start:dev
+# JWT
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
+JWT_EXPIRES_IN=7d
 
-# production mode
-$ npm run start:prod
+# OAuth (Optional)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+GOOGLE_CALLBACK_URL=http://localhost:3000/auth/google/callback
+
+GITHUB_CLIENT_ID=your-github-client-id
+GITHUB_CLIENT_SECRET=your-github-client-secret
+GITHUB_CALLBACK_URL=http://localhost:3000/auth/github/callback
+
+# Email (Optional)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+# Application
+PORT=3000
+NODE_ENV=development
 ```
 
-## Test
+### 2. Start PostgreSQL Database
+
+Start the PostgreSQL database and pgAdmin using Docker Compose:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd apps/server
+docker-compose up -d
 ```
 
-## Support
+This will start:
+- **PostgreSQL** on port 5432
+- **pgAdmin** on port 5050 (http://localhost:5050)
+  - Email: `admin@admin.com`
+  - Password: `root`
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+To stop the database:
 
-## Stay in touch
+```bash
+docker-compose down
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+To stop and remove all data:
+
+```bash
+docker-compose down -v
+```
+
+### 3. Install Dependencies
+
+From the root of the monorepo:
+
+```bash
+yarn install
+```
+
+Or from the server directory:
+
+```bash
+cd apps/server
+yarn install
+```
+
+### 4. Setup Prisma and Database
+
+Generate Prisma client:
+
+```bash
+cd apps/server
+npx prisma generate
+```
+
+Run database migrations:
+
+```bash
+npx prisma migrate dev
+```
+
+This will:
+1. Create the database schema
+2. Generate the Prisma client
+3. Apply all migrations
+
+To seed the database (if seed file exists):
+
+```bash
+npx prisma db seed
+```
+
+### 5. Run the Application
+
+#### Development Mode (with hot reload)
+
+From the root:
+
+```bash
+yarn dev
+```
+
+Or from the server directory:
+
+```bash
+cd apps/server
+yarn dev
+```
+
+The server will start on http://localhost:3000
+
+#### Production Mode
+
+```bash
+# Build
+yarn build
+
+# Start
+yarn start:prod
+```
+
+## Available Scripts
+
+```bash
+# Development
+yarn dev              # Start in watch mode
+yarn start            # Start without watch mode
+yarn start:debug      # Start in debug mode
+
+# Build
+yarn build            # Build for production
+
+# Testing
+yarn test             # Run unit tests
+yarn test:watch       # Run tests in watch mode
+yarn test:cov         # Run tests with coverage
+yarn test:e2e         # Run end-to-end tests
+
+# Linting
+yarn lint             # Run ESLint and fix issues
+yarn format           # Format code with Prettier
+
+# Prisma
+npx prisma studio     # Open Prisma Studio (database GUI)
+npx prisma migrate dev --name migration_name  # Create new migration
+npx prisma migrate deploy  # Apply migrations in production
+npx prisma generate   # Generate Prisma client
+npx prisma db push    # Push schema changes without migration
+npx prisma db pull    # Pull schema from database
+```
+
+## GraphQL Playground
+
+Once the server is running, you can access the GraphQL Playground at:
+
+**http://localhost:3000/graphql**
+
+The playground provides:
+- Interactive API documentation
+- Query/mutation testing
+- Schema exploration
+
+### Example Queries
+
+**Register a new user:**
+
+```graphql
+mutation {
+  register(input: {
+    email: "user@example.com"
+    password: "securepassword"
+    firstName: "John"
+    lastName: "Doe"
+  }) {
+    accessToken
+    user {
+      id
+      email
+      firstName
+      lastName
+    }
+  }
+}
+```
+
+**Login:**
+
+```graphql
+mutation {
+  login(input: {
+    email: "user@example.com"
+    password: "securepassword"
+  }) {
+    accessToken
+    user {
+      id
+      email
+    }
+  }
+}
+```
+
+**Get products:**
+
+```graphql
+query {
+  products(limit: 10, offset: 0) {
+    id
+    name
+    description
+    price
+    images
+    category {
+      id
+      name
+    }
+  }
+}
+```
+
+## Database Management
+
+### Prisma Studio
+
+Access the database with a GUI:
+
+```bash
+npx prisma studio
+```
+
+Opens on http://localhost:5555
+
+### Creating Migrations
+
+When you modify the Prisma schema:
+
+```bash
+npx prisma migrate dev --name describe_your_changes
+```
+
+### Reset Database
+
+⚠️ **Warning:** This will delete all data!
+
+```bash
+npx prisma migrate reset
+```
+
+## Authentication
+
+The API uses JWT-based authentication. Protected routes require an `Authorization` header:
+
+```
+Authorization: Bearer <your-jwt-token>
+```
+
+In GraphQL Playground, add the token in HTTP Headers:
+
+```json
+{
+  "Authorization": "Bearer your-jwt-token-here"
+}
+```
+
+## TODO
+
+Future improvements planned:
+
+- [ ] Add table for categories (with subcategories support)
+- [ ] Add table for tags
+- [ ] Create pipe to validate if the seller is an employee of the correct store
+- [ ] Create pipe to validate if user has the correct role for operations
+- [ ] Add data seeding scripts
+- [ ] Add more comprehensive tests
+- [ ] Implement rate limiting
+- [ ] Add API documentation generation
+- [ ] Implement caching with Redis
+
+## Troubleshooting
+
+### Port already in use
+
+If port 3000 or 5432 is already in use:
+
+```bash
+# Find process using the port
+lsof -i :3000
+lsof -i :5432
+
+# Kill the process
+kill -9 <PID>
+```
+
+Or change the port in `.env`:
+
+```
+PORT=3001
+DATABASE_PORT=5433
+```
+
+### Prisma client not generated
+
+```bash
+npx prisma generate
+```
+
+### Database connection failed
+
+1. Ensure Docker containers are running: `docker ps`
+2. Check `.env` configuration matches `docker-compose.yml`
+3. Verify PostgreSQL is accessible: `docker logs pg_database`
+
+### Migration failed
+
+```bash
+# Reset and reapply all migrations
+npx prisma migrate reset
+
+# Or force push schema
+npx prisma db push --force-reset
+```
+
+## Project Structure
+
+```
+apps/server/
+├── prisma/
+│   └── schema.prisma          → Database schema
+├── src/
+│   ├── auth/                  → Authentication module
+│   ├── user/                  → User management
+│   ├── product/               → Product catalog
+│   ├── cart/                  → Shopping cart
+│   ├── order/                 → Order processing
+│   ├── review/                → Product reviews
+│   ├── category/              → Categories
+│   ├── attribute/             → Product attributes
+│   ├── store/                 → Store management
+│   ├── prisma/                → Prisma service
+│   ├── graphql/               → GraphQL schemas
+│   │   └── schemas/
+│   │       └── schema.gql     → GraphQL type definitions
+│   ├── shared/                → Shared utilities
+│   ├── app.module.ts          → Root module
+│   └── main.ts                → Application entry point
+├── test/                      → E2E tests
+├── docker-compose.yml         → Docker setup
+├── nest-cli.json              → NestJS CLI config
+├── tsconfig.json              → TypeScript config
+└── package.json               → Dependencies and scripts
+```
+
+## Learn More
+
+- [NestJS Documentation](https://docs.nestjs.com)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [GraphQL Documentation](https://graphql.org/learn)
+- [Apollo Server Documentation](https://www.apollographql.com/docs/apollo-server)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs)
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is part of the React Ecommerce Boilerplate and is MIT licensed.
