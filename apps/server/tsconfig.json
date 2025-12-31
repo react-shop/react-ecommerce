@@ -27,10 +27,9 @@
   },
   "exclude": [
     "node_modules",
-    "src/discount/**",
-    "src/payment/**",
-    "src/shipment/**",
-    "src/tag/**"
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
   ],
-  "include": ["**/*.ts", "**/*.tsx", "src/*"]
+  "include": ["src/**/*.ts", "prisma/*.ts", "scripts/*.ts"]
 }
