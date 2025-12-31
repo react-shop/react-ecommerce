@@ -1,4 +1,4 @@
-import { Badge } from "@react-shop/design-system";
+import { Badge } from "../../Atoms";
 import type { CartIconProps } from "./types";
 
 export function CartIcon({ itemCount = 0, LinkComponent }: CartIconProps) {

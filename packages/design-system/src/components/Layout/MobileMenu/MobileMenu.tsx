@@ -1,5 +1,5 @@
-import { Button, Text, Stack, Divider } from "@react-shop/design-system";
-import { cn } from "@react-shop/design-system";
+import { Button, Text, Stack, Divider } from "../../Atoms";
+import { cn } from "../../../lib/utils";
 import type { MobileMenuProps } from "./types";
 
 export function MobileMenu({

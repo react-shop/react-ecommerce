@@ -1,4 +1,4 @@
-import { Heading } from "@react-shop/design-system";
+import { Heading } from "../../Atoms";
 import type { LogoProps } from "./types";
 
 export function Logo({ LinkComponent }: LogoProps) {

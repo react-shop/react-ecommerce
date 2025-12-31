@@ -1,4 +1,4 @@
-import { Button, Text, Stack } from "@react-shop/design-system";
+import { Button, Text, Stack } from "../../Atoms";
 import type { UserMenuProps } from "./types";
 
 export function UserMenu({

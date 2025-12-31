@@ -7,7 +7,7 @@ import {
   Input,
   Button,
   Flex,
-} from "@react-shop/design-system";
+} from "../../Atoms";
 import type { FooterProps } from "./types";
 
 export function Footer({

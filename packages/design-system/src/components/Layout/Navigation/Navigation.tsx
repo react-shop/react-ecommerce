@@ -1,5 +1,5 @@
-import { Text } from "@react-shop/design-system";
-import { cn } from "@react-shop/design-system";
+import { Text } from "../../Atoms";
+import { cn } from "../../../lib/utils";
 import type { NavigationProps } from "./types";
 
 export function Navigation({ links, currentPath, LinkComponent }: NavigationProps) {
