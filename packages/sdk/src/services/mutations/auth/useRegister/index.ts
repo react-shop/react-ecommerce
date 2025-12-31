@@ -1,0 +1,24 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useApiClient } from '../../../../providers/ApiProvider';
+import { setToken } from '../../../../client';
+import { useMeKey } from '../../../queries/auth/useMe';
+import { registerRequest } from './request';
+import type { UseRegisterInput } from './types';
+
+export function useRegister() {
+  const { client } = useApiClient();
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (input: UseRegisterInput) => registerRequest(client, input),
+    onSuccess: (data) => {
+      setToken(data.accessToken);
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+      queryClient.setQueryData(useMeKey(), data.user);
+    },
+  });
+}
+
+export * from './types';
+export * from './key';
+
