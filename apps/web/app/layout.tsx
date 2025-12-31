@@ -15,7 +15,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <SdkProvider apiUrl={process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'}>
+        <SdkProvider 
+          apiConfig={{ 
+            baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001'
+          }}
+        >
           {children}
         </SdkProvider>
       </body>

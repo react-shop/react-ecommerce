@@ -1,6 +1,11 @@
-import { useMutation, useQueryClient } from '@tantml:react-query';
-import { useApiClient } from '../../providers/ApiProvider';
-import type { Review, CreateReviewInput, UpdateReviewInput, ModerateReviewInput } from '../../entities';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useApiClient } from "../../providers/ApiProvider";
+import type {
+  Review,
+  CreateReviewInput,
+  UpdateReviewInput,
+  ModerateReviewInput,
+} from "../../entities";
 
 export function useCreateReview() {
   const { client } = useApiClient();
@@ -8,11 +13,13 @@ export function useCreateReview() {
 
   return useMutation({
     mutationFn: async (input: CreateReviewInput) => {
-      const response = await client.post<Review>('/api/reviews', input);
+      const response = await client.post<Review>("/api/reviews", input);
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['reviews', 'product', data.productId] });
+      queryClient.invalidateQueries({
+        queryKey: ["reviews", "product", data.productId],
+      });
     },
   });
 }
@@ -22,12 +29,20 @@ export function useUpdateReview() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: UpdateReviewInput }) => {
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: UpdateReviewInput;
+    }) => {
       const response = await client.put<Review>(`/api/reviews/${id}`, data);
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['reviews', 'product', data.productId] });
+      queryClient.invalidateQueries({
+        queryKey: ["reviews", "product", data.productId],
+      });
     },
   });
 }
@@ -42,7 +57,7 @@ export function useDeleteReview() {
       return id;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['reviews'] });
+      queryClient.invalidateQueries({ queryKey: ["reviews"] });
     },
   });
 }
@@ -52,13 +67,23 @@ export function useModerateReview() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, data }: { id: string; data: ModerateReviewInput }) => {
-      const response = await client.put<Review>(`/api/reviews/${id}/moderate`, data);
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: string;
+      data: ModerateReviewInput;
+    }) => {
+      const response = await client.put<Review>(
+        `/api/reviews/${id}/moderate`,
+        data
+      );
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['reviews', 'product', data.productId] });
+      queryClient.invalidateQueries({
+        queryKey: ["reviews", "product", data.productId],
+      });
     },
   });
 }
-
