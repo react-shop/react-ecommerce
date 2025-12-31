@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
-import { Icon as LucideIcon, type IconNode } from 'lucide-react';
-import { cn } from '@lib/utils';
+import { type LucideIcon } from 'lucide-react';
+import { cn } from '../../../lib/utils';
 
 const icon = tv({
   base: 'inline-flex items-center justify-center shrink-0',
@@ -30,16 +30,16 @@ const icon = tv({
 
 export type IconVariants = VariantProps<typeof icon>;
 
-export interface IconProps extends IconVariants, Omit<React.SVGProps<SVGSVGElement>, 'ref'> {
-  icon: IconNode;
+export interface IconProps extends Omit<IconVariants, 'color'>, Omit<React.SVGProps<SVGSVGElement>, 'ref' | 'color'> {
+  icon: React.ComponentType<any>;
+  color?: IconVariants['color'];
 }
 
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ icon: iconNode, size, color, className, ...props }, ref) => {
+  ({ icon: IconComponent, size, color, className, ...props }, ref) => {
     return (
-      <LucideIcon
+      <IconComponent
         ref={ref}
-        icon={iconNode}
         className={cn(icon({ size, color }), className)}
         {...props}
       />
