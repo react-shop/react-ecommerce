@@ -14,7 +14,7 @@
     "@graphql-codegen/typescript-operations": "^4.0.0",
     "@graphql-codegen/typescript-react-query": "^6.0.0",
     "@types/react": "^18.2.0",
-    "eslint": "^8.0.0",
+    "eslint": "^9.0.0",
     "eslint-config-custom": "workspace:*",
     "graphql": "^16.8.0",
     "tsconfig": "workspace:*",
