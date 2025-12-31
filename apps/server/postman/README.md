@@ -2,6 +2,8 @@
 
 This directory contains a comprehensive Postman collection for testing all GraphQL endpoints of the React Ecommerce API.
 
+> 💡 **Auto-Generation Available:** You can automatically generate or update this collection from your GraphQL schema! See [AUTO_GENERATION_GUIDE.md](./AUTO_GENERATION_GUIDE.md) for multiple generation methods.
+
 ---
 
 ## 📦 What's Included
