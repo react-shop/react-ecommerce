@@ -1,0 +1,73 @@
+export const colors = {
+  // Brand colors
+  brand: {
+    50: { value: "#f0f9ff" },
+    100: { value: "#e0f2fe" },
+    200: { value: "#bae6fd" },
+    300: { value: "#7dd3fc" },
+    400: { value: "#38bdf8" },
+    500: { value: "#0ea5e9" },
+    600: { value: "#0284c7" },
+    700: { value: "#0369a1" },
+    800: { value: "#075985" },
+    900: { value: "#0c4a6e" },
+    950: { value: "#082f49" },
+  },
+  // Neutral colors
+  neutral: {
+    50: { value: "#fafafa" },
+    100: { value: "#f5f5f5" },
+    200: { value: "#e5e5e5" },
+    300: { value: "#d4d4d4" },
+    400: { value: "#a3a3a3" },
+    500: { value: "#737373" },
+    600: { value: "#525252" },
+    700: { value: "#404040" },
+    800: { value: "#262626" },
+    900: { value: "#171717" },
+    950: { value: "#0a0a0a" },
+  },
+  // Success colors
+  success: {
+    50: { value: "#f0fdf4" },
+    100: { value: "#dcfce7" },
+    200: { value: "#bbf7d0" },
+    300: { value: "#86efac" },
+    400: { value: "#4ade80" },
+    500: { value: "#22c55e" },
+    600: { value: "#16a34a" },
+    700: { value: "#15803d" },
+    800: { value: "#166534" },
+    900: { value: "#14532d" },
+    950: { value: "#052e16" },
+  },
+  // Error colors
+  error: {
+    50: { value: "#fef2f2" },
+    100: { value: "#fee2e2" },
+    200: { value: "#fecaca" },
+    300: { value: "#fca5a5" },
+    400: { value: "#f87171" },
+    500: { value: "#ef4444" },
+    600: { value: "#dc2626" },
+    700: { value: "#b91c1c" },
+    800: { value: "#991b1b" },
+    900: { value: "#7f1d1d" },
+    950: { value: "#450a0a" },
+  },
+  // Warning colors
+  warning: {
+    50: { value: "#fffbeb" },
+    100: { value: "#fef3c7" },
+    200: { value: "#fde68a" },
+    300: { value: "#fcd34d" },
+    400: { value: "#fbbf24" },
+    500: { value: "#f59e0b" },
+    600: { value: "#d97706" },
+    700: { value: "#b45309" },
+    800: { value: "#92400e" },
+    900: { value: "#78350f" },
+    950: { value: "#451a03" },
+  },
+};
+

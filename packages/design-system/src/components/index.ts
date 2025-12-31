@@ -1,32 +1,52 @@
-// Layout
-export * from './Box';
-export * from './Container';
-export * from './Flex';
-export * from './Grid';
-export * from './Stack';
+// ========================================
+// ATOMS - Basic building blocks
+// ========================================
 
-// Typography
-export * from './Heading';
-export * from './Text';
+// Layout Atoms
+export * from './Atoms/Box';
+export * from './Atoms/Container';
+export * from './Atoms/Flex';
+export * from './Atoms/Grid';
+export * from './Atoms/Stack';
 
-// Form
-export * from './Button';
-export * from './Input';
-export * from './Select';
+// Typography Atoms
+export * from './Atoms/Heading';
+export * from './Atoms/Text';
 
-// Display
-export * from './Badge';
-export * from './Card';
-export * from './Avatar';
-export * from './Icon';
-export * from './Divider';
+// Form Atoms
+export * from './Atoms/Button';
+export * from './Atoms/Input';
 
-// Feedback
-export * from './Toast';
-export * from './Skeleton';
-export * from './Modal';
+// Display Atoms
+export * from './Atoms/Badge';
+export * from './Atoms/Card';
+export * from './Atoms/Avatar';
+export * from './Atoms/Icon';
+export * from './Atoms/Divider';
 
-// Ecommerce
-export * from './PriceDisplay';
-export * from './Rating';
-export * from './ProductCard';
+// Feedback Atoms
+export * from './Atoms/Skeleton';
+
+// ========================================
+// MOLECULES - Simple component combinations
+// ========================================
+
+// Form Molecules
+export * from './Molecules/Select';
+
+// Display Molecules
+export * from './Molecules/PriceDisplay';
+export * from './Molecules/Rating';
+
+// Feedback Molecules
+export * from './Molecules/Toast';
+
+// ========================================
+// ORGANISMS - Complex UI components
+// ========================================
+
+// Layout Organisms
+export * from './Organisms/Modal';
+
+// Ecommerce Organisms
+export * from './Organisms/ProductCard';
