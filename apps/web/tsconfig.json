@@ -19,6 +19,9 @@
       "@hooks/*": [
         "./hooks/*"
       ],
+      "@sdk/*": [
+        "../../packages/sdk/src/*"
+      ],
       "@entities/*": [
         "../../packages/sdk/src/entities/*"
       ],

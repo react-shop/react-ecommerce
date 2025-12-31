@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useApiClient } from '@providers/ApiProvider';
-import { setToken } from '@/client';
+import { setToken } from '@sdk/client';
 import { useMeKey } from '@services/queries/auth/useMe';
 import { loginRequest } from './request';
 import type { UseLoginInput } from './types';

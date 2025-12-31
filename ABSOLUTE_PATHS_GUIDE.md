@@ -8,12 +8,12 @@ The project is configured to use **absolute paths** instead of relative paths, m
 
 ```typescript
 // ❌ Before (Relative Paths)
-import { cn } from '../../../lib/utils';
-import { useApiClient } from '../../../../providers/ApiProvider';
+import { cn } from "../../../lib/utils";
+import { useApiClient } from "../../../../providers/ApiProvider";
 
 // ✅ After (Absolute Paths)
-import { cn } from '@lib/utils';
-import { useApiClient } from '@providers/ApiProvider';
+import { cn } from "@lib/utils";
+import { useApiClient } from "@providers/ApiProvider";
 ```
 
 ---
@@ -23,6 +23,7 @@ import { useApiClient } from '@providers/ApiProvider';
 ### 1. Design System (`packages/design-system`)
 
 **`tsconfig.json`:**
+
 ```json
 {
   "compilerOptions": {
@@ -39,6 +40,7 @@ import { useApiClient } from '@providers/ApiProvider';
 ```
 
 **Available Aliases:**
+
 - `@lib/*` → `src/lib/*`
 - `@components/*` → `src/components/*`
 - `@atoms/*` → `src/components/Atoms/*`
@@ -48,6 +50,7 @@ import { useApiClient } from '@providers/ApiProvider';
 ### 2. SDK (`packages/sdk`)
 
 **`tsconfig.json`:**
+
 ```json
 {
   "compilerOptions": {
@@ -62,6 +65,7 @@ import { useApiClient } from '@providers/ApiProvider';
 ```
 
 **Available Aliases:**
+
 - `@entities/*` → `src/entities/*`
 - `@providers/*` → `src/providers/*`
 - `@services/*` → `src/services/*`
@@ -69,6 +73,7 @@ import { useApiClient } from '@providers/ApiProvider';
 ### 3. Web App (`apps/web`)
 
 **`tsconfig.json`:**
+
 ```json
 {
   "compilerOptions": {
@@ -76,10 +81,7 @@ import { useApiClient } from '@providers/ApiProvider';
     "paths": {
       "@components/*": ["./components/*"],
       "@app/*": ["./app/*"],
-      "@lib/*": [
-        "./lib/*",
-        "../../packages/design-system/src/lib/*"
-      ],
+      "@lib/*": ["./lib/*", "../../packages/design-system/src/lib/*"],
       "@entities/*": ["../../packages/sdk/src/entities/*"],
       "@providers/*": ["../../packages/sdk/src/providers/*"],
       "@services/*": ["../../packages/sdk/src/services/*"]
@@ -89,17 +91,18 @@ import { useApiClient } from '@providers/ApiProvider';
 ```
 
 **`next.config.js` (Webpack Aliases):**
+
 ```javascript
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
-      '@lib': path.resolve(__dirname, '../../packages/design-system/src/lib'),
-      '@entities': path.resolve(__dirname, '../../packages/sdk/src/entities'),
-      '@providers': path.resolve(__dirname, '../../packages/sdk/src/providers'),
-      '@services': path.resolve(__dirname, '../../packages/sdk/src/services'),
+      "@lib": path.resolve(__dirname, "../../packages/design-system/src/lib"),
+      "@entities": path.resolve(__dirname, "../../packages/sdk/src/entities"),
+      "@providers": path.resolve(__dirname, "../../packages/sdk/src/providers"),
+      "@services": path.resolve(__dirname, "../../packages/sdk/src/services"),
     };
     return config;
   },
@@ -107,6 +110,7 @@ module.exports = {
 ```
 
 **Available Aliases:**
+
 - `@components/*` → `./components/*` (web app)
 - `@app/*` → `./app/*` (Next.js app directory)
 - `@lib/*` → Design System's `lib` folder
@@ -136,14 +140,14 @@ export const Button = ({ className, ...props }) => (
 
 ```typescript
 // In: packages/sdk/src/services/mutations/auth/useLogin/index.ts
-import { useMutation } from '@tanstack/react-query';
-import { useApiClient } from '@providers/ApiProvider';
-import { loginRequest } from './request';
-import { LoginInput, LoginResponse } from '@entities/Auth';
+import { useMutation } from "@tanstack/react-query";
+import { useApiClient } from "@providers/ApiProvider";
+import { loginRequest } from "./request";
+import { LoginInput, LoginResponse } from "@entities/Auth";
 
 export const useLogin = () => {
   const { client } = useApiClient();
-  
+
   return useMutation({
     mutationFn: (data: LoginInput) => loginRequest(client, data),
   });
@@ -160,7 +164,7 @@ import { ProductSection } from '@components/ProductSection';
 
 export default function Home() {
   const { data: products } = useProductList();
-  
+
   return (
     <div>
       <ProductSection products={products} />
@@ -179,6 +183,7 @@ Next.js needs **both** TypeScript path mappings (`tsconfig.json`) **and** Webpac
 2. **Webpack (`next.config.js`)**: Resolves paths at build/runtime
 
 Without the webpack configuration, you'd see:
+
 ```
 Module not found: Can't resolve '@lib/utils'
 ```
@@ -198,6 +203,7 @@ Module not found: Can't resolve '@lib/utils'
 ### Issue: IntelliSense not working
 
 **Solution:** Reload VS Code's TypeScript server:
+
 1. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
 2. Type: "TypeScript: Restart TS Server"
 3. Press Enter
@@ -220,16 +226,16 @@ Module not found: Can't resolve '@lib/utils'
 
 ## Summary
 
-| Alias | Points To | Used In |
-|-------|-----------|---------|
-| `@lib/*` | Design System lib | All packages |
-| `@components/*` | Component folders | Design System, Web App |
-| `@atoms/*` | Atom components | Design System |
-| `@molecules/*` | Molecule components | Design System |
-| `@organisms/*` | Organism components | Design System |
-| `@entities/*` | SDK entities | SDK, Web App |
-| `@providers/*` | SDK providers | SDK, Web App |
-| `@services/*` | SDK services | SDK, Web App |
+| Alias           | Points To           | Used In                |
+| --------------- | ------------------- | ---------------------- |
+| `@lib/*`        | Design System lib   | All packages           |
+| `@components/*` | Component folders   | Design System, Web App |
+| `@atoms/*`      | Atom components     | Design System          |
+| `@molecules/*`  | Molecule components | Design System          |
+| `@organisms/*`  | Organism components | Design System          |
+| `@entities/*`   | SDK entities        | SDK, Web App           |
+| `@providers/*`  | SDK providers       | SDK, Web App           |
+| `@services/*`   | SDK services        | SDK, Web App           |
 
 ---
 

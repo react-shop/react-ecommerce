@@ -18,6 +18,7 @@ const nextConfig = {
       '@entities': path.resolve(__dirname, '../../packages/sdk/src/entities'),
       '@providers': path.resolve(__dirname, '../../packages/sdk/src/providers'),
       '@services': path.resolve(__dirname, '../../packages/sdk/src/services'),
+      '@sdk': path.resolve(__dirname, '../../packages/sdk/src'),
     };
     return config;
   },
