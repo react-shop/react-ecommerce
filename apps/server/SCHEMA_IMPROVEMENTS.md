@@ -9,6 +9,7 @@ This document outlines the improvements made to the ecommerce database schema fo
 ### 1. **Separated Payment Management**
 
 **Before:** Payment information embedded in Order model
+
 ```prisma
 model Order {
   paymentMethod String?
@@ -18,6 +19,7 @@ model Order {
 ```
 
 **After:** Dedicated Payment table
+
 ```prisma
 model Payment {
   id              String
@@ -34,6 +36,7 @@ model Payment {
 ```
 
 **Benefits:**
+
 - Support multiple payments per order (partial payments, refunds)
 - Track payment history
 - Store gateway responses for auditing
@@ -44,6 +47,7 @@ model Payment {
 ### 2. **Dedicated Shipment Tracking**
 
 **Before:** Shipping info in Order model
+
 ```prisma
 model Order {
   trackingNumber String?
@@ -53,6 +57,7 @@ model Order {
 ```
 
 **After:** Separate Shipment table
+
 ```prisma
 model Shipment {
   id             String
@@ -69,6 +74,7 @@ model Shipment {
 ```
 
 **Benefits:**
+
 - Multiple shipments per order (split shipments)
 - Track carrier and service details
 - Calculate actual shipping costs
@@ -79,6 +85,7 @@ model Shipment {
 ### 3. **Many-to-Many Product-Category Relationship**
 
 **Before:** One-to-many (product belongs to one category)
+
 ```prisma
 model Product {
   category   Category?
@@ -87,6 +94,7 @@ model Product {
 ```
 
 **After:** Many-to-many with junction table
+
 ```prisma
 model ProductCategory {
   product    Product
@@ -96,6 +104,7 @@ model ProductCategory {
 ```
 
 **Benefits:**
+
 - Products can be in multiple categories
 - Better organization and navigation
 - Supports breadcrumb navigation
@@ -106,6 +115,7 @@ model ProductCategory {
 ### 4. **Separated Product Images**
 
 **Before:** Images as String array in Product
+
 ```prisma
 model Product {
   images String[]
@@ -113,6 +123,7 @@ model Product {
 ```
 
 **After:** Dedicated ProductImage table
+
 ```prisma
 model ProductImage {
   id        String
@@ -125,6 +136,7 @@ model ProductImage {
 ```
 
 **Benefits:**
+
 - Control image order
 - Add alt text for SEO/accessibility
 - Mark primary image
@@ -135,6 +147,7 @@ model ProductImage {
 ### 5. **Enhanced Product Management**
 
 **New Fields Added:**
+
 - `shortDesc` - For product cards
 - `comparePrice` - Show discounts
 - `costPrice` - Profit calculations
@@ -165,6 +178,7 @@ model Discount {
 ```
 
 **Features:**
+
 - Usage limits (total and per user)
 - Minimum purchase requirements
 - Date-based validity
@@ -190,6 +204,7 @@ model ProductTag {
 ```
 
 **Use Cases:**
+
 - Filter by tags (e.g., "New Arrival", "Best Seller", "Sale")
 - Better search and discovery
 - Marketing campaigns
@@ -200,6 +215,7 @@ model ProductTag {
 ### 8. **Enhanced User Management**
 
 **New Fields:**
+
 - `avatar` - Profile picture
 - `isActive` - Enable/disable accounts
 - `emailVerified` - Email confirmation
@@ -210,6 +226,7 @@ model ProductTag {
 ### 9. **Improved Address Management**
 
 **New Fields:**
+
 - `firstName`, `lastName` - Recipient name
 - `company` - Business address
 - `phone` - Contact number
@@ -220,12 +237,14 @@ model ProductTag {
 ### 10. **Better Order Management**
 
 **New Fields:**
+
 - `orderNumber` - Human-readable ID (e.g., "ORD-2024-001")
 - `discount` - Applied discount amount
 - `customerNote` - Customer instructions
 - `adminNote` - Internal notes
 
 **Enhanced Statuses:**
+
 ```prisma
 enum OrderStatus {
   PENDING
@@ -244,6 +263,7 @@ enum OrderStatus {
 ### 11. **Enhanced Review System**
 
 **New Fields:**
+
 - `title` - Review headline
 - `helpfulCount` - Upvotes
 - `adminResponse` - Store response
@@ -254,10 +274,12 @@ enum OrderStatus {
 ## Complete Table Structure
 
 ### Core Tables
+
 1. ✅ **users** - User accounts and authentication
 2. ✅ **addresses** - Shipping and billing addresses
 
 ### Product Management
+
 3. ✅ **products** - Product catalog
 4. ✅ **product_images** - Product photos
 5. ✅ **product_variants** - Size, color variations
@@ -267,22 +289,26 @@ enum OrderStatus {
 9. ✅ **product_tags** - Product-tag relationship
 
 ### Shopping & Orders
+
 10. ✅ **carts** - Shopping carts
 11. ✅ **cart_items** - Cart contents
 12. ✅ **orders** - Customer orders
 13. ✅ **order_items** - Order line items
 
 ### Payments & Shipping
+
 14. ✅ **payments** - Payment transactions
 15. ✅ **shipments** - Shipping tracking
 
 ### Marketing & Engagement
+
 16. ✅ **discounts** - Coupons and promotions
 17. ✅ **discount_products** - Product-specific discounts
 18. ✅ **reviews** - Product reviews
 19. ✅ **wishlists** - Customer wishlists
 
 ### Configuration
+
 20. ✅ **store_settings** - Application settings
 
 ---
@@ -290,11 +316,13 @@ enum OrderStatus {
 ## Migration Path
 
 ### Step 1: Backup Current Data
+
 ```bash
 pg_dump -U postgres ecommerce > backup_$(date +%Y%m%d).sql
 ```
 
 ### Step 2: Replace Schema
+
 ```bash
 # Backup current schema
 mv prisma/schema.prisma prisma/schema-old.prisma
@@ -304,15 +332,19 @@ mv prisma/schema-new.prisma prisma/schema.prisma
 ```
 
 ### Step 3: Create Migration
+
 ```bash
 pnpm prisma migrate dev --name comprehensive_schema_v2
 ```
 
 ### Step 4: Update Seed File
+
 The seed file will need updates to match the new schema structure.
 
 ### Step 5: Update Resolvers
+
 GraphQL resolvers will need updates for:
+
 - Payment operations
 - Shipment tracking
 - Discount management
@@ -352,4 +384,3 @@ This schema is **production-ready** and follows ecommerce best practices. It's w
 - Platforms requiring detailed analytics
 
 For **simple stores**, the current schema might be sufficient initially, but this provides better long-term scalability.
-

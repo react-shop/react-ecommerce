@@ -17,6 +17,7 @@ export default defineConfig({
   schema: 'prisma/schema.prisma',
   migrations: {
     path: 'prisma/migrations',
+    seed: 'tsx prisma/seed.ts',
   },
   datasource: {
     // Priority: POSTGRES_URL (Vercel) > PRISMA_DATABASE_URL (Accelerate/direct) > DATABASE_URL (local)
