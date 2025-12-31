@@ -4,17 +4,29 @@ import { AuthDto } from '@auth/dto/auth.input';
 import { AuthType } from '@auth/dto/auth.interface';
 import { AuthService } from '@auth/auth.service';
 
+interface RegisterInput {
+  email: string;
+  password: string;
+  firstName?: string;
+  lastName?: string;
+}
+
 @Resolver('Auth')
 export class AuthResolver {
   constructor(private authService: AuthService) {}
 
-  @Mutation(() => AuthType)
-  public async login(@Args('data') data: AuthDto): Promise<AuthType> {
-    const response = await this.authService.validateUser(data);
+  @Mutation('register')
+  public async register(
+    @Args('input') input: RegisterInput,
+  ): Promise<AuthType> {
+    return await this.authService.register(input);
+  }
 
-    return {
-      user: response.user,
-      token: response.token,
-    };
+  @Mutation('login')
+  public async login(
+    @Args('email') email: string,
+    @Args('password') password: string,
+  ): Promise<AuthType> {
+    return await this.authService.validateUser({ email, password });
   }
 }

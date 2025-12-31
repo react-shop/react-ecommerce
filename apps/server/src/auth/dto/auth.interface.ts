@@ -7,5 +7,8 @@ export class AuthType {
   user: User;
 
   @Field()
-  token: string;
+  accessToken: string;
+
+  @Field()
+  refreshToken: string;
 }
