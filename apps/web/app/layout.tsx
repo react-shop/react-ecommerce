@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 const apiConfig = {
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5001",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000",
 };
 
 export default function RootLayout({

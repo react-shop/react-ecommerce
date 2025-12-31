@@ -7,7 +7,7 @@ import {
   Input,
   Button,
   Flex,
-} from "../../Atoms";
+} from "@components/Atoms";
 import type { FooterProps } from "./types";
 
 export function Footer({
