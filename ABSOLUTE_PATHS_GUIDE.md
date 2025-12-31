@@ -1,314 +1,247 @@
-# Absolute Paths & Route Constants Guide
+# Absolute Paths Configuration Guide
 
 ## Overview
 
-This project uses **absolute imports** across all packages and applications. This eliminates the need for complex relative paths (`../../../`) and makes the codebase more maintainable.
+The project is configured to use **absolute paths** instead of relative paths, making imports cleaner and easier to maintain.
+
+## Benefits
+
+```typescript
+// ❌ Before (Relative Paths)
+import { cn } from '../../../lib/utils';
+import { useApiClient } from '../../../../providers/ApiProvider';
+
+// ✅ After (Absolute Paths)
+import { cn } from '@lib/utils';
+import { useApiClient } from '@providers/ApiProvider';
+```
 
 ---
 
-## SDK Package (`@react-shop/sdk`)
+## Configuration
 
-### Path Aliases
+### 1. Design System (`packages/design-system`)
 
-```typescript
-// tsconfig.json
+**`tsconfig.json`:**
+```json
 {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@entities/*": ["src/entities/*"],
-      "@providers/*": ["src/providers/*"],
-      "@services/*": ["src/services/*"]
+      "@lib/*": ["./src/lib/*"],
+      "@components/*": ["./src/components/*"],
+      "@atoms/*": ["./src/components/Atoms/*"],
+      "@molecules/*": ["./src/components/Molecules/*"],
+      "@organisms/*": ["./src/components/Organisms/*"]
     }
   }
 }
 ```
 
-### Route Constants
+**Available Aliases:**
+- `@lib/*` → `src/lib/*`
+- `@components/*` → `src/components/*`
+- `@atoms/*` → `src/components/Atoms/*`
+- `@molecules/*` → `src/components/Molecules/*`
+- `@organisms/*` → `src/components/Organisms/*`
 
-All API routes are centralized in `src/services/constants.ts`:
+### 2. SDK (`packages/sdk`)
 
-```typescript
-export const AUTH_ROUTES = {
-  LOGIN: '/api/auth/login',
-  REGISTER: '/api/auth/register',
-  LOGOUT: '/api/auth/logout',
-  ME: '/api/users/me',
-} as const;
-
-export const PRODUCT_ROUTES = {
-  LIST: '/api/products',
-  DETAIL: (id: string) => `/api/products/${id}`,
-  CREATE: '/api/products',
-  UPDATE: (id: string) => `/api/products/${id}`,
-  DELETE: (id: string) => `/api/products/${id}`,
-} as const;
-
-// ... more routes
-```
-
-### Usage Examples
-
-**Before (Relative Paths):**
-```typescript
-import { User } from '../../../../entities';
-import { useApiClient } from '../../../../providers/ApiProvider';
-import { setToken } from '../../../../client';
-
-const response = await client.post('/api/auth/login', input);
-```
-
-**After (Absolute Paths):**
-```typescript
-import { User } from '@entities/User';
-import { useApiClient } from '@providers/ApiProvider';
-import { setToken } from '@/client';
-import { AUTH_ROUTES } from '@services/constants';
-
-const response = await client.post(AUTH_ROUTES.LOGIN, input);
-```
-
----
-
-## Design System (`@react-shop/design-system`)
-
-### Path Aliases
-
-```typescript
-// tsconfig.json
+**`tsconfig.json`:**
+```json
 {
   "compilerOptions": {
     "baseUrl": "src",
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["components/*"],
-      "@atoms/*": ["components/Atoms/*"],
-      "@molecules/*": ["components/Molecules/*"],
-      "@organisms/*": ["components/Organisms/*"],
-      "@theme/*": ["theme/*"],
-      "@utils/*": ["utils/*"]
+      "@entities/*": ["entities/*"],
+      "@providers/*": ["providers/*"],
+      "@services/*": ["services/*"]
     }
   }
 }
 ```
 
-### Usage Examples
+**Available Aliases:**
+- `@entities/*` → `src/entities/*`
+- `@providers/*` → `src/providers/*`
+- `@services/*` → `src/services/*`
 
-**Before:**
-```typescript
-import { Button } from '../../components/Button';
-import { colors } from '../../../theme/tokens/colors';
-```
+### 3. Web App (`apps/web`)
 
-**After:**
-```typescript
-import { Button } from '@atoms/Button';
-import { colors } from '@theme/tokens/colors';
-```
-
----
-
-## Web App (`apps/web`)
-
-### Path Aliases
-
-```typescript
-// tsconfig.json
+**`tsconfig.json`:**
+```json
 {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
-      "@app/*": ["./src/app/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@styles/*": ["./src/styles/*"],
-      "@hooks/*": ["./src/hooks/*"],
-      "@utils/*": ["./src/utils/*"]
+      "@components/*": ["./components/*"],
+      "@app/*": ["./app/*"],
+      "@lib/*": [
+        "./lib/*",
+        "../../packages/design-system/src/lib/*"
+      ],
+      "@entities/*": ["../../packages/sdk/src/entities/*"],
+      "@providers/*": ["../../packages/sdk/src/providers/*"],
+      "@services/*": ["../../packages/sdk/src/services/*"]
     }
   }
 }
 ```
 
-### Usage Examples
+**`next.config.js` (Webpack Aliases):**
+```javascript
+const path = require('path');
 
-```typescript
-import { ProductCard } from '@components/ProductCard';
-import { useProducts } from '@hooks/useProducts';
-import { formatPrice } from '@utils/formatters';
+module.exports = {
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@lib': path.resolve(__dirname, '../../packages/design-system/src/lib'),
+      '@entities': path.resolve(__dirname, '../../packages/sdk/src/entities'),
+      '@providers': path.resolve(__dirname, '../../packages/sdk/src/providers'),
+      '@services': path.resolve(__dirname, '../../packages/sdk/src/services'),
+    };
+    return config;
+  },
+};
 ```
+
+**Available Aliases:**
+- `@components/*` → `./components/*` (web app)
+- `@app/*` → `./app/*` (Next.js app directory)
+- `@lib/*` → Design System's `lib` folder
+- `@entities/*` → SDK's `entities` folder
+- `@providers/*` → SDK's `providers` folder
+- `@services/*` → SDK's `services` folder
 
 ---
 
-## Backend (`apps/server`)
+## Usage Examples
 
-### Path Aliases
+### Design System Components
 
 ```typescript
-// tsconfig.json
-{
-  "compilerOptions": {
-    "baseUrl": "./src",
-    "paths": {
-      "@user/*": ["./user/*"],
-      "@auth/*": ["./auth/*"],
-      "@product/*": ["./product/*"],
-      "@category/*": ["./category/*"],
-      "@cart/*": ["./cart/*"],
-      "@order/*": ["./order/*"],
-      "@review/*": ["./review/*"],
-      "@shared/*": ["./shared/*"],
-      "@utils/*": ["./utils/*"]
-    }
-  }
-}
+// In: packages/design-system/src/components/Atoms/Button/Button.tsx
+import { cn } from '@lib/utils';
+import { tv } from 'tailwind-variants';
+
+const button = tv({ /* ... */ });
+
+export const Button = ({ className, ...props }) => (
+  <button className={cn(button(), className)} {...props} />
+);
 ```
 
-### Usage Examples
+### SDK Services
 
 ```typescript
-import { UserService } from '@user/user.service';
-import { JwtAuthGuard } from '@auth/auth.guard';
-import { PrismaService } from '@shared/prisma/prisma.service';
-```
-
----
-
-## Benefits
-
-### 1. **Cleaner Imports**
-```typescript
-// ❌ Hard to read
-import { User } from '../../../../../entities/User';
-
-// ✅ Clean and clear
-import { User } from '@entities/User';
-```
-
-### 2. **Easier Refactoring**
-- Moving files doesn't break imports
-- Path aliases remain consistent
-
-### 3. **Better IDE Support**
-- Auto-completion works better
-- Go-to-definition is more reliable
-
-### 4. **Centralized Routes**
-- No hardcoded URLs scattered across files
-- Easy to update API endpoints
-- Type-safe route parameters
-
-### 5. **Consistency**
-- Same pattern across all packages
-- Easier onboarding for new developers
-
----
-
-## Rules
-
-### ✅ DO
-
-```typescript
-// Use absolute imports for cross-folder references
-import { User } from '@entities/User';
-import { AUTH_ROUTES } from '@services/constants';
+// In: packages/sdk/src/services/mutations/auth/useLogin/index.ts
+import { useMutation } from '@tanstack/react-query';
 import { useApiClient } from '@providers/ApiProvider';
-```
-
-### ❌ DON'T
-
-```typescript
-// Don't use relative paths for cross-folder references
-import { User } from '../../../entities/User';
-
-// Don't hardcode API routes
-const response = await client.post('/api/auth/login', data);
-```
-
-### ✅ ALLOWED
-
-```typescript
-// Relative imports are OK for same-folder files
 import { loginRequest } from './request';
-import { UseLoginInput } from './types';
-import { useLoginKey } from './key';
+import { LoginInput, LoginResponse } from '@entities/Auth';
+
+export const useLogin = () => {
+  const { client } = useApiClient();
+  
+  return useMutation({
+    mutationFn: (data: LoginInput) => loginRequest(client, data),
+  });
+};
 ```
 
----
-
-## Adding New Routes
-
-When adding new API endpoints, always update `packages/sdk/src/services/constants.ts`:
+### Web App (Next.js)
 
 ```typescript
-export const NEW_FEATURE_ROUTES = {
-  LIST: '/api/new-feature',
-  DETAIL: (id: string) => `/api/new-feature/${id}`,
-  CREATE: '/api/new-feature',
-  UPDATE: (id: string) => `/api/new-feature/${id}`,
-  DELETE: (id: string) => `/api/new-feature/${id}`,
-} as const;
-```
+// In: apps/web/app/page.tsx
+import { Button, Card, ProductCard } from '@react-shop/design-system';
+import { useProductList } from '@react-shop/sdk';
+import { ProductSection } from '@components/ProductSection';
 
-Then use it in your hooks:
-
-```typescript
-import { NEW_FEATURE_ROUTES } from '@services/constants';
-
-const response = await client.get(NEW_FEATURE_ROUTES.LIST);
-```
-
----
-
-## IDE Configuration
-
-### VS Code
-
-Add to `.vscode/settings.json`:
-
-```json
-{
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "javascript.preferences.importModuleSpecifier": "non-relative"
+export default function Home() {
+  const { data: products } = useProductList();
+  
+  return (
+    <div>
+      <ProductSection products={products} />
+    </div>
+  );
 }
 ```
 
-### WebStorm
+---
 
-Settings → Editor → Code Style → TypeScript → Imports
-- Check "Use paths relative to tsconfig.json"
+## Why Webpack Configuration?
+
+Next.js needs **both** TypeScript path mappings (`tsconfig.json`) **and** Webpack aliases (`next.config.js`) because:
+
+1. **TypeScript (`tsconfig.json`)**: Provides IntelliSense and type checking
+2. **Webpack (`next.config.js`)**: Resolves paths at build/runtime
+
+Without the webpack configuration, you'd see:
+```
+Module not found: Can't resolve '@lib/utils'
+```
 
 ---
 
 ## Troubleshooting
 
-### Import not found
+### Issue: Module not found error
 
-1. Check if path alias is defined in `tsconfig.json`
-2. Restart TypeScript server in IDE
-3. Rebuild the project: `pnpm build`
+**Solution:** Make sure both `tsconfig.json` and `next.config.js` are configured:
 
-### Jest tests failing
+1. Check `tsconfig.json` has the path mapping
+2. Check `next.config.js` has the webpack alias
+3. Restart the dev server: `pnpm dev`
 
-Update `jest.config.js` to map path aliases:
+### Issue: IntelliSense not working
 
-```javascript
-module.exports = {
-  moduleNameMapper: {
-    '^@entities/(.*)$': '<rootDir>/src/entities/$1',
-    '^@providers/(.*)$': '<rootDir>/src/providers/$1',
-    '^@services/(.*)$': '<rootDir>/src/services/$1',
-  },
-};
-```
+**Solution:** Reload VS Code's TypeScript server:
+1. Press `Cmd+Shift+P` (Mac) or `Ctrl+Shift+P` (Windows/Linux)
+2. Type: "TypeScript: Restart TS Server"
+3. Press Enter
+
+### Issue: Path works in IDE but fails at runtime
+
+**Solution:** The webpack alias is missing. Add it to `next.config.js`.
+
+---
+
+## Best Practices
+
+1. **Always use aliases** for cross-package imports
+2. **Keep aliases consistent** across packages
+3. **Document new aliases** when adding them
+4. **Restart dev server** after changing `next.config.js`
+5. **Use relative paths** only within the same folder
 
 ---
 
 ## Summary
 
-- ✅ All packages use absolute imports via tsconfig path aliases
-- ✅ API routes are centralized in `constants.ts`
-- ✅ Relative imports (`../`) only allowed within same folder
-- ✅ Consistent pattern across the entire monorepo
+| Alias | Points To | Used In |
+|-------|-----------|---------|
+| `@lib/*` | Design System lib | All packages |
+| `@components/*` | Component folders | Design System, Web App |
+| `@atoms/*` | Atom components | Design System |
+| `@molecules/*` | Molecule components | Design System |
+| `@organisms/*` | Organism components | Design System |
+| `@entities/*` | SDK entities | SDK, Web App |
+| `@providers/*` | SDK providers | SDK, Web App |
+| `@services/*` | SDK services | SDK, Web App |
 
+---
+
+## Migration from Relative Paths
+
+If you have existing code with relative paths, replace them:
+
+```bash
+# Example: Replace relative imports with absolute
+find packages/design-system/src -name "*.tsx" -exec sed -i '' 's|from "../../../lib/utils"|from "@lib/utils"|g' {} +
+```
+
+---
+
+This configuration makes the codebase cleaner, more maintainable, and easier to refactor! 🚀
