@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
 import { Icon as LucideIcon, type IconNode } from 'lucide-react';
-import { cn } from '@lib/utils';
+import { cn } from '../../../lib/utils';
 
 const icon = tv({
   base: 'inline-flex items-center justify-center shrink-0',

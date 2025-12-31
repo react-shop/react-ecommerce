@@ -3,13 +3,35 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@components/*": ["./components/*"],
-      "@app/*": ["./app/*"],
-      "@lib/*": ["./lib/*"],
-      "@hooks/*": ["./hooks/*"]
-    }
+      "@/*": [
+        "./*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@app/*": [
+        "./app/*"
+      ],
+      "@lib/*": [
+        "./lib/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

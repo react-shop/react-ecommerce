@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
-import { cn } from '@lib/utils';
+import { cn } from '../../../lib/utils';
 import { ChevronDown } from 'lucide-react';
 
 const select = tv({

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
-import { cn } from '@lib/utils';
+import { cn } from '../../../lib/utils';
 import { Badge } from '../../Atoms/Badge/Badge';
 import { PriceDisplay } from '../../Molecules/PriceDisplay/PriceDisplay';
 import { Rating } from '../../Molecules/Rating/Rating';

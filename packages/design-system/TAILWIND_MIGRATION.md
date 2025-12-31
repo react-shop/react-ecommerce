@@ -38,6 +38,7 @@ Successfully migrated the Design System from PandaCSS to TailwindCSS with `tailw
 ### ✅ All Components (20/20)
 
 **Atoms (15):**
+
 - ✅ Avatar
 - ✅ Badge
 - ✅ Box
@@ -55,12 +56,14 @@ Successfully migrated the Design System from PandaCSS to TailwindCSS with `tailw
 - ✅ Text
 
 **Molecules (4):**
+
 - ✅ PriceDisplay
 - ✅ Rating
 - ✅ Select
 - ✅ Toast
 
 **Organisms (2):**
+
 - ✅ Modal
 - ✅ ProductCard
 
@@ -75,9 +78,11 @@ Successfully migrated the Design System from PandaCSS to TailwindCSS with `tailw
 ### ✅ Dependencies
 
 **Removed:**
+
 - ❌ `@pandacss/dev`
 
 **Added:**
+
 - ✅ `tailwindcss@3.4.0`
 - ✅ `autoprefixer@10.4.16`
 - ✅ `postcss@8.4.32`
@@ -124,13 +129,13 @@ const button = tv({
 
 export type ButtonVariants = VariantProps<typeof button>;
 
-export interface ButtonProps 
+export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     ButtonVariants {}
 
 export const Button = ({ variant, size, className, ...props }: ButtonProps) => {
   return (
-    <button 
+    <button
       className={cn(button({ variant, size }), className)}
       {...props}
     />
@@ -193,7 +198,7 @@ pnpm install
 In your app root (`apps/web/app/layout.tsx`):
 
 ```typescript
-import '@react-shop/design-system/src/styles/global.css';
+import "@react-shop/design-system/src/styles/global.css";
 ```
 
 ### 3. Use Components
@@ -222,6 +227,7 @@ export default function Page() {
 Located at: `packages/design-system/tailwind.config.ts`
 
 **Features:**
+
 - Custom color palette (brand, primary, success, error, warning)
 - Extended font families
 - Custom spacing and sizing
@@ -232,6 +238,7 @@ Located at: `packages/design-system/tailwind.config.ts`
 Located at: `apps/web/tailwind.config.ts`
 
 **Features:**
+
 - Imports Design System config as preset
 - Scans Design System components
 - Can override/extend DS config
@@ -297,14 +304,15 @@ Visit: `http://localhost:6006`
 
 ```typescript
 content: [
-  './src/**/*.{js,ts,jsx,tsx}',
-  '../../packages/design-system/src/**/*.{js,ts,jsx,tsx}',
-]
+  "./src/**/*.{js,ts,jsx,tsx}",
+  "../../packages/design-system/src/**/*.{js,ts,jsx,tsx}",
+];
 ```
 
 ### Issue: IntelliSense not working
 
 **Solution:** Install VS Code extension:
+
 - **Tailwind CSS IntelliSense** by Tailwind Labs
 
 ### Issue: Module not found '@lib/utils'
@@ -360,6 +368,7 @@ content: [
 Migrated from **PandaCSS** to **TailwindCSS** on Dec 31, 2025.
 
 **Benefits Achieved:**
+
 - ✅ Better DX for beginners
 - ✅ Industry-standard tooling
 - ✅ Faster build times

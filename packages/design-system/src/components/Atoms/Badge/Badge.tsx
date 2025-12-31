@@ -1,6 +1,6 @@
 import * as React from "react";
 import { tv, type VariantProps } from "tailwind-variants";
-import { cn } from "@lib/utils";
+import { cn } from "../../../lib/utils";
 
 const badge = tv({
   base: "inline-flex items-center rounded-md px-2 py-1 text-sm font-medium whitespace-nowrap",

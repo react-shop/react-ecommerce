@@ -1,27 +1,28 @@
-import * as React from 'react';
-import { tv, type VariantProps } from 'tailwind-variants';
-import { User } from 'lucide-react';
-import { cn } from '@lib/utils';
+import * as React from "react";
+import { tv, type VariantProps } from "tailwind-variants";
+import { User } from "lucide-react";
+import { cn } from "../../../lib/utils";
 
 const avatar = tv({
-  base: 'inline-flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-gray-200 text-gray-600',
+  base: "inline-flex items-center justify-center shrink-0 rounded-full overflow-hidden bg-gray-200 text-gray-600",
   variants: {
     size: {
-      xs: 'w-6 h-6 text-xs',
-      sm: 'w-8 h-8 text-sm',
-      md: 'w-10 h-10 text-base',
-      lg: 'w-12 h-12 text-lg',
-      xl: 'w-16 h-16 text-xl',
+      xs: "w-6 h-6 text-xs",
+      sm: "w-8 h-8 text-sm",
+      md: "w-10 h-10 text-base",
+      lg: "w-12 h-12 text-lg",
+      xl: "w-16 h-16 text-xl",
     },
   },
   defaultVariants: {
-    size: 'md',
+    size: "md",
   },
 });
 
 export type AvatarVariants = VariantProps<typeof avatar>;
 
-export interface AvatarProps extends React.HTMLAttributes<HTMLDivElement>, AvatarVariants {
+export interface AvatarProps
+  extends React.HTMLAttributes<HTMLDivElement>, AvatarVariants {
   src?: string;
   alt?: string;
   name?: string;
@@ -32,7 +33,7 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
     const [error, setError] = React.useState(false);
 
     const getInitials = (name: string) => {
-      const parts = name.split(' ');
+      const parts = name.split(" ");
       if (parts.length >= 2) {
         return `${parts[0][0]}${parts[1][0]}`.toUpperCase();
       }
@@ -45,14 +46,14 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
       md: 20,
       lg: 24,
       xl: 32,
-    }[size || 'md'];
+    }[size || "md"];
 
     return (
       <div ref={ref} className={cn(avatar({ size }), className)} {...props}>
         {src && !error ? (
           <img
             src={src}
-            alt={alt || name || 'Avatar'}
+            alt={alt || name || "Avatar"}
             onError={() => setError(true)}
             className="w-full h-full object-cover"
           />
@@ -66,4 +67,4 @@ export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
   }
 );
 
-Avatar.displayName = 'Avatar';
+Avatar.displayName = "Avatar";
