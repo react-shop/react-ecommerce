@@ -17,7 +17,6 @@ async function main() {
       firstName: 'Admin',
       lastName: 'User',
       role: UserRole.ADMIN,
-      emailVerified: true,
     },
   });
   console.log('✅ Admin user created:', admin.email);
@@ -33,7 +32,6 @@ async function main() {
       firstName: 'John',
       lastName: 'Doe',
       role: UserRole.CUSTOMER,
-      emailVerified: true,
     },
   });
   console.log('✅ Customer user created:', customer.email);
@@ -118,11 +116,9 @@ async function main() {
       slug: 'wireless-bluetooth-headphones',
       description: 'High-quality wireless headphones with noise cancellation',
       price: 89.99,
-      compareAtPrice: 129.99,
-      sku: 'AUDIO-001',
       categoryId: categories[0].id, // Electronics
       images: ['https://images.unsplash.com/photo-1505740420928-5e560c06d30e'],
-      stock: 50,
+      metaKeywords: ['headphones', 'wireless', 'bluetooth', 'audio'],
       status: ProductStatus.ACTIVE,
     },
     {
@@ -130,10 +126,9 @@ async function main() {
       slug: 'premium-cotton-tshirt',
       description: 'Comfortable 100% cotton t-shirt in various colors',
       price: 29.99,
-      sku: 'CLOTH-001',
       categoryId: categories[1].id, // Clothing
       images: ['https://images.unsplash.com/photo-1521572163474-6864f9cf17ab'],
-      stock: 100,
+      metaKeywords: ['tshirt', 'cotton', 'clothing'],
       status: ProductStatus.ACTIVE,
     },
     {
@@ -141,10 +136,9 @@ async function main() {
       slug: 'the-great-gatsby',
       description: 'Classic American novel by F. Scott Fitzgerald',
       price: 14.99,
-      sku: 'BOOK-001',
       categoryId: categories[2].id, // Books
       images: ['https://images.unsplash.com/photo-1544947950-fa07a98d237f'],
-      stock: 30,
+      metaKeywords: ['book', 'fiction', 'classic'],
       status: ProductStatus.ACTIVE,
     },
     {
@@ -152,11 +146,9 @@ async function main() {
       slug: 'ergonomic-office-chair',
       description: 'Comfortable office chair with lumbar support',
       price: 249.99,
-      compareAtPrice: 299.99,
-      sku: 'HOME-001',
       categoryId: categories[3].id, // Home & Garden
       images: ['https://images.unsplash.com/photo-1580480055273-228ff5388ef8'],
-      stock: 15,
+      metaKeywords: ['chair', 'office', 'furniture', 'ergonomic'],
       status: ProductStatus.ACTIVE,
     },
     {
@@ -164,10 +156,9 @@ async function main() {
       slug: 'smartphone-case',
       description: 'Protective case for smartphones',
       price: 19.99,
-      sku: 'ACCS-001',
       categoryId: categories[0].id, // Electronics
       images: ['https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb'],
-      stock: 200,
+      metaKeywords: ['case', 'phone', 'accessories'],
       status: ProductStatus.ACTIVE,
     },
     {
@@ -175,11 +166,9 @@ async function main() {
       slug: 'running-shoes',
       description: 'Lightweight running shoes for athletes',
       price: 79.99,
-      compareAtPrice: 99.99,
-      sku: 'SHOE-001',
       categoryId: categories[1].id, // Clothing
       images: ['https://images.unsplash.com/photo-1542291026-7eec264c27ff'],
-      stock: 60,
+      metaKeywords: ['shoes', 'running', 'sports'],
       status: ProductStatus.ACTIVE,
     },
   ];
@@ -231,14 +220,17 @@ async function main() {
   );
   if (headphones) {
     await prisma.review.upsert({
-      where: { id: 'review-1' },
+      where: {
+        userId_productId: {
+          userId: customer.id,
+          productId: headphones.id,
+        },
+      },
       update: {},
       create: {
-        id: 'review-1',
         userId: customer.id,
         productId: headphones.id,
         rating: 5,
-        title: 'Excellent sound quality!',
         comment:
           'These headphones are amazing. The noise cancellation works great and battery life is excellent.',
         status: 'APPROVED',
@@ -260,9 +252,10 @@ async function main() {
   if (createdProducts.length > 0) {
     await prisma.cartItem.upsert({
       where: {
-        cartId_productId: {
+        cartId_productId_variantId: {
           cartId: cart.id,
           productId: createdProducts[0].id,
+          variantId: null,
         },
       },
       update: {},
@@ -294,7 +287,7 @@ async function main() {
     update: {},
     create: {
       key: 'store_name',
-      value: 'React Ecommerce Store',
+      value: { name: 'React Ecommerce Store' },
     },
   });
 
@@ -303,7 +296,7 @@ async function main() {
     update: {},
     create: {
       key: 'store_email',
-      value: 'support@ecommerce.com',
+      value: { email: 'support@ecommerce.com' },
     },
   });
 
@@ -312,7 +305,7 @@ async function main() {
     update: {},
     create: {
       key: 'currency',
-      value: 'USD',
+      value: { code: 'USD', symbol: '$' },
     },
   });
   console.log('✅ Store settings created');
