@@ -54,11 +54,12 @@ import { useApiClient } from "@providers/ApiProvider";
 ```json
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": ".",
     "paths": {
-      "@entities/*": ["entities/*"],
-      "@providers/*": ["providers/*"],
-      "@services/*": ["services/*"]
+      "@sdk/*": ["src/*"],
+      "@entities/*": ["src/entities/*"],
+      "@providers/*": ["src/providers/*"],
+      "@services/*": ["src/services/*"]
     }
   }
 }
@@ -66,6 +67,7 @@ import { useApiClient } from "@providers/ApiProvider";
 
 **Available Aliases:**
 
+- `@sdk/*` → `src/*` (for internal SDK files like `client.ts`)
 - `@entities/*` → `src/entities/*`
 - `@providers/*` → `src/providers/*`
 - `@services/*` → `src/services/*`
@@ -114,6 +116,7 @@ module.exports = {
 - `@components/*` → `./components/*` (web app)
 - `@app/*` → `./app/*` (Next.js app directory)
 - `@lib/*` → Design System's `lib` folder
+- `@sdk/*` → SDK's `src` folder (for internal SDK imports)
 - `@entities/*` → SDK's `entities` folder
 - `@providers/*` → SDK's `providers` folder
 - `@services/*` → SDK's `services` folder
@@ -142,6 +145,7 @@ export const Button = ({ className, ...props }) => (
 // In: packages/sdk/src/services/mutations/auth/useLogin/index.ts
 import { useMutation } from "@tanstack/react-query";
 import { useApiClient } from "@providers/ApiProvider";
+import { setToken } from "@sdk/client";
 import { loginRequest } from "./request";
 import { LoginInput, LoginResponse } from "@entities/Auth";
 
@@ -149,7 +153,11 @@ export const useLogin = () => {
   const { client } = useApiClient();
 
   return useMutation({
-    mutationFn: (data: LoginInput) => loginRequest(client, data),
+    mutationFn: async (data: LoginInput) => {
+      const response = await loginRequest(client, data);
+      setToken(response.accessToken);
+      return response;
+    },
   });
 };
 ```
@@ -233,6 +241,7 @@ Module not found: Can't resolve '@lib/utils'
 | `@atoms/*`      | Atom components     | Design System          |
 | `@molecules/*`  | Molecule components | Design System          |
 | `@organisms/*`  | Organism components | Design System          |
+| `@sdk/*`        | SDK src folder      | SDK, Web App           |
 | `@entities/*`   | SDK entities        | SDK, Web App           |
 | `@providers/*`  | SDK providers       | SDK, Web App           |
 | `@services/*`   | SDK services        | SDK, Web App           |
