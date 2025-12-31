@@ -1,6 +1,9 @@
-# Ecommerce GraphQL Schema
+# Comprehensive Ecommerce GraphQL Schema
 
-# Enums
+# ============================================================================
+# ENUMS
+# ============================================================================
+
 enum UserRole {
   CUSTOMER
   ADMIN
@@ -10,16 +13,49 @@ enum UserRole {
 enum ProductStatus {
   DRAFT
   ACTIVE
+  OUT_OF_STOCK
   ARCHIVED
 }
 
 enum OrderStatus {
   PENDING
+  PAYMENT_PENDING
+  PAID
   PROCESSING
   SHIPPED
   DELIVERED
   CANCELLED
   REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum PaymentMethod {
+  CREDIT_CARD
+  DEBIT_CARD
+  PAYPAL
+  STRIPE
+  BANK_TRANSFER
+  CASH_ON_DELIVERY
+  PIX
+}
+
+enum ShipmentStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  IN_TRANSIT
+  OUT_FOR_DELIVERY
+  DELIVERED
+  FAILED
+  RETURNED
 }
 
 enum ReviewStatus {
@@ -28,33 +64,46 @@ enum ReviewStatus {
   REJECTED
 }
 
-enum AttributeType {
-  COLOR
-  SIZE
-  MATERIAL
-  CUSTOM
+enum DiscountType {
+  PERCENTAGE
+  FIXED_AMOUNT
+  FREE_SHIPPING
 }
 
-# Types
+# ============================================================================
+# TYPES
+# ============================================================================
+
 type User {
   id: ID!
   email: String!
   firstName: String
   lastName: String
   phone: String
+  avatar: String
   role: UserRole!
+  isActive: Boolean!
+  emailVerified: Boolean!
   addresses: [Address!]
+  orders: [Order!]
+  reviews: [Review!]
+  wishlist: Wishlist
   createdAt: String!
   updatedAt: String!
 }
 
 type Address {
   id: ID!
-  street: String!
+  firstName: String!
+  lastName: String!
+  company: String
+  street1: String!
+  street2: String
   city: String!
   state: String!
-  zip: String!
+  zipCode: String!
   country: String!
+  phone: String
   isDefault: Boolean!
 }
 
@@ -64,17 +113,31 @@ type Category {
   slug: String!
   description: String
   image: String
+  icon: String
+  isActive: Boolean!
+  sortOrder: Int!
   parent: Category
   children: [Category!]
   products: [Product!]
   productCount: Int!
 }
 
-type Attribute {
+type Tag {
   id: ID!
   name: String!
-  type: AttributeType!
-  values: [String!]!
+  slug: String!
+  products: [Product!]
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ProductImage {
+  id: ID!
+  url: String!
+  alt: String
+  sortOrder: Int!
+  isPrimary: Boolean!
+  productId: String!
 }
 
 type Product {
@@ -82,25 +145,48 @@ type Product {
   name: String!
   slug: String!
   description: String
+  shortDesc: String
   price: Float!
-  images: [String!]!
+  comparePrice: Float
+  costPrice: Float
+  sku: String
+  barcode: String
   status: ProductStatus!
+  
+  # Inventory
+  trackInventory: Boolean!
+  stock: Int!
+  lowStockAlert: Int!
+  
+  # Dimensions
+  weight: Float
+  length: Float
+  width: Float
+  height: Float
+  
+  # SEO
   metaTitle: String
   metaDescription: String
   metaKeywords: [String!]
-  category: Category
+  
+  # Relations
+  images: [ProductImage!]!
+  categories: [Category!]!
+  tags: [Tag!]!
   variants: [ProductVariant!]
   reviews: [Review!]
   averageRating: Float
   reviewCount: Int!
+  
   createdAt: String!
   updatedAt: String!
 }
 
 type ProductVariant {
   id: ID!
+  name: String!
   sku: String!
-  price: Float!
+  price: Float
   stock: Int!
   attributes: JSON!
   product: Product!
@@ -123,19 +209,29 @@ type CartItem {
 
 type Order {
   id: ID!
+  orderNumber: String!
   status: OrderStatus!
+  
+  # Pricing
   subtotal: Float!
-  shippingCost: Float!
+  discountAmount: Float!
   tax: Float!
+  shippingCost: Float!
   total: Float!
+  
+  # Notes
+  customerNote: String
+  adminNote: String
+  
+  # Relations
+  user: User!
   shippingAddress: Address!
   billingAddress: Address!
   items: [OrderItem!]!
-  paymentMethod: String
-  trackingNumber: String
-  paidAt: String
-  shippedAt: String
-  deliveredAt: String
+  payments: [Payment!]!
+  shipments: [Shipment!]!
+  discount: Discount
+  
   createdAt: String!
   updatedAt: String!
 }
@@ -146,13 +242,74 @@ type OrderItem {
   variant: ProductVariant
   quantity: Int!
   price: Float!
+  total: Float!
+}
+
+type Payment {
+  id: ID!
+  amount: Float!
+  currency: String!
+  status: PaymentStatus!
+  method: PaymentMethod!
+  transactionId: String
+  cardLast4: String
+  cardBrand: String
+  refundedAmount: Float
+  refundedAt: String
+  refundReason: String
+  paidAt: String
+  order: Order!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Shipment {
+  id: ID!
+  trackingNumber: String
+  carrier: String
+  service: String
+  status: ShipmentStatus!
+  weight: Float
+  length: Float
+  width: Float
+  height: Float
+  shippingCost: Float
+  insuranceCost: Float
+  notes: String
+  order: Order!
+  address: Address!
+  shippedAt: String
+  deliveredAt: String
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Discount {
+  id: ID!
+  code: String!
+  description: String
+  type: DiscountType!
+  value: Float!
+  maxUses: Int
+  usedCount: Int!
+  maxUsesPerUser: Int
+  minPurchase: Float
+  startsAt: String
+  expiresAt: String
+  isActive: Boolean!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type Review {
   id: ID!
   rating: Int!
+  title: String
   comment: String
   status: ReviewStatus!
+  helpfulCount: Int!
+  adminResponse: String
+  respondedAt: String
   user: User!
   product: Product!
   createdAt: String!
@@ -162,6 +319,9 @@ type Review {
 type Wishlist {
   id: ID!
   products: [Product!]!
+  user: User!
+  createdAt: String!
+  updatedAt: String!
 }
 
 type AuthPayload {
@@ -170,7 +330,10 @@ type AuthPayload {
   user: User!
 }
 
-# Inputs
+# ============================================================================
+# INPUTS
+# ============================================================================
+
 input RegisterInput {
   email: String!
   password: String!
@@ -182,23 +345,34 @@ input UpdateProfileInput {
   firstName: String
   lastName: String
   phone: String
+  avatar: String
 }
 
 input AddAddressInput {
-  street: String!
+  firstName: String!
+  lastName: String!
+  company: String
+  street1: String!
+  street2: String
   city: String!
   state: String!
-  zip: String!
+  zipCode: String!
   country: String!
+  phone: String
   isDefault: Boolean
 }
 
 input UpdateAddressInput {
-  street: String
+  firstName: String
+  lastName: String
+  company: String
+  street1: String
+  street2: String
   city: String
   state: String
-  zip: String
+  zipCode: String
   country: String
+  phone: String
   isDefault: Boolean
 }
 
@@ -207,7 +381,9 @@ input CreateCategoryInput {
   slug: String!
   description: String
   image: String
+  icon: String
   parentId: ID
+  sortOrder: Int
 }
 
 input UpdateCategoryInput {
@@ -215,37 +391,74 @@ input UpdateCategoryInput {
   slug: String
   description: String
   image: String
+  icon: String
   parentId: ID
+  sortOrder: Int
+  isActive: Boolean
 }
 
 input CreateProductInput {
   name: String!
   slug: String!
   description: String
+  shortDesc: String
   price: Float!
-  images: [String!]
+  comparePrice: Float
+  costPrice: Float
+  sku: String
+  barcode: String
   status: ProductStatus
+  trackInventory: Boolean
+  stock: Int
+  lowStockAlert: Int
+  weight: Float
+  length: Float
+  width: Float
+  height: Float
   metaTitle: String
   metaDescription: String
   metaKeywords: [String!]
-  categoryId: ID
+  categoryIds: [ID!]
+  tagIds: [ID!]
+  images: [ProductImageInput!]
 }
 
 input UpdateProductInput {
   name: String
   slug: String
   description: String
+  shortDesc: String
   price: Float
-  images: [String!]
+  comparePrice: Float
+  costPrice: Float
+  sku: String
+  barcode: String
   status: ProductStatus
+  trackInventory: Boolean
+  stock: Int
+  lowStockAlert: Int
+  weight: Float
+  length: Float
+  width: Float
+  height: Float
   metaTitle: String
   metaDescription: String
   metaKeywords: [String!]
-  categoryId: ID
+  categoryIds: [ID!]
+  tagIds: [ID!]
+  images: [ProductImageInput!]
+}
+
+input ProductImageInput {
+  url: String!
+  alt: String
+  sortOrder: Int
+  isPrimary: Boolean
 }
 
 input ProductWhereInput {
-  categoryId: ID
+  categoryIds: [ID!]
+  tagIds: [ID!]
   status: ProductStatus
   priceMin: Float
   priceMax: Float
@@ -260,24 +473,92 @@ input ProductOrderByInput {
 input CreateOrderInput {
   shippingAddressId: ID!
   billingAddressId: ID!
-  paymentMethod: String!
+  customerNote: String
+  discountCode: String
+}
+
+input CreatePaymentInput {
+  orderId: ID!
+  amount: Float!
+  method: PaymentMethod!
+  transactionId: String
+}
+
+input CreateShipmentInput {
+  orderId: ID!
+  addressId: ID!
+  trackingNumber: String
+  carrier: String
+  service: String
+}
+
+input UpdateShipmentInput {
+  trackingNumber: String
+  carrier: String
+  service: String
+  status: ShipmentStatus
+  shippedAt: String
+  deliveredAt: String
+  notes: String
+}
+
+input CreateDiscountInput {
+  code: String!
+  description: String
+  type: DiscountType!
+  value: Float!
+  maxUses: Int
+  maxUsesPerUser: Int
+  minPurchase: Float
+  startsAt: String
+  expiresAt: String
+  productIds: [ID!]
+}
+
+input UpdateDiscountInput {
+  code: String
+  description: String
+  type: DiscountType
+  value: Float
+  maxUses: Int
+  maxUsesPerUser: Int
+  minPurchase: Float
+  startsAt: String
+  expiresAt: String
+  isActive: Boolean
+  productIds: [ID!]
 }
 
 input CreateReviewInput {
   productId: ID!
   rating: Int!
+  title: String
   comment: String
 }
 
 input UpdateReviewInput {
   rating: Int
+  title: String
   comment: String
+}
+
+input CreateTagInput {
+  name: String!
+  slug: String!
+}
+
+input UpdateTagInput {
+  name: String
+  slug: String
 }
 
 # Custom scalar for JSON
 scalar JSON
 
-# Queries
+# ============================================================================
+# QUERIES
+# ============================================================================
+
 type Query {
   # Auth
   me: User!
@@ -291,9 +572,9 @@ type Query {
   categories: [Category!]!
   category(id: ID, slug: String): Category
   
-  # Attributes
-  attributes: [Attribute!]!
-  attribute(id: ID!): Attribute
+  # Tags
+  tags: [Tag!]!
+  tag(id: ID, slug: String): Tag
   
   # Cart
   cart: Cart!
@@ -302,8 +583,23 @@ type Query {
   orders(skip: Int, take: Int): [Order!]!
   order(id: ID!): Order
   
+  # Payments
+  payment(id: ID!): Payment
+  orderPayments(orderId: ID!): [Payment!]!
+  
+  # Shipments
+  shipment(id: ID!): Shipment
+  orderShipments(orderId: ID!): [Shipment!]!
+  trackShipment(trackingNumber: String!): Shipment
+  
+  # Discounts
+  discounts(skip: Int, take: Int, isActive: Boolean): [Discount!]!
+  discount(id: ID, code: String): Discount
+  validateDiscount(code: String!, orderTotal: Float!): Discount
+  
   # Reviews
-  reviews(productId: ID!, skip: Int, take: Int): [Review!]!
+  reviews(productId: ID!, skip: Int, take: Int, status: ReviewStatus): [Review!]!
+  review(id: ID!): Review
   
   # User
   profile: User!
@@ -312,10 +608,14 @@ type Query {
   # Admin
   adminAnalytics: JSON
   adminOrders(skip: Int, take: Int, status: OrderStatus): [Order!]!
-  adminUsers(skip: Int, take: Int): [User!]!
+  adminUsers(skip: Int, take: Int, role: UserRole): [User!]!
+  adminProducts(skip: Int, take: Int, status: ProductStatus): [Product!]!
 }
 
-# Mutations
+# ============================================================================
+# MUTATIONS
+# ============================================================================
+
 type Mutation {
   # Auth
   register(input: RegisterInput!): AuthPayload!
@@ -334,6 +634,11 @@ type Mutation {
   updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
   deleteCategory(id: ID!): Boolean!
   
+  # Tags (Admin)
+  createTag(input: CreateTagInput!): Tag!
+  updateTag(id: ID!, input: UpdateTagInput!): Tag!
+  deleteTag(id: ID!): Boolean!
+  
   # Cart
   addToCart(productId: ID!, variantId: ID, quantity: Int!): Cart!
   updateCartItem(itemId: ID!, quantity: Int!): Cart!
@@ -345,11 +650,26 @@ type Mutation {
   updateOrderStatus(id: ID!, status: OrderStatus!): Order!
   cancelOrder(id: ID!): Order!
   
+  # Payments (Admin)
+  createPayment(input: CreatePaymentInput!): Payment!
+  refundPayment(id: ID!, amount: Float!, reason: String): Payment!
+  
+  # Shipments (Admin)
+  createShipment(input: CreateShipmentInput!): Shipment!
+  updateShipment(id: ID!, input: UpdateShipmentInput!): Shipment!
+  
+  # Discounts (Admin)
+  createDiscount(input: CreateDiscountInput!): Discount!
+  updateDiscount(id: ID!, input: UpdateDiscountInput!): Discount!
+  deleteDiscount(id: ID!): Boolean!
+  
   # Reviews
   createReview(input: CreateReviewInput!): Review!
   updateReview(id: ID!, input: UpdateReviewInput!): Review!
   deleteReview(id: ID!): Boolean!
   moderateReview(id: ID!, status: ReviewStatus!): Review!
+  respondToReview(id: ID!, response: String!): Review!
+  markReviewHelpful(id: ID!): Review!
   
   # User
   updateProfile(input: UpdateProfileInput!): User!
