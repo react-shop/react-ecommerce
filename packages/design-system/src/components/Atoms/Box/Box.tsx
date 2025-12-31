@@ -1,10 +1,12 @@
-import { styled } from '@styled-system/jsx';
+import * as React from 'react';
+import { cn } from '../../../lib/utils';
 
-/**
- * Box - The fundamental building block component
- * Accepts all style props from PandaCSS
- */
-export const Box = styled('div');
+export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const Box = React.forwardRef<HTMLDivElement, BoxProps>(
+  ({ className, ...props }, ref) => {
+    return <div ref={ref} className={cn(className)} {...props} />;
+  }
+);
 
 Box.displayName = 'Box';
-

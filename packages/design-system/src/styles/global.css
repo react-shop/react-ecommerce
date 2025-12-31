@@ -1,29 +1,27 @@
-@layer reset, base, tokens, recipes, utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+@layer base {
+  * {
+    @apply box-border m-0 p-0;
+  }
+
+  html,
+  body {
+    @apply h-full;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  a {
+    @apply no-underline;
+    color: inherit;
+  }
 }
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  font-family: var(--font-body), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-

@@ -5,13 +5,11 @@
   "types": "./src/index.tsx",
   "license": "MIT",
   "scripts": {
-    "prepare": "panda codegen",
     "lint": "TIMING=1 eslint \"**/*.ts*\"",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@pandacss/dev": "^0.40.0",
     "@storybook/addon-essentials": "^8.0.0",
     "@storybook/addon-interactions": "^8.0.0",
     "@storybook/addon-links": "^8.0.0",
@@ -20,16 +18,22 @@
     "@storybook/react-vite": "^8.0.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.16",
     "eslint": "^9.0.0",
     "eslint-config-custom": "workspace:*",
+    "postcss": "^8.4.32",
     "react": "^18.2.0",
     "storybook": "^8.0.0",
+    "tailwindcss": "^3.4.0",
     "tsconfig": "workspace:*",
     "typescript": "^5.0.0",
     "vite": "^5.0.0"
   },
   "dependencies": {
-    "lucide-react": "^0.263.1"
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.263.1",
+    "tailwind-merge": "^2.2.0",
+    "tailwind-variants": "^0.1.20"
   },
   "peerDependencies": {
     "react": "^18.2.0",

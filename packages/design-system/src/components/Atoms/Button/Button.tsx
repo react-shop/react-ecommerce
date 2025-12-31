@@ -1,67 +1,23 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '../../../lib/utils';
 
-const buttonRecipe = cva({
-  base: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '2',
-    fontWeight: 'medium',
-    borderRadius: 'md',
-    transition: 'all 0.2s',
-    cursor: 'pointer',
-    _disabled: {
-      opacity: 0.5,
-      cursor: 'not-allowed',
-    },
-  },
+const button = tv({
+  base: 'inline-flex items-center justify-center gap-2 rounded-md font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
   variants: {
     variant: {
-      solid: {
-        bg: 'primary.default',
-        color: 'primary.text',
-        _hover: {
-          bg: 'primary.emphasis',
-        },
-      },
-      outline: {
-        border: '1px solid',
-        borderColor: 'border.default',
-        color: 'text.primary',
-        _hover: {
-          bg: 'bg.muted',
-        },
-      },
-      ghost: {
-        color: 'text.primary',
-        _hover: {
-          bg: 'bg.muted',
-        },
-      },
+      solid: 'bg-primary-600 text-white hover:bg-primary-700 focus-visible:ring-primary-600',
+      outline:
+        'border border-gray-300 bg-transparent hover:bg-gray-50 focus-visible:ring-gray-300',
+      ghost: 'bg-transparent hover:bg-gray-100 focus-visible:ring-gray-300',
     },
     size: {
-      sm: {
-        px: '3',
-        py: '1.5',
-        fontSize: 'sm',
-      },
-      md: {
-        px: '4',
-        py: '2',
-        fontSize: 'md',
-      },
-      lg: {
-        px: '6',
-        py: '3',
-        fontSize: 'lg',
-      },
+      sm: 'px-3 py-1.5 text-sm',
+      md: 'px-4 py-2 text-base',
+      lg: 'px-6 py-3 text-lg',
     },
     fullWidth: {
-      true: {
-        width: '100%',
-      },
+      true: 'w-full',
     },
   },
   defaultVariants: {
@@ -70,7 +26,7 @@ const buttonRecipe = cva({
   },
 });
 
-export type ButtonVariants = RecipeVariantProps<typeof buttonRecipe>;
+export type ButtonVariants = VariantProps<typeof button>;
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -80,40 +36,36 @@ export interface ButtonProps
   rightIcon?: React.ReactNode;
 }
 
-const StyledButton = styled('button', buttonRecipe);
-
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
+      className,
       children,
+      variant,
+      size,
+      fullWidth,
       isLoading,
       leftIcon,
       rightIcon,
       disabled,
-      variant,
-      size,
-      fullWidth,
       ...props
     },
     ref
   ) => {
     return (
-      <StyledButton
+      <button
         ref={ref}
+        className={cn(button({ variant, size, fullWidth }), className)}
         disabled={disabled || isLoading}
-        variant={variant}
-        size={size}
-        fullWidth={fullWidth}
         {...props}
       >
-        {isLoading && <span>Loading...</span>}
+        {isLoading && <span className="animate-spin">⏳</span>}
         {!isLoading && leftIcon && <span>{leftIcon}</span>}
         {children}
         {!isLoading && rightIcon && <span>{rightIcon}</span>}
-      </StyledButton>
+      </button>
     );
   }
 );
 
 Button.displayName = 'Button';
-

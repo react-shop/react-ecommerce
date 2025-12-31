@@ -1,10 +1,12 @@
-import { styled } from '@styled-system/jsx';
+import * as React from 'react';
+import { cn } from '../../../lib/utils';
 
-export const Stack = styled('div', {
-  base: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-});
+export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {}
+
+export const Stack = React.forwardRef<HTMLDivElement, StackProps>(
+  ({ className, ...props }, ref) => {
+    return <div ref={ref} className={cn('flex flex-col', className)} {...props} />;
+  }
+);
 
 Stack.displayName = 'Stack';
