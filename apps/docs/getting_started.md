@@ -7,7 +7,7 @@ This guide will help you set up and run the React Ecommerce Boilerplate on your 
 Before you begin, ensure you have the following installed:
 
 - **Node.js 18+** - [Download](https://nodejs.org/)
-- **Yarn 1.x** - Install: `npm install -g yarn`
+- **Yarn 1.x** - Install: `npm install -g pnpm`
 - **PostgreSQL 14+** - [Download](https://www.postgresql.org/download/)
 - **Git** - [Download](https://git-scm.com/)
 
@@ -27,7 +27,7 @@ cd react-ecommerce
 ### 2. Install Dependencies
 
 ```bash
-yarn install
+pnpm install
 ```
 
 This will install all dependencies for all packages in the monorepo using Turborepo's workspace management.
@@ -83,7 +83,7 @@ Run Prisma migrations:
 
 ```bash
 cd apps/server
-yarn prisma migrate dev --name init
+pnpm prisma migrate dev --name init
 ```
 
 This will:
@@ -95,14 +95,14 @@ This will:
 
 ```bash
 cd apps/server
-yarn prisma generate
+pnpm prisma generate
 ```
 
 ### 6. Generate PandaCSS
 
 ```bash
 cd ../../packages/design-system
-yarn prepare
+pnpm prepare
 ```
 
 ### 7. Start Development
@@ -110,7 +110,7 @@ yarn prepare
 From the root directory:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 This starts:
@@ -137,7 +137,7 @@ query {
 
 ```bash
 cd apps/server
-yarn prisma studio
+pnpm prisma studio
 ```
 
 This opens Prisma Studio at http://localhost:5555 where you can view and edit your database.
@@ -183,7 +183,7 @@ Clear Prisma cache and regenerate:
 ```bash
 cd apps/server
 rm -rf node_modules/.prisma
-yarn prisma generate
+pnpm prisma generate
 ```
 
 ## Development Tips
@@ -195,9 +195,9 @@ All packages support watch mode for development:
 ```bash
 # Watch design system changes
 cd packages/design-system
-yarn prepare --watch
+pnpm prepare --watch
 
-# Watch server changes (already in watch mode with yarn dev)
+# Watch server changes (already in watch mode with pnpm dev)
 ```
 
 ### Database Reset
@@ -206,7 +206,7 @@ To reset your database and start fresh:
 
 ```bash
 cd apps/server
-yarn prisma migrate reset
+pnpm prisma migrate reset
 ```
 
 **Warning**: This will delete all data!

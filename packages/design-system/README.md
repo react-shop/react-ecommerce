@@ -14,7 +14,7 @@ A comprehensive, themeable design system built with PandaCSS for the React Ecomm
 ## Installation
 
 ```bash
-yarn add @react-shop/design-system
+pnpm add @react-shop/design-system
 ```
 
 ## Usage
@@ -223,13 +223,13 @@ export const myRecipe = cva({
 
 ```bash
 # Install dependencies
-yarn install
+pnpm install
 
 # Generate PandaCSS
-yarn prepare
+pnpm prepare
 
 # Lint
-yarn lint
+pnpm lint
 ```
 
 ## TypeScript

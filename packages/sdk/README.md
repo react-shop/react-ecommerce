@@ -14,7 +14,7 @@ Complete SDK for the React Ecommerce Platform with React context providers, API 
 ## Installation
 
 ```bash
-yarn add @react-shop/sdk
+pnpm add @react-shop/sdk
 ```
 
 ## Quick Start

@@ -36,7 +36,7 @@ src/
 Before you begin, ensure you have installed:
 
 - **Node.js** (v18 or higher)
-- **Yarn** (v1.22 or higher)
+- **pnpm** (v8 or higher)
 - **Docker** and **Docker Compose** (for database)
 
 ## Getting Started
@@ -110,14 +110,14 @@ docker-compose down -v
 From the root of the monorepo:
 
 ```bash
-yarn install
+pnpm install
 ```
 
 Or from the server directory:
 
 ```bash
 cd apps/server
-yarn install
+pnpm install
 ```
 
 ### 4. Setup Prisma and Database
@@ -153,14 +153,14 @@ npx prisma db seed
 From the root:
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 Or from the server directory:
 
 ```bash
 cd apps/server
-yarn dev
+pnpm dev
 ```
 
 The server will start on http://localhost:3000
@@ -169,40 +169,40 @@ The server will start on http://localhost:3000
 
 ```bash
 # Build
-yarn build
+pnpm build
 
 # Start
-yarn start:prod
+pnpm start:prod
 ```
 
 ## Available Scripts
 
 ```bash
 # Development
-yarn dev              # Start in watch mode
-yarn start            # Start without watch mode
-yarn start:debug      # Start in debug mode
+pnpm dev              # Start in watch mode
+pnpm start            # Start without watch mode
+pnpm start:debug      # Start in debug mode
 
 # Build
-yarn build            # Build for production
+pnpm build            # Build for production
 
 # Testing
-yarn test             # Run unit tests
-yarn test:watch       # Run tests in watch mode
-yarn test:cov         # Run tests with coverage
-yarn test:e2e         # Run end-to-end tests
+pnpm test             # Run unit tests
+pnpm test:watch       # Run tests in watch mode
+pnpm test:cov         # Run tests with coverage
+pnpm test:e2e         # Run end-to-end tests
 
 # Linting
-yarn lint             # Run ESLint and fix issues
-yarn format           # Format code with Prettier
+pnpm lint             # Run ESLint and fix issues
+pnpm format           # Format code with Prettier
 
 # Prisma
-npx prisma studio     # Open Prisma Studio (database GUI)
-npx prisma migrate dev --name migration_name  # Create new migration
-npx prisma migrate deploy  # Apply migrations in production
-npx prisma generate   # Generate Prisma client
-npx prisma db push    # Push schema changes without migration
-npx prisma db pull    # Pull schema from database
+pnpm prisma:studio    # Open Prisma Studio (database GUI)
+pnpm prisma:migrate   # Create new migration
+pnpm prisma:generate  # Generate Prisma client
+pnpm prisma:push      # Push schema changes without migration
+pnpm prisma:pull      # Pull schema from database
+pnpm prisma:reset     # Reset database
 ```
 
 ## GraphQL Playground

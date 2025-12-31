@@ -7,4 +7,3 @@ import { ReviewResolver } from './review.resolver';
   exports: [ReviewService],
 })
 export class ReviewModule {}
-

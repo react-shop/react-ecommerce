@@ -179,7 +179,7 @@ Admin dashboard for managing the store (to be implemented).
 
 ### Prerequisites
 
-- Node.js 18+ and Yarn 1.x
+- Node.js 18+ and pnpm 8+
 - PostgreSQL 14+
 - Redis (optional, for caching)
 
@@ -193,7 +193,7 @@ cd react-ecommerce
 
 2. Install dependencies:
 ```bash
-yarn install
+pnpm install
 ```
 
 3. Set up environment variables:
@@ -210,32 +210,32 @@ createdb ecommerce
 
 # Run Prisma migrations
 cd apps/server
-yarn prisma migrate dev
+pnpm prisma migrate dev
 ```
 
 5. Generate Prisma Client:
 ```bash
 cd apps/server
-yarn prisma generate
+pnpm prisma generate
 ```
 
 6. Generate GraphQL types:
 ```bash
 cd packages/services
-yarn codegen
+pnpm codegen
 ```
 
 7. Generate PandaCSS:
 ```bash
 cd packages/design-system
-yarn prepare
+pnpm prepare
 ```
 
 ### Development
 
 Start all apps in development mode:
 ```bash
-yarn dev
+pnpm dev
 ```
 
 This will start:
@@ -247,7 +247,7 @@ This will start:
 
 Build all apps:
 ```bash
-yarn build
+pnpm build
 ```
 
 ## Database Schema
@@ -366,7 +366,7 @@ query GetCustomData {
 2. Run codegen:
 ```bash
 cd packages/services
-yarn codegen
+pnpm codegen
 ```
 
 3. Use the generated hook:
@@ -391,7 +391,7 @@ model NewModel {
 2. Create and run migration:
 ```bash
 cd apps/server
-yarn prisma migrate dev --name add_new_model
+pnpm prisma migrate dev --name add_new_model
 ```
 
 3. Update GraphQL schema and resolvers accordingly.
@@ -402,13 +402,13 @@ yarn prisma migrate dev --name add_new_model
 
 ```bash
 # Run all tests
-yarn test
+pnpm test
 
 # Run tests in watch mode
-yarn test:watch
+pnpm test:watch
 
 # Run tests with coverage
-yarn test:cov
+pnpm test:cov
 ```
 
 ## Deployment
@@ -448,7 +448,7 @@ npx react-native init Mobile
 
 2. Install shared packages:
 ```bash
-yarn add @react-shop/services
+pnpm add @react-shop/services
 ```
 
 3. Use the same GraphQL hooks:

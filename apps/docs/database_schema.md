@@ -365,19 +365,19 @@ model StoreSetting {
 
 ```bash
 cd apps/server
-yarn prisma migrate dev --name migration_name
+pnpm prisma migrate dev --name migration_name
 ```
 
 ### Apply Migrations
 
 ```bash
-yarn prisma migrate deploy
+pnpm prisma migrate deploy
 ```
 
 ### Reset Database
 
 ```bash
-yarn prisma migrate reset
+pnpm prisma migrate reset
 ```
 
 **Warning:** This deletes all data!
@@ -433,7 +433,7 @@ Add to package.json:
 Run seed:
 
 ```bash
-yarn prisma db seed
+pnpm prisma db seed
 ```
 
 ## Prisma Studio
@@ -442,7 +442,7 @@ Visual database editor:
 
 ```bash
 cd apps/server
-yarn prisma studio
+pnpm prisma studio
 ```
 
 Opens at http://localhost:5555

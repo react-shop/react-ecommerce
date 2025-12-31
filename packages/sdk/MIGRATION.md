@@ -137,10 +137,10 @@ setToken(token);
 
 ```bash
 # Remove old package
-yarn remove @react-shop/services
+pnpm remove @react-shop/services
 
 # Add new package (already in monorepo)
-yarn install
+pnpm install
 ```
 
 ### 2. Update Imports

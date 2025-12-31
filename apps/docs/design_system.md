@@ -15,7 +15,7 @@ The design system is built with PandaCSS, providing zero-runtime, type-safe styl
 In your Next.js app:
 
 ```bash
-yarn add @react-shop/design-system
+pnpm add @react-shop/design-system
 ```
 
 ## Setup

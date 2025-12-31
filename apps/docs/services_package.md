@@ -13,7 +13,7 @@ Type-safe React Query hooks for interacting with the GraphQL API.
 ## Installation
 
 ```bash
-yarn add @react-shop/services
+pnpm add @react-shop/services
 ```
 
 ## Setup

@@ -17,7 +17,7 @@ A comprehensive, production-ready ecommerce boilerplate built with React, Next.j
 ### Prerequisites
 
 - Node.js 18+
-- Yarn 1.x
+- pnpm 8+
 - PostgreSQL 14+
 
 ### Installation
@@ -26,7 +26,7 @@ A comprehensive, production-ready ecommerce boilerplate built with React, Next.j
 # Clone and install
 git clone <repository-url>
 cd react-ecommerce
-yarn install
+pnpm install
 
 # Setup database
 cd apps/server
@@ -34,16 +34,16 @@ cp .env.example .env
 # Edit .env with your database credentials
 
 # Run migrations
-yarn prisma migrate dev
+pnpm prisma migrate dev
 
 # Generate types
-yarn prisma generate
+pnpm prisma generate
 cd ../../packages/services
-yarn codegen
+pnpm codegen
 
 # Start development
 cd ../..
-yarn dev
+pnpm dev
 ```
 
 The backend API will be available at `http://localhost:3001/graphql`
@@ -89,21 +89,21 @@ The backend API will be available at `http://localhost:3001/graphql`
 
 ```bash
 # Development
-yarn dev          # Start all apps in development mode
-yarn dev:server   # Start only the backend
-yarn dev:web      # Start only the web app
+pnpm dev          # Start all apps in development mode
+pnpm dev:server   # Start only the backend
+pnpm dev:web      # Start only the web app
 
 # Building
-yarn build        # Build all apps
-yarn lint         # Lint all packages
+pnpm build        # Build all apps
+pnpm lint         # Lint all packages
 
 # Database
-yarn prisma:migrate  # Run database migrations
-yarn prisma:studio   # Open Prisma Studio
-yarn prisma:generate # Generate Prisma Client
+pnpm prisma:migrate  # Run database migrations
+pnpm prisma:studio   # Open Prisma Studio
+pnpm prisma:generate # Generate Prisma Client
 
 # Code Generation
-yarn codegen      # Generate GraphQL types
+pnpm codegen      # Generate GraphQL types
 ```
 
 ## Key Features
@@ -157,7 +157,7 @@ query GetCustomData {
 }
 ```
 
-Then run `yarn codegen` to generate TypeScript types.
+Then run `pnpm codegen` to generate TypeScript types.
 
 ### Extending Database
 
@@ -169,7 +169,7 @@ model NewModel {
 }
 ```
 
-Then run `yarn prisma migrate dev --name add_new_model`.
+Then run `pnpm prisma migrate dev --name add_new_model`.
 
 ## React Native Support
 

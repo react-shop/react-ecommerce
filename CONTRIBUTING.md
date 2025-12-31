@@ -12,7 +12,7 @@ Thank you for considering contributing to React Ecommerce Boilerplate! This guid
    ```
 3. **Install dependencies**
    ```bash
-   yarn install
+   pnpm install
    ```
 4. **Setup environment**
    ```bash
@@ -22,7 +22,7 @@ Thank you for considering contributing to React Ecommerce Boilerplate! This guid
    ```
 5. **Start development**
    ```bash
-   yarn dev
+   pnpm dev
    ```
 
 ## Project Structure
@@ -61,13 +61,13 @@ Follow the project's coding standards:
 
 ```bash
 # Run linter
-yarn lint
+pnpm lint
 
 # Run tests (if available)
-yarn test
+pnpm test
 
 # Build to check for errors
-yarn build
+pnpm build
 ```
 
 ### 4. Commit Your Changes
@@ -267,10 +267,10 @@ cd apps/server
 # Edit prisma/schema.prisma
 
 # 2. Create migration
-yarn prisma migrate dev --name add_feature
+pnpm prisma migrate dev --name add_feature
 
 # 3. Generate Prisma Client
-yarn prisma generate
+pnpm prisma generate
 
 # 4. Create module
 mkdir src/feature

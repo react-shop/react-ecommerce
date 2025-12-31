@@ -181,7 +181,7 @@ The admin dashboard needs to be implemented with:
 
 1. **Install dependencies:**
 ```bash
-yarn install
+pnpm install
 ```
 
 2. **Setup environment variables:**
@@ -198,28 +198,28 @@ createdb ecommerce
 
 # Run migrations
 cd apps/server
-yarn prisma migrate dev --name init
+pnpm prisma migrate dev --name init
 
 # Generate Prisma Client
-yarn prisma generate
+pnpm prisma generate
 ```
 
 4. **Generate PandaCSS:**
 ```bash
 cd packages/design-system
-yarn prepare
+pnpm prepare
 ```
 
 5. **Generate GraphQL types (after server is running):**
 ```bash
 cd packages/services
-yarn codegen
+pnpm codegen
 ```
 
 6. **Start development:**
 ```bash
 # From root directory
-yarn dev
+pnpm dev
 ```
 
 ## 🎯 Architecture Highlights

@@ -264,31 +264,31 @@ BREAKING CHANGE: Package renamed from @react-shop/services to @react-shop/sdk
 
 ### Start Development
 ```bash
-yarn install
-yarn dev
+pnpm install
+pnpm dev
 ```
 
 ### Database Commands
 ```bash
 cd apps/server
-yarn prisma migrate dev
-yarn prisma studio
-yarn prisma generate
+pnpm prisma migrate dev
+pnpm prisma studio
+pnpm prisma generate
 ```
 
 ### Add New Package
 ```bash
-yarn workspace <workspace-name> add <package>
+pnpm add <package> --filter <workspace-name>
 ```
 
 ### Build for Production
 ```bash
-yarn build
+pnpm build
 ```
 
 ### Run Linter
 ```bash
-yarn lint
+pnpm lint
 ```
 
 ## Resources
