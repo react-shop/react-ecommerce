@@ -3,6 +3,7 @@
 ## 🏠 Public Pages
 
 ### Home Page
+
 - [ ] Hero banner with featured products
 - [ ] Category showcase
 - [ ] Featured/trending products
@@ -10,6 +11,7 @@
 - [ ] Newsletter signup
 
 ### Product Pages
+
 - [ ] Product listing page
   - [ ] Grid/List view toggle
   - [ ] Product cards with image, title, price, rating
@@ -25,6 +27,7 @@
   - [ ] Recently viewed products
 
 ### Search & Filtering
+
 - [ ] Search bar with autocomplete
 - [ ] Advanced filters (category, price, brand, rating, etc.)
 - [ ] Sort options (price, popularity, newest, rating)
@@ -33,6 +36,7 @@
 - [ ] Clear all filters
 
 ### Categories
+
 - [ ] Category listing page
 - [ ] Subcategories navigation
 - [ ] Category breadcrumbs
@@ -42,6 +46,7 @@
 ## 🛒 Shopping Experience
 
 ### Cart
+
 - [ ] Shopping cart page
 - [ ] Mini cart (sidebar/dropdown)
 - [ ] Update quantities
@@ -53,12 +58,14 @@
 - [ ] Empty cart state
 
 ### Wishlist
+
 - [ ] Add/remove from wishlist
 - [ ] Wishlist page
 - [ ] Move to cart from wishlist
 - [ ] Share wishlist
 
 ### Checkout
+
 - [ ] Multi-step checkout (shipping → payment → review)
 - [ ] Guest checkout option
 - [ ] Shipping address form
@@ -71,6 +78,7 @@
 - [ ] Order review & confirmation
 
 ### Post-Purchase
+
 - [ ] Order confirmation page
 - [ ] Order tracking page
 - [ ] Track by order number (guest)
@@ -81,6 +89,7 @@
 ## 👤 User Account
 
 ### Authentication
+
 - [ ] Login page
 - [ ] Register page
 - [ ] Forgot password
@@ -90,6 +99,7 @@
 - [ ] Protected routes
 
 ### User Dashboard
+
 - [ ] Dashboard overview
 - [ ] Recent orders
 - [ ] Saved addresses
@@ -97,6 +107,7 @@
 - [ ] Account settings
 
 ### Orders
+
 - [ ] Order history
 - [ ] Order details
 - [ ] Track order
@@ -105,18 +116,21 @@
 - [ ] Leave review
 
 ### Profile
+
 - [ ] Edit profile (name, email, phone)
 - [ ] Change password
 - [ ] Profile avatar
 - [ ] Delete account
 
 ### Addresses
+
 - [ ] Address book
 - [ ] Add/edit/delete addresses
 - [ ] Set default address
 - [ ] Address validation
 
 ### Reviews
+
 - [ ] Leave product review
 - [ ] Edit/delete own reviews
 - [ ] View review history
@@ -126,6 +140,7 @@
 ## 📱 UI/UX Features
 
 ### Navigation
+
 - [ ] Header with logo, search, cart, user menu
 - [ ] Mobile responsive menu (hamburger)
 - [ ] Mega menu for categories
@@ -133,6 +148,7 @@
 - [ ] Footer with links, social media, newsletter
 
 ### Layout Components
+
 - [ ] Loading skeletons
 - [ ] Empty states
 - [ ] Error boundaries
@@ -142,6 +158,7 @@
 - [ ] Back to top button
 
 ### Responsive Design
+
 - [ ] Mobile-first design
 - [ ] Tablet optimization
 - [ ] Desktop optimization
@@ -152,6 +169,7 @@
 ## 🔧 Technical Features
 
 ### Performance
+
 - [ ] Image optimization (Next.js Image)
 - [ ] Code splitting
 - [ ] Lazy loading
@@ -159,6 +177,7 @@
 - [ ] Caching strategy
 
 ### SEO
+
 - [ ] Meta tags (title, description)
 - [ ] Open Graph tags
 - [ ] Structured data (Product, Breadcrumb)
@@ -167,6 +186,7 @@
 - [ ] Canonical URLs
 
 ### Accessibility
+
 - [ ] Keyboard navigation
 - [ ] Screen reader support
 - [ ] ARIA labels
@@ -174,6 +194,7 @@
 - [ ] Color contrast (WCAG AA)
 
 ### Internationalization
+
 - [ ] i18n setup
 - [ ] Language switcher
 - [ ] Translated content
@@ -181,11 +202,13 @@
 - [ ] Date/time formatting
 
 ### Theming
+
 - [ ] Dark/Light mode toggle
 - [ ] Theme persistence
 - [ ] Smooth transitions
 
 ### Analytics
+
 - [ ] Google Analytics / Plausible
 - [ ] Product view tracking
 - [ ] Add to cart tracking
@@ -197,29 +220,34 @@
 ## 🚀 Priority Implementation Order
 
 ### Phase 1 - Foundation (Week 1-2)
+
 1. ✅ Setup SDK, Design System, Fonts
 2. [ ] Authentication pages (login, register, forgot password)
 3. [ ] Layout (header, footer, navigation)
 4. [ ] Home page structure
 
 ### Phase 2 - Core Shopping (Week 3-4)
+
 5. [ ] Product listing page
 6. [ ] Product detail page
 7. [ ] Search & filters
 8. [ ] Cart functionality
 
 ### Phase 3 - Checkout (Week 5)
+
 9. [ ] Checkout flow
 10. [ ] Order confirmation
 11. [ ] Payment integration
 
 ### Phase 4 - User Account (Week 6)
+
 12. [ ] User dashboard
 13. [ ] Order history
 14. [ ] Profile management
 15. [ ] Address book
 
 ### Phase 5 - Polish (Week 7-8)
+
 16. [ ] Wishlist
 17. [ ] Reviews
 18. [ ] SEO optimization

@@ -11,11 +11,13 @@ This PR establishes the foundational infrastructure for the React Ecommerce boil
 ### 🔐 Authentication System
 
 **Token Management**
+
 - ✅ Automatic access token storage on login/register
 - ✅ Automatic refresh token storage
 - ✅ Dual storage strategy (localStorage + memory for SSR support)
 
 **Auto Token Refresh**
+
 - ✅ Automatic token refresh on 401 errors
 - ✅ Request queuing during refresh (prevents race conditions)
 - ✅ Automatic retry of failed requests after token refresh
@@ -23,38 +25,43 @@ This PR establishes the foundational infrastructure for the React Ecommerce boil
 - ✅ Backend-validated tokens (removed unnecessary client-side checks)
 
 **Implementation**
+
 ```typescript
 // Simplified flow
-Request (401) → Get Refresh Token → POST /api/auth/refresh 
+Request (401) → Get Refresh Token → POST /api/auth/refresh
 → Save New Tokens → Retry Original Request → Resume Queued Requests
 ```
 
 ### 📁 Absolute Paths Configuration
 
 **SDK Package (`@react-shop/sdk`)**
+
 - ✅ Changed internal alias from `@/` to `@sdk/` to avoid conflicts
 - ✅ Added path mappings: `@sdk/*`, `@entities/*`, `@providers/*`, `@services/*`
 - ✅ Updated all SDK files to use new aliases
 
 **Web App**
+
 - ✅ Configured `tsconfig.json` with absolute paths
 - ✅ Configured `next.config.js` with webpack aliases
 - ✅ Added mappings for `@lib`, `@entities`, `@providers`, `@services`, `@sdk`
 
 **Benefits**
+
 ```typescript
 // ❌ Before
-import { setToken } from '../../../client';
-import { User } from '../../../../entities/User';
+import { setToken } from "../../../client";
+import { User } from "../../../../entities/User";
 
 // ✅ After
-import { setToken } from '@sdk/client';
-import { User } from '@entities/User';
+import { setToken } from "@sdk/client";
+import { User } from "@entities/User";
 ```
 
 ### 🎨 Typography
 
 **Poppins Font Integration**
+
 - ✅ Integrated using Next.js `next/font/google` for optimal performance
 - ✅ Weights: 300, 400, 500, 600, 700
 - ✅ Applied to both `font-sans` and `font-heading` in Tailwind config
@@ -120,10 +127,11 @@ import { User } from '@entities/User';
 ### Modified Files
 
 **SDK (`packages/sdk/`)**
+
 ```
 src/client.ts                              - Token refresh logic + storage helpers
 src/services/mutations/auth/useLogin/      - Save both tokens
-src/services/mutations/auth/useRegister/   - Save both tokens  
+src/services/mutations/auth/useRegister/   - Save both tokens
 src/services/mutations/auth/useLogout/     - Updated imports
 src/services/queries/products/             - Updated imports
 src/providers/ApiProvider.tsx              - Config validation
@@ -131,6 +139,7 @@ tsconfig.json                              - Changed @/ to @sdk/
 ```
 
 **Web App (`apps/web/`)**
+
 ```
 app/layout.tsx                             - Poppins font + apiConfig fix
 tsconfig.json                              - Absolute path mappings
@@ -139,12 +148,14 @@ FEATURES.md                                - Complete rewrite
 ```
 
 **Design System (`packages/design-system/`)**
+
 ```
 src/styles/global.css                      - Removed redundant font-family
 tailwind.config.ts                         - Updated font config to use Poppins
 ```
 
 **Documentation**
+
 ```
 apps/admin/FEATURES.md                     - New file
 apps/APPS_ARCHITECTURE.md                  - New file
@@ -159,28 +170,34 @@ ABSOLUTE_PATHS_GUIDE.md                    - Updated
 ## 🎯 Key Decisions
 
 ### 1. Admin as Separate App
+
 **Decision:** Admin dashboard is a separate Next.js app (`apps/admin`), not a route in web app.
 
 **Reasons:**
+
 - 🔒 Security: Admin code doesn't ship to customers
-- 📦 Performance: Smaller bundle size for customer store  
+- 📦 Performance: Smaller bundle size for customer store
 - 🎨 Different UI/UX needs
 - 🚀 Independent deployments
 - 🔐 Separate RBAC system
 
 ### 2. Backend Token Validation
+
 **Decision:** Removed client-side refresh token validation, let backend handle it.
 
 **Benefits:**
+
 - Backend is single source of truth
 - Simpler client logic
 - More flexible validation rules
 - Better error messages from backend
 
 ### 3. Absolute Paths Strategy
+
 **Decision:** Use `@sdk/` prefix instead of `@/` for SDK package.
 
 **Reasons:**
+
 - Avoids conflicts with web app's `@/` alias
 - Clearer import origins
 - Better IDE autocomplete
@@ -204,17 +221,20 @@ ABSOLUTE_PATHS_GUIDE.md                    - Updated
 ## 📊 Impact
 
 ### Performance
+
 - ✅ Automatic token refresh reduces failed requests
 - ✅ Request queuing prevents duplicate refresh calls
 - ✅ Poppins font optimized via Next.js
 
 ### Developer Experience
+
 - ✅ Absolute imports improve code readability
 - ✅ Comprehensive docs reduce onboarding time
 - ✅ Clear architecture guide prevents confusion
 - ✅ Quick start guide speeds up setup
 
 ### Maintainability
+
 - ✅ Centralized token management
 - ✅ Type-safe SDK with React Query
 - ✅ Well-documented feature roadmaps
@@ -237,17 +257,20 @@ ABSOLUTE_PATHS_GUIDE.md                    - Updated
 ## 📋 Next Steps (Follow-up PRs)
 
 ### Phase 1: Foundation
+
 - [ ] Setup admin app structure
 - [ ] Create authentication pages (login, register)
 - [ ] Build layout components (header, footer, navigation)
 
 ### Phase 2: Web App - Core Shopping
+
 - [ ] Home page with featured products
 - [ ] Product listing page with filters
 - [ ] Product detail page
 - [ ] Shopping cart functionality
 
 ### Phase 3: Admin App - Product Management
+
 - [ ] Product CRUD interface
 - [ ] Category management
 - [ ] Image upload
@@ -272,9 +295,11 @@ None. This is foundational work that doesn't affect existing functionality.
 ## 📸 Screenshots
 
 ### Poppins Font Applied
+
 ✅ Font loads correctly in browser with proper weights
 
 ### Dev Server Running
+
 ✅ `http://localhost:3001` - Web app running without errors
 ✅ All absolute imports resolved
 ✅ Hot reload working
@@ -286,12 +311,14 @@ None. This is foundational work that doesn't affect existing functionality.
 ### For Reviewers
 
 **Focus Areas:**
+
 1. Token refresh logic in `packages/sdk/src/client.ts`
 2. Absolute path configurations in `tsconfig.json` files
 3. Documentation accuracy and completeness
 4. Architecture decisions in `APPS_ARCHITECTURE.md`
 
 **Testing:**
+
 1. Start dev server: `pnpm dev`
 2. Check browser console for errors
 3. Verify font loads: inspect element to see Poppins
@@ -329,4 +356,3 @@ None. This is foundational work that doesn't affect existing functionality.
 **Documentation:** 6 new files, 1 updated
 
 **Ready to merge and start building features! 🎉**
-

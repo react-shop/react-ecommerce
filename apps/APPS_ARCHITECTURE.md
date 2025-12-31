@@ -20,13 +20,16 @@ react-ecommerce/
 ## 🛍️ Web App (Customer-Facing Store)
 
 ### Purpose
+
 Public ecommerce store where customers browse, shop, and manage their accounts.
 
 ### Target Users
+
 - Customers (anonymous & registered)
 - Guest shoppers
 
 ### Key Features
+
 - Product browsing & search
 - Shopping cart & checkout
 - User authentication & profiles
@@ -35,6 +38,7 @@ Public ecommerce store where customers browse, shop, and manage their accounts.
 - Wishlist
 
 ### Tech Stack
+
 - **Framework**: Next.js 14+ (App Router)
 - **Styling**: TailwindCSS
 - **State**: React Query (via SDK)
@@ -42,6 +46,7 @@ Public ecommerce store where customers browse, shop, and manage their accounts.
 - **Fonts**: Poppins
 
 ### URL Structure
+
 ```
 /                    → Home page
 /products            → Product listing
@@ -57,6 +62,7 @@ Public ecommerce store where customers browse, shop, and manage their accounts.
 ```
 
 ### Deployment
+
 - **Production URL**: `https://store.example.com`
 - **Development**: `http://localhost:3000`
 
@@ -65,15 +71,18 @@ Public ecommerce store where customers browse, shop, and manage their accounts.
 ## 👨‍💼 Admin App (Admin Dashboard)
 
 ### Purpose
+
 Internal management system for store administrators to manage products, orders, customers, and settings.
 
 ### Target Users
+
 - Super Admins (full access)
 - Admins (manage products, orders)
 - Editors (content management)
 - Viewers (read-only access)
 
 ### Key Features
+
 - Product management (CRUD)
 - Order processing & fulfillment
 - Customer management
@@ -83,6 +92,7 @@ Internal management system for store administrators to manage products, orders, 
 - Content management
 
 ### Tech Stack
+
 - **Framework**: Next.js 14+ (App Router)
 - **Styling**: TailwindCSS
 - **State**: React Query (via SDK)
@@ -93,6 +103,7 @@ Internal management system for store administrators to manage products, orders, 
 - **Editor**: TipTap (rich text)
 
 ### URL Structure
+
 ```
 /                    → Dashboard overview
 /login               → Admin login
@@ -109,6 +120,7 @@ Internal management system for store administrators to manage products, orders, 
 ```
 
 ### Deployment
+
 - **Production URL**: `https://admin.example.com`
 - **Development**: `http://localhost:3002`
 
@@ -117,9 +129,11 @@ Internal management system for store administrators to manage products, orders, 
 ## 🔧 Server App (Backend API)
 
 ### Purpose
+
 RESTful API that serves both web and admin apps.
 
 ### Tech Stack
+
 - **Framework**: NestJS
 - **Database**: PostgreSQL
 - **ORM**: Prisma 7
@@ -127,6 +141,7 @@ RESTful API that serves both web and admin apps.
 - **Validation**: class-validator
 
 ### URL Structure
+
 ```
 /api/auth/login       → Authentication
 /api/auth/register    → User registration
@@ -139,6 +154,7 @@ RESTful API that serves both web and admin apps.
 ```
 
 ### Deployment
+
 - **Production URL**: `https://api.example.com`
 - **Development**: `http://localhost:5001`
 
@@ -147,55 +163,61 @@ RESTful API that serves both web and admin apps.
 ## 📦 Shared Packages
 
 ### SDK (`@react-shop/sdk`)
+
 **Purpose**: Shared API client and React Query hooks
 
 **Used by**:
+
 - ✅ Web app
 - ✅ Admin app
 - ❌ Server (server doesn't need SDK)
 
 **Exports**:
+
 ```typescript
 // Entities (Types)
-import { User, Product, Order } from '@react-shop/sdk';
+import { User, Product, Order } from "@react-shop/sdk";
 
 // Query Hooks
-import { useProductList, useProductDetail } from '@react-shop/sdk';
+import { useProductList, useProductDetail } from "@react-shop/sdk";
 
 // Mutation Hooks
-import { useLogin, useAddToCart } from '@react-shop/sdk';
+import { useLogin, useAddToCart } from "@react-shop/sdk";
 
 // Providers
-import { SdkProvider } from '@react-shop/sdk';
+import { SdkProvider } from "@react-shop/sdk";
 
 // Token Management
-import { setToken, getStoredToken } from '@react-shop/sdk';
+import { setToken, getStoredToken } from "@react-shop/sdk";
 ```
 
 ### Design System (`@react-shop/design-system`)
+
 **Purpose**: Shared UI components and styling
 
 **Used by**:
+
 - ✅ Web app (customer-facing UI)
 - ✅ Admin app (admin UI)
 - ❌ Server (no UI)
 
 **Exports**:
+
 ```typescript
 // Atoms
-import { Button, Input, Badge, Avatar } from '@react-shop/design-system';
+import { Button, Input, Badge, Avatar } from "@react-shop/design-system";
 
 // Molecules
-import { Select, Toast, PriceDisplay } from '@react-shop/design-system';
+import { Select, Toast, PriceDisplay } from "@react-shop/design-system";
 
 // Organisms
-import { ProductCard, Modal } from '@react-shop/design-system';
+import { ProductCard, Modal } from "@react-shop/design-system";
 
 // Layouts
-import { Container, Flex, Grid } from '@react-shop/design-system';
+import { Container, Flex, Grid } from "@react-shop/design-system";
 
 // Utilities
-import { cn } from '@react-shop/design-system';
+import { cn } from "@react-shop/design-system";
 ```
 
 ---
@@ -203,6 +225,7 @@ import { cn } from '@react-shop/design-system';
 ## 🔀 Data Flow
 
 ### Customer Shopping Flow
+
 ```
 Customer
    ↓
@@ -218,6 +241,7 @@ Response → SDK → Web App → Customer
 ```
 
 ### Admin Management Flow
+
 ```
 Admin
    ↓
@@ -237,12 +261,14 @@ Response → SDK → Admin App → Admin
 ## 🔐 Authentication
 
 ### Web App (Customer Auth)
+
 - **Method**: JWT (access + refresh tokens)
 - **Storage**: localStorage + memory
 - **Roles**: `CUSTOMER`
 - **Protected Routes**: `/account/*`
 
 ### Admin App (Admin Auth)
+
 - **Method**: JWT (access + refresh tokens)
 - **Storage**: localStorage + memory
 - **Roles**: `SUPER_ADMIN`, `ADMIN`, `EDITOR`, `VIEWER`
@@ -250,7 +276,9 @@ Response → SDK → Admin App → Admin
 - **Permissions**: Role-based access control
 
 ### Token Refresh
+
 Both apps use the same automatic token refresh mechanism:
+
 ```
 Request (401) → Refresh Token → New Access Token → Retry Request
 ```
@@ -260,6 +288,7 @@ Request (401) → Refresh Token → New Access Token → Retry Request
 ## 🎨 UI/UX Differences
 
 ### Web App UI
+
 - **Design**: Customer-focused, sales-oriented
 - **Layout**: Marketing-style layouts, product grids
 - **Colors**: Brand colors, vibrant
@@ -268,6 +297,7 @@ Request (401) → Refresh Token → New Access Token → Retry Request
 - **SEO**: Critical (needs to rank)
 
 ### Admin App UI
+
 - **Design**: Data-heavy, functional
 - **Layout**: Sidebar navigation, data tables
 - **Colors**: Neutral, professional
@@ -280,8 +310,9 @@ Request (401) → Refresh Token → New Access Token → Retry Request
 ## 📊 Performance Considerations
 
 ### Web App
+
 - **Critical**: Page load speed, SEO, Core Web Vitals
-- **Optimization**: 
+- **Optimization**:
   - Image optimization (Next.js Image)
   - Code splitting
   - Static generation where possible
@@ -289,6 +320,7 @@ Request (401) → Refresh Token → New Access Token → Retry Request
   - Service worker (PWA)
 
 ### Admin App
+
 - **Critical**: Data loading speed, interaction responsiveness
 - **Optimization**:
   - Virtual scrolling for large tables
@@ -302,6 +334,7 @@ Request (401) → Refresh Token → New Access Token → Retry Request
 ## 🚀 Deployment Strategy
 
 ### Option 1: Separate Domains (Recommended)
+
 ```
 Web:    https://store.example.com
 Admin:  https://admin.example.com
@@ -309,12 +342,14 @@ API:    https://api.example.com
 ```
 
 **Pros:**
+
 - Clear separation
 - Independent scaling
 - Better security (admin isolated)
 - Different CDN strategies
 
 ### Option 2: Subdirectories
+
 ```
 Web:    https://example.com
 Admin:  https://example.com/admin
@@ -322,11 +357,13 @@ API:    https://example.com/api
 ```
 
 **Pros:**
+
 - Single domain
 - Simplified SSL
 - Easier CORS
 
 ### Option 3: Separate Ports (Development Only)
+
 ```
 Web:    http://localhost:3000
 Admin:  http://localhost:3002
@@ -338,6 +375,7 @@ API:    http://localhost:5001
 ## 🔧 Development Workflow
 
 ### Starting All Apps
+
 ```bash
 # From root
 pnpm dev
@@ -349,6 +387,7 @@ pnpm dev
 ```
 
 ### Starting Individual Apps
+
 ```bash
 # Web only
 cd apps/web && pnpm dev
@@ -361,23 +400,24 @@ cd apps/server && pnpm dev
 ```
 
 ### Making Changes to Shared Packages
+
 Changes to SDK or Design System are automatically hot-reloaded in all apps (thanks to Turborepo).
 
 ---
 
 ## 📝 Summary
 
-| Aspect | Web App | Admin App | Server |
-|--------|---------|-----------|--------|
-| **Users** | Customers | Admins | N/A (API) |
-| **Purpose** | Shopping | Management | Data & Logic |
-| **Framework** | Next.js 14+ | Next.js 14+ | NestJS |
-| **Auth** | JWT | JWT + RBAC | Passport.js |
-| **SEO** | Critical | Not needed | N/A |
-| **Mobile** | Mobile-first | Optional | N/A |
-| **Port (dev)** | 3000 | 3002 | 5001 |
-| **Uses SDK** | ✅ Yes | ✅ Yes | ❌ No |
-| **Uses DS** | ✅ Yes | ✅ Yes | ❌ No |
+| Aspect         | Web App      | Admin App   | Server       |
+| -------------- | ------------ | ----------- | ------------ |
+| **Users**      | Customers    | Admins      | N/A (API)    |
+| **Purpose**    | Shopping     | Management  | Data & Logic |
+| **Framework**  | Next.js 14+  | Next.js 14+ | NestJS       |
+| **Auth**       | JWT          | JWT + RBAC  | Passport.js  |
+| **SEO**        | Critical     | Not needed  | N/A          |
+| **Mobile**     | Mobile-first | Optional    | N/A          |
+| **Port (dev)** | 3000         | 3002        | 5001         |
+| **Uses SDK**   | ✅ Yes       | ✅ Yes      | ❌ No        |
+| **Uses DS**    | ✅ Yes       | ✅ Yes      | ❌ No        |
 
 ---
 
@@ -401,4 +441,3 @@ Changes to SDK or Design System are automatically hot-reloaded in all apps (than
 4. [ ] Deploy to production
 
 Both apps can be developed in parallel by different teams since they share the same backend API and packages! 🚀
-
