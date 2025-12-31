@@ -16,7 +16,7 @@
   "devDependencies": {
     "@commitlint/cli": "^18.4.0",
     "@commitlint/config-conventional": "^18.4.0",
-    "eslint-config-custom": "*",
+    "eslint-config-custom": "workspace:*",
     "husky": "^8.0.3",
     "prettier": "latest",
     "turbo": "latest"
