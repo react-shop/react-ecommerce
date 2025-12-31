@@ -8,31 +8,76 @@ Welcome to the React Shop Design System documentation.
 
 ## Overview
 
-This design system provides a comprehensive set of components for building modern e-commerce applications.
+This design system provides a comprehensive set of reusable components for building modern e-commerce applications.
 
 ## Component Categories
 
-### Atoms
-Basic building blocks like buttons, inputs, and text components.
+### 🎨 Design System/Theme
+Explore our color palette, typography, spacing, and other design tokens that power the design system.
 
-### Molecules
-Composite components built from atoms, like cards and ratings.
+### ⚛️ Atoms
+Basic building blocks that cannot be broken down further:
+- Avatar, Badge, Box, Button, Card
+- Container, Divider, Flex, Grid
+- Heading, Icon, Input, Skeleton
+- Stack, Text
 
-### Organisms
-Complex components like modals and product cards.
+### 🧩 Molecules
+Composite components built from atoms:
+- PriceDisplay, Rating, Select, Toast
 
-### Layout
-Layout components like headers, footers, and navigation.
+### 🏗️ Organisms
+Complex components combining multiple molecules:
+- Modal, ProductCard
 
-## Getting Started
-
-Browse the components in the sidebar to see live examples, documentation, and interactive controls.
+### 📐 Layout
+Page layout components:
+- CartIcon, Footer, Header, Logo
+- MobileMenu, Navigation, SearchBar, UserMenu
 
 ## Design Principles
 
-- **Framework Agnostic**: Components are pure presentational elements
-- **Type Safe**: Full TypeScript support
-- **Accessible**: WCAG compliant components
-- **Themeable**: Powered by Tailwind CSS
+- **Framework Agnostic**: Pure presentational components without framework-specific logic
+- **Type Safe**: Full TypeScript support with comprehensive prop types
+- **Accessible**: WCAG 2.1 AA compliant
+- **Themeable**: Powered by Tailwind CSS with customizable design tokens
 - **Modular**: Import only what you need
+- **Composable**: Build complex UIs from simple components
+
+## Getting Started
+
+1. **Explore Components**: Browse categories in the sidebar
+2. **Interactive Controls**: Modify props in real-time using the Controls panel
+3. **View Source**: Check the code examples for each story
+4. **Dark Mode**: Toggle between light and dark backgrounds
+5. **Responsive**: Test components at different viewport sizes
+
+## Usage
+
+```typescript
+import { Button, Card, ProductCard } from '@react-shop/design-system';
+
+function MyComponent() {
+  return (
+    <Card>
+      <ProductCard
+        image="/product.jpg"
+        title="Product Name"
+        price={99.99}
+        onAddToCart={() => {}}
+      />
+      <Button variant="solid">Add to Cart</Button>
+    </Card>
+  );
+}
+```
+
+## Theme Tokens
+
+Visit the **Design System/Theme** section to explore:
+- Color palettes (Brand, Primary, Success, Error, Warning)
+- Typography scale and font weights
+- Spacing system
+- Border radius values
+- Shadow depths
 
