@@ -4,10 +4,10 @@
     "paths": {
       "@components/*": ["components/*"],
       "@themes/*": ["themes/*"],
-      "@utils/*": ["utils/*"],
+      "@utils/*": ["utils/*"]
     }
   },
-  "extends": "tsconfig/react-library.json",
+  "extends": "../tsconfig/react-library.json",
   "include": ["."],
   "exclude": ["dist", "build", "node_modules"]
 }
