@@ -79,15 +79,6 @@ export const createApiClient = (config: ApiClientConfig): AxiosInstance => {
 
         const refreshToken = getStoredRefreshToken();
 
-        if (!refreshToken) {
-          // No refresh token, redirect to login
-          clearStoredToken();
-          if (typeof window !== 'undefined') {
-            window.location.href = '/login';
-          }
-          return Promise.reject(error);
-        }
-
         try {
           // Try to refresh the token
           const response = await axios.post(`${config.baseURL}/api/auth/refresh`, {
