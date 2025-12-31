@@ -140,11 +140,20 @@ This will:
 2. Generate the Prisma client
 3. Apply all migrations
 
-To seed the database (if seed file exists):
+Seed the database with sample data:
 
 ```bash
 npx prisma db seed
+# or
+pnpm prisma:seed
 ```
+
+This will create:
+- Admin user: `admin@ecommerce.com` / `admin123`
+- Customer user: `customer@example.com` / `customer123`
+- Sample categories, products, reviews, and more
+
+**Note:** Seeding uses `upsert` so it's safe to run multiple times.
 
 ### 5. Run the Application
 
@@ -203,6 +212,7 @@ pnpm prisma:generate  # Generate Prisma client
 pnpm prisma:push      # Push schema changes without migration
 pnpm prisma:pull      # Pull schema from database
 pnpm prisma:reset     # Reset database
+pnpm prisma:seed      # Seed database with sample data
 ```
 
 ## GraphQL Playground
@@ -317,6 +327,20 @@ In GraphQL Playground, add the token in HTTP Headers:
   "Authorization": "Bearer your-jwt-token-here"
 }
 ```
+
+### Test Credentials (After Seeding)
+
+If you've run the seed script, use these credentials for testing:
+
+**Admin Account:**
+- Email: `admin@ecommerce.com`
+- Password: `admin123`
+- Role: ADMIN
+
+**Customer Account:**
+- Email: `customer@example.com`
+- Password: `customer123`
+- Role: CUSTOMER
 
 ## TODO
 
