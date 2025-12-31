@@ -11,8 +11,9 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "React Ecommerce - Shop the Best Products",
-  description: "Modern ecommerce store with the best products and deals",
+  title: "React Shop - Best Online Shopping Experience",
+  description:
+    "Shop the latest products at unbeatable prices. Free shipping, easy returns, and 24/7 customer support.",
 };
 
 const apiConfig = {

@@ -82,14 +82,8 @@ export interface UpdateProductInput {
   isFeatured?: boolean;
 }
 
-// Import Category and Tag types
-export interface Category {
-  id: string;
-  name: string;
-  description: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
+// Import Category and Tag types from their respective files
+import type { Category } from './Category';
 
 export interface Tag {
   id: string;

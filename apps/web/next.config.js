@@ -14,6 +14,7 @@ const nextConfig = {
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
+      '@components': path.resolve(__dirname, '../../packages/design-system/src/components'),
       '@lib': path.resolve(__dirname, '../../packages/design-system/src/lib'),
       '@entities': path.resolve(__dirname, '../../packages/sdk/src/entities'),
       '@providers': path.resolve(__dirname, '../../packages/sdk/src/providers'),

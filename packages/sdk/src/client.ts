@@ -61,6 +61,13 @@ export const createApiClient = (config: ApiClientConfig): AxiosInstance => {
 
       // If error is 401 and we haven't tried to refresh yet
       if (error.response?.status === 401 && !originalRequest._retry) {
+        const refreshToken = getStoredRefreshToken();
+        
+        // If no refresh token exists, user was never logged in - just reject
+        if (!refreshToken) {
+          return Promise.reject(error);
+        }
+
         if (isRefreshing) {
           // If already refreshing, queue this request
           return new Promise((resolve, reject) => {
@@ -76,8 +83,6 @@ export const createApiClient = (config: ApiClientConfig): AxiosInstance => {
 
         originalRequest._retry = true;
         isRefreshing = true;
-
-        const refreshToken = getStoredRefreshToken();
 
         try {
           // Try to refresh the token
@@ -103,7 +108,7 @@ export const createApiClient = (config: ApiClientConfig): AxiosInstance => {
           // Retry the original request
           return client(originalRequest);
         } catch (refreshError) {
-          // Refresh failed, clear tokens and redirect
+          // Refresh failed, clear tokens and redirect to login
           processQueue(refreshError);
           isRefreshing = false;
           clearStoredToken();

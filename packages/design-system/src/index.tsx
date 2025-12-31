@@ -28,5 +28,8 @@ export * from "./components/Molecules/Toast/Toast";
 export * from "./components/Organisms/Modal/Modal";
 export * from "./components/Organisms/ProductCard/ProductCard";
 
+// Layout
+export * from "./components/Layout";
+
 // Global Styles - should be imported in the app root
 // import '@react-shop/design-system/src/styles/global.css';

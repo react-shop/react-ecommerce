@@ -19,7 +19,7 @@ const rating = tv({
 
 export type RatingVariants = VariantProps<typeof rating>;
 
-export interface RatingProps extends React.HTMLAttributes<HTMLDivElement>, RatingVariants {
+export interface RatingProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'>, RatingVariants {
   value: number;
   max?: number;
   showValue?: boolean;

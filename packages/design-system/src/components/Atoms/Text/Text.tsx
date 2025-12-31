@@ -43,17 +43,17 @@ const text = tv({
 
 export type TextVariants = VariantProps<typeof text>;
 
-export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement>, TextVariants {
+export interface TextProps extends Omit<React.HTMLAttributes<HTMLElement>, 'color'>, TextVariants {
   as?: 'p' | 'span' | 'div' | 'label';
 }
 
-export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
+export const Text = React.forwardRef<HTMLElement, TextProps>(
   ({ className, as: Component = 'p', size, weight, align, color, ...props }, ref) => {
     return (
       <Component
         ref={ref as any}
         className={cn(text({ size, weight, align, color }), className)}
-        {...props}
+        {...(props as any)}
       />
     );
   }
