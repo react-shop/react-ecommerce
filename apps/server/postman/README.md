@@ -1,81 +1,83 @@
-# Postman Collection for React Ecommerce API
+# 📮 Postman Collection for REST API
 
-This directory contains a comprehensive Postman collection for testing all GraphQL endpoints of the React Ecommerce API.
-
-> 💡 **Auto-Generation Available:** You can automatically generate or update this collection from your GraphQL schema! See [AUTO_GENERATION_GUIDE.md](./AUTO_GENERATION_GUIDE.md) for multiple generation methods.
+Complete Postman collection for testing the React Ecommerce REST API.
 
 ---
 
-## 📦 What's Included
+## 🚀 Quick Start
 
-- **react-ecommerce-api.postman_collection.json** - Complete API collection with all endpoints
-- Organized by feature modules
-- Pre-configured environment variables
-- Automated test scripts
-- Example requests with sample data
-
----
-
-## 🚀 Getting Started
-
-### 1. Import Collection
-
-1. Open Postman
-2. Click "Import" in the top left
-3. Drag and drop `react-ecommerce-api.postman_collection.json`
-4. Collection will appear in your workspace
-
-### 2. Configure Environment
-
-The collection uses the following variables (automatically set):
-
-```
-baseUrl: http://localhost:3000
-graphqlEndpoint: {{baseUrl}}/graphql
-accessToken: (auto-filled after login)
-userId: (auto-filled after registration)
-productId: (auto-filled after fetching products)
-orderId: (auto-filled after creating order)
-```
-
-### 3. Start Backend
+### **1. Generate Collection**
 
 ```bash
 cd apps/server
-pnpm dev
+pnpm postman:generate
 ```
 
-Ensure PostgreSQL and Prisma are set up (see `README.md`).
+This creates `rest-api-collection.json` with **30 endpoints** across **7 categories**.
+
+### **2. Import in Postman**
+
+1. Open Postman
+2. Click **Import**
+3. Select `postman/rest-api-collection.json`
+4. Done! ✅
+
+### **3. Setup Environment**
+
+Create a new environment with these variables:
+
+| Variable | Value | Description |
+|----------|-------|-------------|
+| `baseUrl` | `http://localhost:5000` | Backend server URL |
+| `accessToken` | _(empty)_ | Auto-populated after login |
 
 ---
 
-## 📋 Collection Structure
+## 📂 Collection Structure
 
-```
-React Ecommerce API/
-├── Auth/
-│   ├── Register Customer
-│   ├── Login
-│   └── Get Current User
-├── Products/
-│   ├── List Products
-│   ├── Get Product by ID
-│   └── Create Product (Admin)
-├── Cart/
-│   ├── Get Cart
-│   ├── Add to Cart
-│   └── Clear Cart
-├── Orders/
-│   ├── Create Order
-│   └── Get Orders
-├── Discounts/
-│   └── Validate Discount Code
-├── Reviews/
-│   ├── Get Product Reviews
-│   └── Create Review
-└── Shipments/
-    └── Track Shipment
-```
+### **🔐 Authentication** (2 endpoints)
+- **Register** - Create new account (auto-saves token)
+- **Login** - Login existing user (auto-saves token)
+
+### **👤 Users** (3 endpoints)
+- Get User by ID
+- Get User by Email
+- Create User
+
+### **📦 Products** (5 endpoints)
+- Get All Products
+- Get Product by ID
+- Create Product
+- Update Product
+- Delete Product
+
+### **📂 Categories** (5 endpoints)
+- Get All Categories
+- Get Category by ID
+- Create Category
+- Update Category
+- Delete Category
+
+### **🛒 Cart** (5 endpoints)
+- Get Cart
+- Add to Cart
+- Update Cart Item
+- Remove from Cart
+- Clear Cart
+
+### **📝 Orders** (6 endpoints)
+- Get My Orders
+- Get Order by ID
+- Create Order
+- Update Order Status
+- Cancel Order
+- Get All Orders (Admin)
+
+### **⭐ Reviews** (4 endpoints)
+- Get Product Reviews
+- Create Review
+- Update Review
+- Delete Review
 
 ---
 
@@ -83,253 +85,176 @@ React Ecommerce API/
 
 ### **Step 1: Authentication**
 
-1. **Register Customer**
-   - Creates a new user account
-   - Auto-saves `accessToken` to collection variables
-   - Auto-saves `userId`
+Start with **Login** to get an access token:
 
-2. **Login**
-   - Authenticates existing user
-   - Updates `accessToken`
+```http
+POST /api/auth/login
+{
+  "email": "customer@example.com",
+  "password": "customer123"
+}
+```
 
-3. **Get Current User**
-   - Verifies authentication
-   - Returns user profile
+✅ Token is **automatically saved** to `{{accessToken}}`!
 
-### **Step 2: Browse Products**
+### **Step 2: Test Endpoints**
 
-1. **List Products**
-   - Fetches all products with pagination
-   - Auto-saves first `productId` for next requests
+All authenticated endpoints use: `Authorization: Bearer {{accessToken}}`
 
-2. **Get Product by ID**
-   - Fetches product details
-   - Shows images, variants, reviews
+### **Step 3: Example Flow**
 
-### **Step 3: Shopping Cart**
-
-1. **Get Cart**
-   - Fetches user's cart
-   - Shows items, quantities, totals
-
-2. **Add to Cart**
-   - Adds product to cart
-   - Updates cart totals
-
-3. **Clear Cart**
-   - Removes all items
-
-### **Step 4: Checkout**
-
-1. **Validate Discount Code**
-   - Tests coupon validity
-   - Shows discount amount
-
-2. **Create Order**
-   - Creates order from cart
-   - Auto-saves `orderId`
-   - Clears cart automatically
-
-3. **Get Orders**
-   - Lists user orders
-   - Shows payment and shipment status
-
-### **Step 5: Post-Purchase**
-
-1. **Create Review**
-   - Adds product review
-   - Requires authentication
-
-2. **Track Shipment**
-   - Tracks order delivery
-   - Public endpoint (no auth)
+1. **Login** → Get token
+2. **Get All Products** → Browse products
+3. **Add to Cart** → Add product to cart
+4. **Get Cart** → Verify cart contents
+5. **Create Order** → Place order
+6. **Get My Orders** → Check order status
 
 ---
 
-## 🔑 Authentication
+## 🔑 Test Credentials
 
-Most endpoints require authentication:
+From database seed:
 
-```
-Authorization: Bearer {{accessToken}}
-```
+**Admin:**
+- Email: `admin@ecommerce.com`
+- Password: `admin123`
 
-The token is automatically managed by Postman after login.
-
-### **User Roles**
-
-- **CUSTOMER** - Regular user (default)
-- **ADMIN** - Can create/update products
-- **SUPER_ADMIN** - Full access
+**Customer:**
+- Email: `customer@example.com`
+- Password: `customer123`
 
 ---
 
-## 📝 Example Usage
+## 🎯 Features
 
-### **Complete User Flow**
+### **✅ Auto Token Management**
 
-1. **Register** → Get token
-2. **List Products** → Get productId
-3. **Add to Cart** → Add 2x product
-4. **Get Cart** → Verify items
-5. **Validate Discount** → Check "SAVE10"
-6. **Create Order** → With discount
-7. **Get Orders** → View order history
-8. **Track Shipment** → Monitor delivery
-9. **Create Review** → Rate product
-
----
-
-## 🛠️ Customization
-
-### **Change Base URL**
-
-Edit collection variable `baseUrl`:
-```
-Production: https://api.yourdomain.com
-Staging: https://staging-api.yourdomain.com
-Local: http://localhost:3000
-```
-
-### **Add New Endpoints**
-
-1. Right-click folder
-2. Add Request
-3. Set method to POST
-4. Set URL to `{{graphqlEndpoint}}`
-5. Add GraphQL query/mutation
-
----
-
-## 🧪 Automated Tests
-
-Each request includes test scripts to:
-
-✅ Verify status code (200)  
-✅ Check response structure  
-✅ Auto-save variables  
-✅ Validate data types
-
-### **Example Test Script**
+Login and Register requests automatically save the access token:
 
 ```javascript
-pm.test("Status code is 200", function () {
-    pm.response.to.have.status(200);
-});
-
-pm.test("Should return products array", function () {
-    var jsonData = pm.response.json();
-    pm.expect(jsonData.data.products).to.be.an('array');
-});
+// Postman test script (auto-included)
+if (pm.response.code === 200) {
+    const response = pm.response.json();
+    pm.environment.set("accessToken", response.accessToken);
+}
 ```
 
----
+### **✅ Example Bodies**
 
-## 📊 Collection Statistics
+All POST/PUT requests include example request bodies with proper formatting.
 
-| Category | Endpoints | Auth Required |
-|----------|-----------|---------------|
-| Auth | 3 | No |
-| Products | 3 | 1/3 |
-| Cart | 3 | Yes |
-| Orders | 2 | Yes |
-| Discounts | 1 | No |
-| Reviews | 2 | 1/2 |
-| Shipments | 1 | No |
-| **Total** | **15** | **9/15** |
+### **✅ Path Variables**
+
+All dynamic routes (`:id`, `:email`) include placeholder values for easy testing.
+
+### **✅ Query Parameters**
+
+Endpoints with query params include examples (pagination, filters).
 
 ---
 
-## 🚀 Advanced Features
+## 🛠️ Manual Collection Generation
 
-### **Run Collection**
+If you want to regenerate the collection:
 
-Run all requests in sequence:
+```bash
+# From apps/server directory
+pnpm postman:generate
+```
 
-1. Click "..." on collection
-2. Select "Run collection"
-3. Configure iterations
-4. Click "Run React Ecommerce API"
-
-### **Export Results**
-
-- JSON reports
-- HTML reports
-- Newman CLI integration
-
-### **Environment Variables**
-
-Create multiple environments:
-- Local Development
-- Staging
-- Production
-- Testing
+**Output:** `postman/rest-api-collection.json`
 
 ---
 
-## 💡 Tips & Tricks
+## 📝 Collection Customization
 
-### **Quick Testing**
+The collection is generated from `scripts/generate-postman.ts`. To add/modify endpoints:
 
-1. Import collection
-2. Run "Register Customer"
-3. Run "List Products"
-4. Run "Add to Cart"
-5. Variables auto-populate!
-
-### **Debugging**
-
-- Use Postman Console (View → Show Postman Console)
-- Check request/response headers
-- Inspect GraphQL errors
-
-### **Sharing**
-
-Export and share with team:
-1. Right-click collection
-2. Export
-3. Share JSON file
+1. Edit `scripts/generate-postman.ts`
+2. Run `pnpm postman:generate`
+3. Re-import in Postman
 
 ---
 
-## 📚 Related Documentation
+## 🧪 Running Tests with Newman
 
-- [GraphQL Schema](../src/graphql/schemas/schema.gql)
+Run the collection from command line:
+
+```bash
+pnpm postman:test
+```
+
+*(Requires [Newman](https://www.npmjs.com/package/newman) to be configured)*
+
+---
+
+## 🎨 Folder Icons
+
+Each folder has an emoji for easy visual navigation:
+
+- 🔐 Authentication
+- 👤 Users
+- 📦 Products
+- 📂 Categories
+- 🛒 Cart
+- 📝 Orders
+- ⭐ Reviews
+
+---
+
+## 📚 API Documentation
+
+For detailed API specs, see:
 - [Backend README](../README.md)
-- [Testing Guide](../TESTING_GUIDE.md)
-- [API Documentation](http://localhost:3000/graphql) (GraphQL Playground)
+- [REST Migration Success](../REST_MIGRATION_SUCCESS.md)
 
 ---
 
 ## 🐛 Troubleshooting
 
-### **401 Unauthorized**
-- Token expired, re-login
-- Check Authorization header
+### **Token not saving?**
+- Make sure you're using an **Environment** (not global variables)
+- Check the **Tests** tab in Login request - auto-save script should be there
 
-### **404 Not Found**
-- Backend not running
-- Check `baseUrl` variable
+### **401 Unauthorized?**
+- Login first to get a fresh token
+- Check `{{accessToken}}` in your environment
+- Ensure Authorization header is set: `Bearer {{accessToken}}`
 
-### **500 Internal Server Error**
-- Check backend logs
-- Verify database connection
+### **Connection refused?**
+- Start the backend: `pnpm dev` (from `apps/server`)
+- Server should be running on `http://localhost:5000`
 
----
-
-## 🎯 Next Steps
-
-After testing with Postman:
-
-1. ✅ Verify all endpoints work
-2. ✅ Check authentication flows
-3. ✅ Test error scenarios
-4. ✅ Validate data structure
-5. ⬜ Create automated test suite
-6. ⬜ Integrate with CI/CD
-7. ⬜ Generate API documentation
+### **Base URL wrong?**
+- Update environment variable: `baseUrl = http://localhost:5000`
+- Make sure it's port 5000, not 3000
 
 ---
 
-**Happy Testing!** 🚀
+## ✨ Tips & Tricks
 
+1. **Use Folders** - Collapse/expand for easier navigation
+2. **Test Scripts** - Login/Register auto-save tokens
+3. **Variables** - Use `{{baseUrl}}` and `{{accessToken}}` everywhere
+4. **Collections** - Organize requests by feature
+5. **Environments** - Create separate environments for dev/staging/prod
+
+---
+
+## 📦 What's Included
+
+- ✅ **30 REST endpoints**
+- ✅ **7 organized folders**
+- ✅ **Auto token management**
+- ✅ **Example request bodies**
+- ✅ **Test credentials**
+- ✅ **Environment variables setup**
+- ✅ **Path variable placeholders**
+- ✅ **Query parameter examples**
+
+---
+
+## 🎉 Happy Testing!
+
+Your collection is ready to go. Start with Login and explore the API! 🚀

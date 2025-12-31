@@ -27,8 +27,7 @@
     "prisma:reset": "prisma migrate reset",
     "prisma:seed": "prisma db seed",
     "postman:generate": "tsx scripts/generate-postman.ts",
-    "postman:generate:cli": "graphql-to-postman --url http://localhost:3000/graphql --output postman/auto-generated.json --name 'React Ecommerce API (Auto)'",
-    "postman:test": "newman run postman/react-ecommerce-api.postman_collection.json"
+    "postman:test": "newman run postman/rest-api-collection.json"
   },
   "dependencies": {
     "@apollo/server": "^5.2.0",
