@@ -1,259 +1,363 @@
-# ------------------------------------------------------
-# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
-# ------------------------------------------------------
+# Ecommerce GraphQL Schema
 
-type Attribute {
-  id: ID!
-  type: Types!
-  product: Product
-  value: String!
-  name: String!
+# Enums
+enum UserRole {
+  CUSTOMER
+  ADMIN
+  SUPER_ADMIN
 }
 
-"""Attribute types"""
-enum Types {
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AttributeType {
   COLOR
   SIZE
+  MATERIAL
+  CUSTOM
+}
+
+# Types
+type User {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  phone: String
+  role: UserRole!
+  addresses: [Address!]
+  createdAt: String!
+  updatedAt: String!
+}
+
+type Address {
+  id: ID!
+  street: String!
+  city: String!
+  state: String!
+  zip: String!
+  country: String!
+  isDefault: Boolean!
 }
 
 type Category {
   id: ID!
   name: String!
-  description: String!
+  slug: String!
+  description: String
+  image: String
+  parent: Category
+  children: [Category!]
   products: [Product!]
+  productCount: Int!
+}
+
+type Attribute {
+  id: ID!
+  name: String!
+  type: AttributeType!
+  values: [String!]!
 }
 
 type Product {
   id: ID!
-  attributes: [Attribute!]
-  store: Store
-  categories: [Category!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  title: String!
-  description: String!
-  brand: String!
+  name: String!
+  slug: String!
+  description: String
+  price: Float!
+  images: [String!]!
+  status: ProductStatus!
+  metaTitle: String
+  metaDescription: String
+  metaKeywords: [String!]
+  category: Category
+  variants: [ProductVariant!]
+  reviews: [Review!]
+  averageRating: Float
+  reviewCount: Int!
+  createdAt: String!
+  updatedAt: String!
+}
+
+type ProductVariant {
+  id: ID!
   sku: String!
   price: Float!
-  thumbnail: String!
-  images: String!
-  reviews: Float!
-  quantity: Float!
-  dimension: String!
+  stock: Int!
+  attributes: JSON!
+  product: Product!
 }
 
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
-
-type Store {
+type Cart {
   id: ID!
-  products: [Product!]
-  employees: [User!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  bio: String!
-  rate: Float!
-  slug: String!
-  street: String!
-  city: String!
-  state: String!
-  country: String!
-  neighborhood: String!
-  number: String!
-  zipCode: String!
-  sales: Float!
+  items: [CartItem!]!
+  subtotal: Float!
+  total: Float!
+  itemCount: Int!
 }
 
-type User {
+type CartItem {
   id: ID!
-  role: Roles!
-  status: Status!
-  store: [Store!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  username: String!
-  email: String!
-  bio: String!
-  image: String!
+  product: Product!
+  variant: ProductVariant
+  quantity: Int!
 }
 
-"""User possible roles"""
-enum Roles {
-  MEMBER
-  ADMIN
-  SELLER
+type Order {
+  id: ID!
+  status: OrderStatus!
+  subtotal: Float!
+  shippingCost: Float!
+  tax: Float!
+  total: Float!
+  shippingAddress: Address!
+  billingAddress: Address!
+  items: [OrderItem!]!
+  paymentMethod: String
+  trackingNumber: String
+  paidAt: String
+  shippedAt: String
+  deliveredAt: String
+  createdAt: String!
+  updatedAt: String!
 }
 
-"""Account status"""
-enum Status {
-  ACTIVE
-  DISABLED
+type OrderItem {
+  id: ID!
+  product: Product!
+  variant: ProductVariant
+  quantity: Int!
+  price: Float!
 }
 
-type AuthType {
+type Review {
+  id: ID!
+  rating: Int!
+  comment: String
+  status: ReviewStatus!
   user: User!
-  token: String!
+  product: Product!
+  createdAt: String!
+  updatedAt: String!
 }
 
-input AttributeInput {
+type Wishlist {
   id: ID!
-  type: Types!
-  product: ProductInput
-  value: String!
-  name: String!
+  products: [Product!]!
 }
 
-input CategoryInput {
-  id: ID!
-  name: String!
-  description: String!
-  products: [ProductInput!]
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
 }
 
-input ProductInput {
-  id: ID!
-  attributes: [AttributeInput!]
-  store: StoreInput
-  categories: [CategoryInput!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  title: String!
-  description: String!
-  brand: String!
-  sku: String!
-  price: Float!
-  thumbnail: String!
-  images: String!
-  reviews: Float!
-  quantity: Float!
-  dimension: String!
+# Inputs
+input RegisterInput {
+  email: String!
+  password: String!
+  firstName: String
+  lastName: String
 }
 
-input StoreInput {
-  id: ID!
-  products: [ProductInput!]
-  employees: [UserInput!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  bio: String!
-  rate: Float!
-  slug: String!
+input UpdateProfileInput {
+  firstName: String
+  lastName: String
+  phone: String
+}
+
+input AddAddressInput {
   street: String!
   city: String!
   state: String!
+  zip: String!
   country: String!
-  neighborhood: String!
-  number: String!
-  zipCode: String!
-  sales: Float!
+  isDefault: Boolean
 }
 
-input UserInput {
-  id: ID!
-  role: Roles!
-  status: Status!
-  store: [StoreInput!]
-  createdAt: DateTime!
-  updatedAt: DateTime!
+input UpdateAddressInput {
+  street: String
+  city: String
+  state: String
+  zip: String
+  country: String
+  isDefault: Boolean
+}
+
+input CreateCategoryInput {
   name: String!
-  username: String!
-  email: String!
-  bio: String!
-  image: String!
+  slug: String!
+  description: String
+  image: String
+  parentId: ID
 }
 
+input UpdateCategoryInput {
+  name: String
+  slug: String
+  description: String
+  image: String
+  parentId: ID
+}
+
+input CreateProductInput {
+  name: String!
+  slug: String!
+  description: String
+  price: Float!
+  images: [String!]
+  status: ProductStatus
+  metaTitle: String
+  metaDescription: String
+  metaKeywords: [String!]
+  categoryId: ID
+}
+
+input UpdateProductInput {
+  name: String
+  slug: String
+  description: String
+  price: Float
+  images: [String!]
+  status: ProductStatus
+  metaTitle: String
+  metaDescription: String
+  metaKeywords: [String!]
+  categoryId: ID
+}
+
+input ProductWhereInput {
+  categoryId: ID
+  status: ProductStatus
+  priceMin: Float
+  priceMax: Float
+  search: String
+}
+
+input ProductOrderByInput {
+  field: String!
+  direction: String!
+}
+
+input CreateOrderInput {
+  shippingAddressId: ID!
+  billingAddressId: ID!
+  paymentMethod: String!
+}
+
+input CreateReviewInput {
+  productId: ID!
+  rating: Int!
+  comment: String
+}
+
+input UpdateReviewInput {
+  rating: Int
+  comment: String
+}
+
+# Custom scalar for JSON
+scalar JSON
+
+# Queries
 type Query {
-  findById(id: String!): User!
-  findByEmail(email: String!): User!
-  getAllProducts: [Product!]
-  getAllAttributes: [Attribute!]
-  findStoreById(id: String!): Store
-  getAllStores: [Store!]
-  getAllCategories: [Category!]
+  # Auth
+  me: User!
+  
+  # Products
+  products(skip: Int, take: Int, where: ProductWhereInput, orderBy: ProductOrderByInput): [Product!]!
+  product(id: ID, slug: String): Product
+  searchProducts(query: String!, skip: Int, take: Int): [Product!]!
+  
+  # Categories
+  categories: [Category!]!
+  category(id: ID, slug: String): Category
+  
+  # Attributes
+  attributes: [Attribute!]!
+  attribute(id: ID!): Attribute
+  
+  # Cart
+  cart: Cart!
+  
+  # Orders
+  orders(skip: Int, take: Int): [Order!]!
+  order(id: ID!): Order
+  
+  # Reviews
+  reviews(productId: ID!, skip: Int, take: Int): [Review!]!
+  
+  # User
+  profile: User!
+  wishlist: Wishlist!
+  
+  # Admin
+  adminAnalytics: JSON
+  adminOrders(skip: Int, take: Int, status: OrderStatus): [Order!]!
+  adminUsers(skip: Int, take: Int): [User!]!
 }
 
+# Mutations
 type Mutation {
-  createUser(data: CreateUserDto!): User!
-  login(data: AuthDto!): AuthType!
-  createProduct(data: CreateProductDto!): Product!
-  linkAttributeToProduct(data: LinkAttributeToProductDto!): Product
-  linkCategoryToProduct(data: LinkCategoryToProductDto!): Product
-  createAttribute(data: CreateAttributeDto!): Attribute!
-  createStore(data: CreateStoreDto!): Store!
-  linkEmployeesToStore(data: LinkEmployeeToStoreDto!): Store
-  linkProductsToStore(data: LinkProductToStoreDto!): Store
-  createCategory(data: CreateCategoryDto!): Category!
-}
-
-input CreateUserDto {
-  username: String!
-  name: String!
-  email: String!
-  password: String!
-  confirmPassword: String!
-}
-
-input AuthDto {
-  email: String!
-  password: String!
-}
-
-input CreateProductDto {
-  title: String!
-  description: String!
-  brand: String!
-  price: Float!
-  quantity: Float!
-  dimension: String!
-  attributesId: [ID!]!
-}
-
-input LinkAttributeToProductDto {
-  productId: ID!
-  attributesId: [ID!]!
-}
-
-input LinkCategoryToProductDto {
-  productId: ID!
-  categoriesId: [ID!]!
-}
-
-input CreateAttributeDto {
-  value: String!
-  name: String!
-  type: Types!
-}
-
-input CreateStoreDto {
-  name: String!
-  bio: String!
-  slug: String!
-  street: String!
-  city: String!
-  state: String!
-  country: String!
-  neighborhood: String!
-  zipCode: String!
-  number: String!
-  employeesId: [ID!]
-}
-
-input LinkEmployeeToStoreDto {
-  storeId: String!
-  employeesId: [ID!]!
-}
-
-input LinkProductToStoreDto {
-  storeId: ID!
-  productsId: [ID!]!
-}
-
-input CreateCategoryDto {
-  name: String!
-  description: String!
+  # Auth
+  register(input: RegisterInput!): AuthPayload!
+  login(email: String!, password: String!): AuthPayload!
+  logout: Boolean!
+  requestPasswordReset(email: String!): Boolean!
+  resetPassword(token: String!, newPassword: String!): Boolean!
+  
+  # Products (Admin)
+  createProduct(input: CreateProductInput!): Product!
+  updateProduct(id: ID!, input: UpdateProductInput!): Product!
+  deleteProduct(id: ID!): Boolean!
+  
+  # Categories (Admin)
+  createCategory(input: CreateCategoryInput!): Category!
+  updateCategory(id: ID!, input: UpdateCategoryInput!): Category!
+  deleteCategory(id: ID!): Boolean!
+  
+  # Cart
+  addToCart(productId: ID!, variantId: ID, quantity: Int!): Cart!
+  updateCartItem(itemId: ID!, quantity: Int!): Cart!
+  removeFromCart(itemId: ID!): Cart!
+  clearCart: Cart!
+  
+  # Orders
+  createOrder(input: CreateOrderInput!): Order!
+  updateOrderStatus(id: ID!, status: OrderStatus!): Order!
+  cancelOrder(id: ID!): Order!
+  
+  # Reviews
+  createReview(input: CreateReviewInput!): Review!
+  updateReview(id: ID!, input: UpdateReviewInput!): Review!
+  deleteReview(id: ID!): Boolean!
+  moderateReview(id: ID!, status: ReviewStatus!): Review!
+  
+  # User
+  updateProfile(input: UpdateProfileInput!): User!
+  addAddress(input: AddAddressInput!): Address!
+  updateAddress(id: ID!, input: UpdateAddressInput!): Address!
+  deleteAddress(id: ID!): Boolean!
+  
+  # Wishlist
+  addToWishlist(productId: ID!): Wishlist!
+  removeFromWishlist(productId: ID!): Wishlist!
 }

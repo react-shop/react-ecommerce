@@ -1,43 +1,42 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { join } from 'path';
 
-import { UserModule } from '@user/user.module';
-import { AuthModule } from '@auth/auth.module';
-import { ProductModule } from '@product/product.module';
-import { StoreModule } from '@store/store.module';
-import { AttributeModule } from '@attribute/attribute.module';
-import { CategoryModule } from '@category/category.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { UserModule } from './user/user.module';
+import { AuthModule } from './auth/auth.module';
+import { ProductModule } from './product/product.module';
+import { AttributeModule } from './attribute/attribute.module';
+import { CategoryModule } from './category/category.module';
+import { CartModule } from './cart/cart.module';
+import { OrderModule } from './order/order.module';
+import { ReviewModule } from './review/review.module';
 
 import { AppController } from './app.controller';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      envFilePath: ['.env.development', '.env.production'],
+      isGlobal: true,
+      envFilePath: ['.env.development', '.env.production', '.env'],
     }),
-    GraphQLModule.forRoot({
-      autoSchemaFile: join(process.cwd(), 'src/graphql/schemas/schema.gql'),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloDriver,
+      typePaths: ['./**/*.gql'],
+      playground: true,
       context: ({ req }) => ({ req }),
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DATABASE_HOST,
-      port: (process.env.DATABASE_PORT as unknown) as number,
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE_NAME,
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    PrismaModule,
     UserModule,
     AuthModule,
     ProductModule,
     AttributeModule,
-    StoreModule,
     CategoryModule,
+    CartModule,
+    OrderModule,
+    ReviewModule,
   ],
   controllers: [AppController],
 })
