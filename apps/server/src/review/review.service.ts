@@ -6,11 +6,11 @@ import { ReviewStatus } from '@prisma/client';
 export class ReviewService {
   constructor(private prisma: PrismaService) {}
 
-  async getReviews(productId: string, skip = 0, take = 10) {
+  async getReviews(productId: string, skip = 0, take = 10, status?: ReviewStatus) {
     return this.prisma.review.findMany({
       where: {
         productId,
-        status: ReviewStatus.APPROVED,
+        ...(status ? { status } : { status: ReviewStatus.APPROVED }),
       },
       skip,
       take,
@@ -20,6 +20,7 @@ export class ReviewService {
             id: true,
             firstName: true,
             lastName: true,
+            avatar: true,
           },
         },
       },
@@ -27,7 +28,13 @@ export class ReviewService {
     });
   }
 
-  async createReview(userId: string, productId: string, rating: number, comment?: string) {
+  async createReview(
+    userId: string,
+    productId: string,
+    rating: number,
+    title?: string,
+    comment?: string,
+  ) {
     // Validate rating
     if (rating < 1 || rating > 5) {
       throw new BadRequestException('Rating must be between 1 and 5');
@@ -61,8 +68,10 @@ export class ReviewService {
         userId,
         productId,
         rating,
+        title,
         comment,
         status: ReviewStatus.PENDING,
+        helpfulCount: 0,
       },
       include: {
         user: {
@@ -70,13 +79,20 @@ export class ReviewService {
             id: true,
             firstName: true,
             lastName: true,
+            avatar: true,
           },
         },
       },
     });
   }
 
-  async updateReview(userId: string, reviewId: string, rating?: number, comment?: string) {
+  async updateReview(
+    userId: string,
+    reviewId: string,
+    rating?: number,
+    title?: string,
+    comment?: string,
+  ) {
     const review = await this.prisma.review.findFirst({
       where: { id: reviewId, userId },
     });
@@ -93,6 +109,7 @@ export class ReviewService {
       where: { id: reviewId },
       data: {
         ...(rating && { rating }),
+        ...(title !== undefined && { title }),
         ...(comment !== undefined && { comment }),
         status: ReviewStatus.PENDING, // Reset to pending after edit
       },
@@ -102,6 +119,7 @@ export class ReviewService {
             id: true,
             firstName: true,
             lastName: true,
+            avatar: true,
           },
         },
       },
@@ -124,7 +142,7 @@ export class ReviewService {
     return true;
   }
 
-  async moderateReview(reviewId: string, status: ReviewStatus) {
+  async moderateReview(reviewId: string, status: ReviewStatus, adminResponse?: string) {
     const review = await this.prisma.review.findUnique({
       where: { id: reviewId },
     });
@@ -135,13 +153,75 @@ export class ReviewService {
 
     return this.prisma.review.update({
       where: { id: reviewId },
-      data: { status },
+      data: {
+        status,
+        ...(adminResponse && {
+          adminResponse,
+          respondedAt: new Date(),
+        }),
+      },
       include: {
         user: {
           select: {
             id: true,
             firstName: true,
             lastName: true,
+            avatar: true,
+          },
+        },
+      },
+    });
+  }
+
+  async markReviewHelpful(reviewId: string) {
+    const review = await this.prisma.review.findUnique({
+      where: { id: reviewId },
+    });
+
+    if (!review) {
+      throw new NotFoundException('Review not found');
+    }
+
+    return this.prisma.review.update({
+      where: { id: reviewId },
+      data: {
+        helpfulCount: review.helpfulCount + 1,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatar: true,
+          },
+        },
+      },
+    });
+  }
+
+  async respondToReview(reviewId: string, adminResponse: string) {
+    const review = await this.prisma.review.findUnique({
+      where: { id: reviewId },
+    });
+
+    if (!review) {
+      throw new NotFoundException('Review not found');
+    }
+
+    return this.prisma.review.update({
+      where: { id: reviewId },
+      data: {
+        adminResponse,
+        respondedAt: new Date(),
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            avatar: true,
           },
         },
       },
