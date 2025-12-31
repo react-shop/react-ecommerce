@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { tv, type VariantProps } from 'tailwind-variants';
-import { cn } from '../../../lib/utils';
+import { cn } from '@lib/utils';
 
 const input = tv({
   base: 'w-full rounded-md transition-all focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50',

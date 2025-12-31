@@ -13,10 +13,20 @@
         "./app/*"
       ],
       "@lib/*": [
-        "./lib/*"
+        "./lib/*",
+        "../../packages/design-system/src/lib/*"
       ],
       "@hooks/*": [
         "./hooks/*"
+      ],
+      "@entities/*": [
+        "../../packages/sdk/src/entities/*"
+      ],
+      "@providers/*": [
+        "../../packages/sdk/src/providers/*"
+      ],
+      "@services/*": [
+        "../../packages/sdk/src/services/*"
       ]
     },
     "plugins": [
