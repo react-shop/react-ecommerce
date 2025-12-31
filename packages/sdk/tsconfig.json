@@ -1,9 +1,15 @@
 {
-  "exclude": ["node_modules", "lib-esm", "lib", "**/*.spec*"],
-  "include": ["src"],
-  "extends": "../../tsconfig.base.json",
+  "extends": "../tsconfig/react-library.json",
   "compilerOptions": {
-    "outDir": "lib",
-    "declaration": true
-  }
+    "baseUrl": ".",
+    "paths": {
+      "@sdk/*": ["src/*"],
+      "@entities/*": ["src/entities/*"],
+      "@providers/*": ["src/providers/*"],
+      "@services/*": ["src/services/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
+

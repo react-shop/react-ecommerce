@@ -1,36 +1,26 @@
 {
   "name": "@react-shop/sdk",
-  "version": "0.0.1",
-  "private": true,
-  "description": "a Sdk provider for react-ecommerce",
-  "main": "./lib/index.js",
-  "module": "./lib-esm/index.js",
-  "types": "./lib/index.d.ts",
-  "author": "Vinicius Arruda",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "license": "MIT",
   "scripts": {
-    "libbuild": "tsc && tsc --build tsconfig.esm.json",
-    "start": "tsc && tsc --build tsconfig.esm.json -w",
-    "test": "jest --color"
-  },
-  "dependencies": {
-    "axios": "^0.21.1"
+    "lint": "TIMING=1 eslint \"**/*.ts*\""
   },
   "devDependencies": {
-    "@babel/core": "^7.7.7",
-    "@babel/plugin-proposal-export-default-from": "^7.7.4",
-    "@babel/preset-env": "^7.7.7",
-    "@babel/preset-typescript": "^7.7.7",
-    "@types/jest": "^24.0.25",
-    "@types/yup": "^0.26.27",
-    "jest": "^24.9.0",
-    "yup": "^0.28.0"
+    "@types/react": "^18.2.0",
+    "eslint": "^9.0.0",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.0"
   },
-  "jest": {
-    "transformIgnorePatterns": [
-      "<rootDir>/node_modules"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules"
-    ]
+  "dependencies": {
+    "@tanstack/react-query": "^5.17.0",
+    "axios": "^1.6.0",
+    "js-cookie": "^3.0.5"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
   }
 }
+

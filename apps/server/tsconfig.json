@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "incremental": true,
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@user/*": ["./user/*"],
+      "@auth/*": ["./auth/*"],
+      "@shared/*": ["./shared/*"],
+      "@product/*": ["./product/*"],
+      "@store/*": ["./store/*"],
+      "@utils/*": ["./utils/*"],
+      "@category/*": ["./category/*"],
+      "@cart/*": ["./cart/*"],
+      "@order/*": ["./order/*"],
+      "@review/*": ["./review/*"]
+    }
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.spec.ts",
+    "**/*.test.ts"
+  ],
+  "include": ["src/**/*.ts", "prisma/*.ts", "scripts/*.ts"]
+}

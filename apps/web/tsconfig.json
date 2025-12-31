@@ -1,0 +1,50 @@
+{
+  "extends": "tsconfig/nextjs.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@app/*": [
+        "./app/*"
+      ],
+      "@lib/*": [
+        "./lib/*",
+        "../../packages/design-system/src/lib/*"
+      ],
+      "@hooks/*": [
+        "./hooks/*"
+      ],
+      "@sdk/*": [
+        "../../packages/sdk/src/*"
+      ],
+      "@entities/*": [
+        "../../packages/sdk/src/entities/*"
+      ],
+      "@providers/*": [
+        "../../packages/sdk/src/providers/*"
+      ],
+      "@services/*": [
+        "../../packages/sdk/src/services/*"
+      ]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

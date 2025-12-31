@@ -1,0 +1,10 @@
+node_modules
+dist
+.env
+.turbo
+coverage
+.DS_Store
+
+# Auto-generated Postman collections
+postman/auto-generated*.json
+postman/generated*.json

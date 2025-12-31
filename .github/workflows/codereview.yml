@@ -1,0 +1,114 @@
+name: Code-style
+
+on: [pull_request]
+
+jobs:
+  install:
+    name: Installing packages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.0'
+          registry-url: https://npm.pkg.github.com/
+          cache: 'yarn'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: Cache node modules
+        uses: actions/cache@v3
+        id: cache
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-
+      - name: Install Dependencies
+        if: steps.cache.outputs.cache-hit != 'true' # It will run install dependencies just if hash of yarn.lock changed
+        run: yarn install --frozen-lockfile --prefer-offline
+
+  lint:
+    name: Run ESLint
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.0'
+          registry-url: https://npm.pkg.github.com/
+          cache: 'yarn'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: Get Diff Action
+        id: git-diff
+        uses: technote-space/get-diff-action@v4.0.1
+        with:
+          PATTERNS: +(src)/**/*.+(js|ts|jsx|tsx)
+
+      - name: Restore node_modules
+        uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Lint files
+        run: yarn eslint ${{ steps.git-diff.outputs.diff }}
+
+  deadcode:
+    name: Find dead code
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.0'
+          registry-url: https://npm.pkg.github.com/
+          cache: 'yarn'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: Restore node_modules
+        uses: actions/cache@v3
+        id: restore-build
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Find dead code
+        run: yarn ts-prune --error --ignore '(src/pages)' --skip '.spec.ts?'
+
+  testing:
+    name: Unit testing
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Restore node_modules
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Use Node.js 16.14.0
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.14.0'
+          registry-url: https://npm.pkg.github.com/
+          cache: 'yarn'
+          cache-dependency-path: '**/yarn.lock'
+
+      - name: Run unit tests
+        run: yarn test --ci

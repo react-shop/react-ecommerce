@@ -1,9 +1,17 @@
 {
-  "exclude": ["node_modules", "lib-esm", "lib", "**/*.story*", "**/*.spec*"],
-  "include": ["src"],
-  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "outDir": "lib",
-    "declaration": true
-  }
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@atoms/*": ["./src/components/Atoms/*"],
+      "@molecules/*": ["./src/components/Molecules/*"],
+      "@organisms/*": ["./src/components/Organisms/*"],
+      "@theme/*": ["./src/theme/*"],
+      "@lib/*": ["./src/lib/*"]
+    }
+  },
+  "extends": "../tsconfig/react-library.json",
+  "include": ["src"],
+  "exclude": ["dist", "build", "node_modules"]
 }

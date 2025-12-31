@@ -1,111 +1,217 @@
-# React E-commerce
+# React Ecommerce Boilerplate
 
-This project is being restructured.
+A comprehensive, production-ready ecommerce boilerplate built with React, Next.js, NestJS, Prisma, and GraphQL. Designed as a Turborepo monorepo for easy code sharing between web, mobile, and admin applications.
 
-## This project is created using:
+## Features
 
-- [x] Monorepo
-- [x] Lerna
-- [x] Design System
-- [x] NextJs (SSR)
-- [ ] Hooks
-- [ ] Redux Hooks
-- [x] Storybook
-- [x] NestJs
-- [x] Graphql
+- 🎨 **Design System** - PandaCSS-based component library with theming
+- 🔄 **GraphQL API** - Type-safe API with React Query hooks
+- 🛒 **Full Ecommerce** - Products, cart, checkout, orders, reviews
+- 🔐 **Authentication** - JWT + OAuth (Google, GitHub)
+- 📱 **Mobile Ready** - Architecture supports React Native
+- 🎯 **Admin Dashboard** - Product, order, and user management
+- 🚀 **Modern Stack** - Next.js 14, NestJS, Prisma, TypeScript
 
-## Future Features
+## Quick Start
 
-- Home (List products)
-- Detail products
-- Recommended products
-- Cart
-- Login / Register
-- Admin (Seller)
-- Profile (Buyer)
-- Contact Us
-- Message between Seller and Buyer
-- Ratings about the Seller
-- Dashboard for Sellers
-- Notifications
-- Favorites
-- Pwa
-- Firebase or storage
-- Socket.io
-- App
-- SSR
+### Prerequisites
 
-## Sitemap
+- Node.js 18+
+- pnpm 8+
+- PostgreSQL 14+
 
-```
-    ├── Home
-    │
-    ├── Social Media Links
-    │   ├── Twitter
-    │   ├── Instagram
-    │   └── Facebook
-    │
-    ├── Shop Categories
-    │   ├── Mens
-    │   │   ├── T-Shirts
-    │   │   └── Caps
-    │   │
-    │   ├── Womans
-    │   │
-    │   │
-    │   └── News
-    │       └── Any
-    │
-    ├── About Us
-    │   └── Out Story
-    │
-    ├── Contact
-    │   ├── Info/Form
-    │   ├── Terms
-    │   └── FAQ
-    │
-    ├── Account
-    │   ├── Profile
-    │   ├── Payment Methods
-    │   ├── Saved Address
-    │   ├── Order History
-    │   └── Password
-    │
-    ├── Forms
-    │   ├── Login
-    │   ├── Register
-    │   ├── Forgot Password
-    │   └── Contact
-    │
-    └── Cart / Checkout
-        ├── Cart Overview
-        ├── Shipping Address
-        ├── Billing Details
-        ├── Payment Method
-        └── Order Summary
+### Installation
+
+```bash
+# Clone and install
+git clone <repository-url>
+cd react-ecommerce
+pnpm install
+
+# Setup database
+cd apps/server
+cp .env.example .env
+# Edit .env with your database credentials
+
+# Run migrations
+pnpm prisma migrate dev
+
+# Generate types
+pnpm prisma generate
+cd ../../packages/services
+pnpm codegen
+
+# Start development
+cd ../..
+pnpm dev
 ```
 
-## Run the project
+The backend API will be available at `http://localhost:3001/graphql`
 
-`yarn`
+## Project Structure
 
-`yarn start`
+```
+/apps
+  /web          → Customer-facing Next.js app
+  /admin        → Admin dashboard Next.js app
+  /server       → NestJS GraphQL API
 
+/packages
+  /design-system → PandaCSS component library
+  /services      → React Query + GraphQL hooks
+  /eslint-config-custom → Shared ESLint config
+  /tsconfig      → Shared TypeScript config
+```
 
-Install dependencies in package: `cd packages/name && yarn add -W dependencie-name`
+## Tech Stack
 
-## Storybook for Design System
+**Frontend:**
+- Next.js 14 (App Router)
+- PandaCSS (Styling)
+- React Query (Data fetching)
+- GraphQL (API layer)
+- TypeScript
 
-`yarn story`
+**Backend:**
+- NestJS (Framework)
+- Prisma (ORM)
+- PostgreSQL (Database)
+- GraphQL (API)
+- JWT + OAuth (Auth)
 
-## Tests
+## Documentation
 
-`yarn test` to run ALL packages test at the same time or `cd packages/<package-name> && yarn test`
+- [Features & Implementation Guide](./FEATURES.md) - Comprehensive feature documentation
+- [API Documentation](http://localhost:3001/graphql) - GraphQL Playground (when server is running)
+- [Design System](./packages/design-system/README.md) - Component library documentation
 
-### Lerna commands
+## Available Scripts
 
-https://lerna.js.org/
+```bash
+# Development
+pnpm dev          # Start all apps in development mode
+pnpm dev:server   # Start only the backend
+pnpm dev:web      # Start only the web app
 
-Api: https://github.com/viniarruda/elixir-ecommerce-api [Elixir]
+# Building
+pnpm build        # Build all apps
+pnpm lint         # Lint all packages
 
-Enjoy!
+# Database
+pnpm prisma:migrate  # Run database migrations
+pnpm prisma:studio   # Open Prisma Studio
+pnpm prisma:generate # Generate Prisma Client
+
+# Code Generation
+pnpm codegen      # Generate GraphQL types
+```
+
+## Key Features
+
+### Design System
+- Token-based theming (light/dark mode)
+- Responsive components
+- Ecommerce-specific components (ProductCard, PriceDisplay, Rating)
+- Zero-runtime CSS with PandaCSS
+
+### Backend API
+- Full CRUD for products, categories, orders, reviews
+- Cart management with database persistence
+- Order tracking and management
+- Review system with moderation
+- Role-based access control
+- OAuth integration (Google, GitHub)
+
+### Services Package
+- Type-safe GraphQL hooks
+- Automatic type generation
+- React Query integration
+- Optimistic updates
+- Error handling
+
+## Customization
+
+### Adding Components
+
+```typescript
+// packages/design-system/src/components/MyComponent/MyComponent.tsx
+import { styled } from '../../../styled-system/jsx';
+
+export const MyComponent = styled('div', {
+  base: {
+    padding: '4',
+    borderRadius: 'md',
+  },
+});
+```
+
+### Adding GraphQL Queries
+
+```graphql
+# packages/services/src/graphql/custom.graphql
+query GetCustomData {
+  customData {
+    id
+    name
+  }
+}
+```
+
+Then run `pnpm codegen` to generate TypeScript types.
+
+### Extending Database
+
+```prisma
+// apps/server/prisma/schema.prisma
+model NewModel {
+  id   String @id @default(uuid())
+  name String
+}
+```
+
+Then run `pnpm prisma migrate dev --name add_new_model`.
+
+## React Native Support
+
+The architecture is designed for React Native integration:
+
+1. Create a mobile app
+2. Install `@react-shop/services`
+3. Use the same GraphQL hooks
+4. Adapt UI components to React Native
+
+## Deployment
+
+### Docker
+
+```bash
+docker-compose up -d
+```
+
+### Environment Variables
+
+Required for production:
+- `DATABASE_URL`
+- `JWT_SECRET` & `JWT_REFRESH_SECRET`
+- `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET`
+- `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET`
+- SMTP configuration for emails
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+MIT
+
+## Links
+
+- [Turborepo Documentation](https://turbo.build/repo/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [NestJS Documentation](https://docs.nestjs.com)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [PandaCSS Documentation](https://panda-css.com)

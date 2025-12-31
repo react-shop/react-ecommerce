@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply box-border m-0 p-0;
+  }
+
+  html,
+  body {
+    @apply h-full;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  img {
+    @apply max-w-full h-auto;
+  }
+
+  a {
+    @apply no-underline;
+    color: inherit;
+  }
+}

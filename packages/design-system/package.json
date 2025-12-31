@@ -1,53 +1,42 @@
 {
   "name": "@react-shop/design-system",
-  "version": "0.0.1",
-  "private": true,
-  "description": "a UI library for react-ecommerce",
-  "main": "./lib/index.js",
-  "module": "./lib-esm/index.js",
-  "types": "./lib/index.d.ts",
-  "author": "Vinicius Arruda",
+  "version": "0.0.0",
+  "main": "./src/index.tsx",
+  "types": "./src/index.tsx",
+  "license": "MIT",
   "scripts": {
-    "story": "start-storybook",
-    "libbuild": "tsc && tsc --build tsconfig.esm.json",
-    "start": "tsc && tsc --build tsconfig.esm.json -w",
-    "test": "jest --color"
-  },
-  "peerDependencies": {
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "lint": "TIMING=1 eslint \"**/*.ts*\"",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@storybook/addon-a11y": "^5.2.8",
-    "@storybook/addon-actions": "^5.3.6",
-    "@storybook/addon-console": "^1.2.1",
-    "@storybook/addon-docs": "^5.2.8",
-    "@storybook/addon-knobs": "^5.2.8",
-    "@storybook/react": "^5.2.5",
-    "@types/enzyme": "^3.10.4",
-    "@types/enzyme-adapter-react-16": "^1.0.5",
-    "@types/jest": "^24.0.25",
-    "@types/storybook__react": "^4.0.2",
-    "@types/styled-system": "^5.1.9",
-    "awesome-typescript-loader": "^5.2.1",
-    "babel-loader": "^8.0.6",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "enzyme-to-json": "^3.4.3",
-    "eslint": "^6.8.0",
-    "eslint-config-prettier": "^6.8.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "jest": "^24.9.0",
-    "jest-enzyme": "^7.1.2",
-    "prettier": "^1.19.1",
-    "react-docgen-typescript-loader": "^3.6.0",
-    "sass-loader": "^8.0.0",
-    "source-map-loader": "^0.2.4",
-    "style-loader": "^1.0.0",
-    "ts-jest": "^24.3.0"
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/react": "^8.0.0",
+    "@storybook/react-vite": "^8.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^9.0.0",
+    "eslint-config-custom": "workspace:*",
+    "postcss": "^8.4.32",
+    "react": "^18.2.0",
+    "storybook": "^8.0.0",
+    "tailwindcss": "^3.4.0",
+    "tsconfig": "workspace:*",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0"
   },
   "dependencies": {
-    "styled-system": "^5.1.5"
+    "clsx": "^2.1.0",
+    "lucide-react": "^0.263.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwind-variants": "^0.1.20"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
