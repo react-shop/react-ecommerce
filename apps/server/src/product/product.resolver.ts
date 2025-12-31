@@ -13,7 +13,7 @@ export class ProductResolver {
 
   @UseGuards(GqlAuthGuard)
   @Mutation(() => Product)
-  async createProduct(@Args('data') data: CreateProductDto): Promise<Product> {
+  async createProduct(@Args('data') data: CreateProductDto): Promise<any> {
     const product = await this.productService.create(data);
 
     return product;
@@ -23,7 +23,7 @@ export class ProductResolver {
   @Query(() => [Product], {
     nullable: true,
   })
-  async getAllProducts(): Promise<Product[]> {
+  async getAllProducts(): Promise<any[]> {
     const products = await this.productService.findAll();
 
     return products;

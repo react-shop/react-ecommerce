@@ -24,6 +24,12 @@
       "@category/*": ["./category/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": [
+    "node_modules",
+    "src/discount/**",
+    "src/payment/**",
+    "src/shipment/**",
+    "src/tag/**"
+  ],
   "include": ["**/*.ts", "**/*.tsx", "src/*"]
 }

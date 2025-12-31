@@ -68,7 +68,7 @@ export class OrderService {
         // Calculate discount
         if (discount.type === 'PERCENTAGE') {
           discountAmount = (subtotal * discount.value) / 100;
-        } else if (discount.type === 'FIXED') {
+        } else if (discount.type === 'FIXED_AMOUNT') {
           discountAmount = discount.value;
         }
       }
