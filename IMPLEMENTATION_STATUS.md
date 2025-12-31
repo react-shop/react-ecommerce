@@ -5,6 +5,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 ## ✅ Completed Features
 
 ### 1. Design System Package (`packages/design-system`)
+
 **Status:** ✅ Complete
 
 - [x] PandaCSS configuration with comprehensive token system
@@ -20,6 +21,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - [x] Comprehensive README documentation
 
 **Files Created:**
+
 - `panda.config.ts` - PandaCSS configuration
 - `src/theme/tokens.ts` - Design tokens
 - `src/theme/recipes.ts` - Component recipes
@@ -27,9 +29,11 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - `README.md` - Package documentation
 
 ### 2. Backend Server (`apps/server`)
+
 **Status:** ✅ Complete
 
 #### Database (Prisma + PostgreSQL)
+
 - [x] Comprehensive Prisma schema with 20 production-ready tables:
   - User (with OAuth support, addresses)
   - Product, ProductVariant, ProductImage, ProductCategory
@@ -49,6 +53,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - [x] Prisma service and module
 
 #### REST API (NestJS)
+
 - [x] **Authentication** - JWT-based auth with register/login
 - [x] **Users** - CRUD operations, addresses, wishlist management
 - [x] **Products** - Complete CRUD operations
@@ -62,6 +67,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - [x] DTO validation with class-validator
 
 #### API Testing & Documentation
+
 - [x] Postman collection with 30 REST endpoints
 - [x] Auto-generated collection script
 - [x] Automated test scripts in collection
@@ -69,6 +75,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - [x] Sample workflows and examples
 
 **Files Created/Updated:**
+
 - `prisma/schema.prisma` - Complete database schema (20 tables)
 - `prisma/seed.ts` - Database seeding script
 - `src/prisma/*` - Prisma service and module
@@ -86,6 +93,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - `README.md` - Comprehensive setup guide
 
 ### 3. Documentation
+
 **Status:** ✅ Complete
 
 - [x] Main README with quick start guide
@@ -99,6 +107,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - [x] Contributing guidelines
 
 **Files Created:**
+
 - `README.md` - Main project documentation
 - `FEATURES.md` - Comprehensive features guide
 - `.cursorrules` - Development guidelines
@@ -110,6 +119,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - `IMPLEMENTATION_STATUS.md` - This file
 
 ### 4. Development Infrastructure
+
 **Status:** ✅ Complete
 
 - [x] Turborepo monorepo configuration
@@ -124,14 +134,17 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 ## 🚧 In Progress / Pending Implementation
 
 ### 5. SDK Package (`packages/sdk`)
+
 **Status:** 🚧 In Progress - Needs REST API Migration
 
 **Current State:**
+
 - ⚠️ Still configured for GraphQL (outdated)
 - ⚠️ Uses `graphql-request` and GraphQL operations
 - ⚠️ Code generation configured for GraphQL schema
 
 **Required Changes:**
+
 - [ ] Remove GraphQL dependencies (`graphql`, `graphql-request`, `@graphql-codegen/*`)
 - [ ] Create entity types in `src/entities/` (User, Product, Cart, Order, etc.)
 - [ ] Update API client to use REST endpoints with Axios
@@ -145,6 +158,7 @@ This document tracks the implementation status of the React Ecommerce Boilerplat
 - [ ] Update MIGRATION.md guide
 
 **Target Structure:**
+
 ```
 packages/sdk/
 ├── src/
@@ -188,11 +202,13 @@ packages/sdk/
 ```
 
 ### 6. Web App (`apps/web`)
+
 **Status:** ⏳ Pending (Blocked by SDK update)
 
 The customer-facing ecommerce application needs to be implemented with:
 
 **Required Pages:**
+
 - [ ] Homepage with featured products
 - [ ] Product listing with filters
 - [ ] Product detail page
@@ -202,6 +218,7 @@ The customer-facing ecommerce application needs to be implemented with:
 - [ ] User dashboard (profile, orders, addresses, wishlist, reviews)
 
 **Required Features:**
+
 - [ ] Server-side rendering with Next.js 14 App Router
 - [ ] PandaCSS integration
 - [ ] SDK hooks integration (queries + mutations)
@@ -213,6 +230,7 @@ The customer-facing ecommerce application needs to be implemented with:
 - [ ] Responsive design
 
 **Next Steps:**
+
 1. Wait for SDK update to REST
 2. Setup Next.js 14 App Router
 3. Configure PandaCSS in the app
@@ -224,11 +242,13 @@ The customer-facing ecommerce application needs to be implemented with:
 9. Create user dashboard
 
 ### 7. Admin App (`apps/admin`)
+
 **Status:** ⏳ Pending (Blocked by SDK update)
 
 The admin dashboard needs to be implemented with:
 
 **Required Pages:**
+
 - [ ] Dashboard with analytics
 - [ ] Product management (list, create, edit, delete)
 - [ ] Category management
@@ -238,6 +258,7 @@ The admin dashboard needs to be implemented with:
 - [ ] Store settings
 
 **Required Features:**
+
 - [ ] Role-based access control (ADMIN role)
 - [ ] Bulk operations
 - [ ] CSV import/export
@@ -247,6 +268,7 @@ The admin dashboard needs to be implemented with:
 - [ ] Analytics charts
 
 **Next Steps:**
+
 1. Wait for SDK update to REST
 2. Setup Next.js 14 with App Router
 3. Configure PandaCSS
@@ -260,6 +282,7 @@ The admin dashboard needs to be implemented with:
 ## 🔄 Optional Advanced Features (Future)
 
 ### 8. Payment Integration
+
 **Status:** ⏳ Not Started
 
 - [ ] Stripe integration
@@ -269,6 +292,7 @@ The admin dashboard needs to be implemented with:
 - [ ] Payment status tracking
 
 ### 9. Shipment Tracking
+
 **Status:** ⏳ Not Started
 
 - [ ] Carrier integration (USPS, FedEx, UPS)
@@ -278,6 +302,7 @@ The admin dashboard needs to be implemented with:
 - [ ] Shipping label generation
 
 ### 10. Advanced Discount System
+
 **Status:** ⏳ Not Started
 
 - [ ] Coupon codes
@@ -287,6 +312,7 @@ The admin dashboard needs to be implemented with:
 - [ ] Buy X get Y offers
 
 ### 11. Mobile App (React Native)
+
 **Status:** ⏳ Not Started
 
 - [ ] Create React Native app
@@ -297,6 +323,7 @@ The admin dashboard needs to be implemented with:
 ## 📋 Setup Instructions
 
 ### Prerequisites
+
 - Node.js 18+
 - pnpm 8+
 - PostgreSQL 14+ (or Docker)
@@ -304,17 +331,20 @@ The admin dashboard needs to be implemented with:
 ### Installation Steps
 
 1. **Install dependencies:**
+
 ```bash
 pnpm install
 ```
 
 2. **Setup PostgreSQL with Docker:**
+
 ```bash
 cd apps/server
 docker-compose up -d
 ```
 
 3. **Setup environment variables:**
+
 ```bash
 cd apps/server
 cp .env.example .env
@@ -322,6 +352,7 @@ cp .env.example .env
 ```
 
 4. **Setup database:**
+
 ```bash
 cd apps/server
 pnpm prisma migrate dev
@@ -329,18 +360,21 @@ pnpm prisma:seed
 ```
 
 5. **Generate PandaCSS:**
+
 ```bash
 cd packages/design-system
 pnpm prepare
 ```
 
 6. **Start development:**
+
 ```bash
 # From root directory
 pnpm dev
 ```
 
 7. **Test API with Postman:**
+
 ```bash
 # Import postman/rest-api-collection.json in Postman
 # Set baseUrl = http://localhost:5001
@@ -350,6 +384,7 @@ pnpm dev
 ## 🎯 Architecture Highlights
 
 ### Monorepo Benefits
+
 - **Code Sharing:** Design system and SDK shared across web, admin, and future mobile apps
 - **Type Safety:** End-to-end TypeScript with strict mode
 - **Consistent Styling:** Single source of truth for design tokens
@@ -358,30 +393,35 @@ pnpm dev
 ### Technology Choices
 
 **REST API (instead of GraphQL):**
+
 - ✅ Simpler architecture, easier to test
 - ✅ Better tooling (Postman, Swagger)
 - ✅ Easier to understand for most developers
 - ✅ Native HTTP caching
 
 **PandaCSS:**
+
 - Zero-runtime CSS-in-JS
 - Excellent TypeScript support
 - Build-time style generation
 - RSC compatible
 
 **Prisma:**
+
 - Type-safe database access
 - Automatic migrations
 - Excellent DX with Prisma Studio
 - PostgreSQL optimized
 
 **React Query:**
+
 - Automatic caching
 - Optimistic updates
 - Request deduplication
 - Perfect for REST APIs
 
 **NestJS:**
+
 - Modular architecture
 - Dependency injection
 - Excellent TypeScript support
@@ -390,9 +430,11 @@ pnpm dev
 ## 🔄 Current Development Priority
 
 ### Priority 1: Update SDK Package (CURRENT)
+
 **Goal:** Migrate SDK from GraphQL to REST API
 
 **Tasks:**
+
 1. Remove GraphQL dependencies
 2. Create entity types for all models
 3. Restructure to `queries/` and `mutations/` pattern
@@ -406,9 +448,11 @@ pnpm dev
 **Blocks:** Web App, Admin App
 
 ### Priority 2: Build Web App Foundation
+
 **Goal:** Customer-facing ecommerce storefront
 
 **Tasks:**
+
 1. Setup Next.js 14 with App Router
 2. Integrate Design System + SDK
 3. Implement authentication
@@ -420,9 +464,11 @@ pnpm dev
 **Blocks:** Nothing
 
 ### Priority 3: Build Admin Dashboard
+
 **Goal:** Admin interface for managing store
 
 **Tasks:**
+
 1. Setup Next.js 14
 2. Implement admin auth (role check)
 3. Build CRUD interfaces
@@ -443,6 +489,7 @@ pnpm dev
 ## 🤝 Contributing
 
 When implementing the pending features:
+
 1. Follow the established patterns in the design system
 2. Use the SDK hooks for all API calls
 3. Maintain TypeScript strict mode

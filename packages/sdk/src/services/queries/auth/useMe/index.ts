@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useApiClient } from '../../../../providers/ApiProvider';
+import { useApiClient } from '@providers/ApiProvider';
 import { useMeKey } from './key';
 import { fetchMe } from './request';
 
