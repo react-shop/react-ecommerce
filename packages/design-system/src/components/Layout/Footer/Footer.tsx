@@ -1,13 +1,11 @@
-import {
-  Container,
-  Grid,
-  Stack,
-  Text,
-  Heading,
-  Input,
-  Button,
-  Flex,
-} from "@components/Atoms";
+import { Container } from "../../Atoms/Container/Container";
+import { Grid } from "../../Atoms/Grid/Grid";
+import { Stack } from "../../Atoms/Stack/Stack";
+import { Text } from "../../Atoms/Text/Text";
+import { Heading } from "../../Atoms/Heading/Heading";
+import { Input } from "../../Atoms/Input/Input";
+import { Button } from "../../Atoms/Button/Button";
+import { Flex } from "../../Atoms/Flex/Flex";
 import type { FooterProps } from "./types";
 
 export function Footer({
