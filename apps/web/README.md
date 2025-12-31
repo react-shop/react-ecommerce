@@ -1,30 +1,175 @@
+# Web App - Customer Ecommerce
+
+Customer-facing ecommerce application built with Next.js 14+, React 19, and PandaCSS.
+
+## Tech Stack
+
+- **Next.js 14+** - App Router, Server Components, Streaming
+- **React 19** - Latest React features
+- **TypeScript 5+** - Type safety
+- **PandaCSS** - Zero-runtime CSS-in-JS (via Design System)
+- **React Query** - Server state management (via SDK)
+- **React Hook Form + Zod** - Form handling and validation
+
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- pnpm 8+
+- Backend server running on `http://localhost:5001`
+
+### Setup
+
+1. **Install dependencies**
+
+```bash
+cd apps/web
+pnpm install
+```
+
+2. **Create environment file**
+
+Create `.env.local` in `apps/web/`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5001
+```
+
+See `ENV_SETUP.md` for all available environment variables.
+
+3. **Start development server**
 
 ```bash
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The app will be available at `http://localhost:3000`
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Development
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Project Structure
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```
+src/
+├── app/                 # Next.js App Router
+│   ├── layout.tsx       # Root layout with providers
+│   ├── page.tsx         # Home page
+│   └── globals.css      # Global styles
+├── components/          # React components
+│   ├── layout/          # Layout components (Header, Footer)
+│   └── product/         # Product components
+├── hooks/               # Custom React hooks
+├── lib/                 # Utilities and helpers
+└── styles/              # Additional styles
+```
+
+### Adding Pages
+
+Create new pages in `src/app/`:
+
+```typescript
+// src/app/products/page.tsx
+export default function ProductsPage() {
+  return <div>Products</div>;
+}
+```
+
+### Using Design System
+
+Import components from `@react-shop/design-system`:
+
+```typescript
+import { Button, Card, Heading } from '@react-shop/design-system';
+
+export default function MyComponent() {
+  return (
+    <Card>
+      <Heading>Hello</Heading>
+      <Button>Click me</Button>
+    </Card>
+  );
+}
+```
+
+### Using SDK
+
+Import hooks from `@react-shop/sdk`:
+
+```typescript
+'use client';
+
+import { useProducts, useAddToCart } from '@react-shop/sdk';
+
+export default function ProductList() {
+  const { data: products, isLoading } = useProducts();
+  const addToCart = useAddToCart();
+
+  // ... use products and addToCart
+}
+```
+
+## Available Scripts
+
+- `pnpm dev` - Start development server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+
+## Features
+
+See `FEATURES_WEB.md` for the complete feature roadmap.
+
+### Phase 1 (Current)
+- ✅ Setup Next.js 14+ and React 19
+- ✅ Configure SDK providers
+- ✅ Create home page
+- ✅ Test Design System components
+- 🚧 Test SDK integration with backend
+
+## Environment Variables
+
+All environment variables must be prefixed with `NEXT_PUBLIC_` to be accessible in the browser.
+
+See `ENV_SETUP.md` for details.
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables
+3. Deploy
+
+### Other Platforms
+
+```bash
+pnpm build
+pnpm start
+```
+
+## Troubleshooting
+
+### Module not found errors
+
+```bash
+pnpm install
+```
+
+### SDK hooks not working
+
+1. Ensure backend is running on `http://localhost:5001`
+2. Check `NEXT_PUBLIC_API_URL` in `.env.local`
+3. Verify `SdkProvider` is in root layout
+
+### Design System styles not loading
+
+1. Check PandaCSS is installed in design-system package
+2. Verify `transpilePackages` in `next.config.js`
+3. Clear `.next` folder and rebuild
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn/foundations/about-nextjs) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Next.js Documentation](https://nextjs.org/docs)
+- [React 19 Documentation](https://react.dev)
+- [PandaCSS Documentation](https://panda-css.com)
