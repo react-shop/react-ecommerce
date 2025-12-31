@@ -20,7 +20,7 @@ export class CartController {
     @CurrentUser() user: any,
     @Body() data: { productId: string; variantId?: string; quantity: number },
   ): Promise<any> {
-    return await this.cartService.addToCart(user.id, data.productId, data.quantity, data.variantId);
+    return await this.cartService.addToCart(user.id, data.productId, data.variantId || null, data.quantity);
   }
 
   @Put('items/:itemId')

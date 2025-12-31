@@ -41,11 +41,10 @@ export class OrderController {
   @Put(':id/status')
   @UseGuards(JwtAuthGuard)
   async updateOrderStatus(
-    @CurrentUser() user: any,
     @Param('id') id: string,
     @Body() data: { status: string },
   ): Promise<any> {
-    return await this.orderService.updateOrderStatus(user.id, id, data.status as any);
+    return await this.orderService.updateOrderStatus(id, data.status as any);
   }
 
   @Put(':id/cancel')
