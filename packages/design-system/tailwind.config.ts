@@ -74,8 +74,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
-        heading: ['var(--font-heading)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
+        heading: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
       },
       fontSize: {
         '2xs': '0.625rem',

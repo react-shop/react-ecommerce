@@ -37,7 +37,7 @@ export interface ApiProviderProps {
 export function ApiProvider({ config, children }: ApiProviderProps) {
   const client = useMemo(() => {
     if (!config) {
-      throw new Error('ApiProvider requires a valid config object');
+      throw new Error("ApiProvider requires a valid config object");
     }
     const apiClient = createApiClient(config);
     setDefaultClient(apiClient);
