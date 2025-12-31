@@ -1,7 +1,6 @@
 // Comprehensive Ecommerce Database Schema
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
