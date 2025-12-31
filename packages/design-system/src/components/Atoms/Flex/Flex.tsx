@@ -1,8 +1,5 @@
-import { styled } from '../../../styled-system/jsx';
+import { styled } from '@styled-system/jsx';
 
-/**
- * Flex - A Box with display: flex
- */
 export const Flex = styled('div', {
   base: {
     display: 'flex',
@@ -10,4 +7,3 @@ export const Flex = styled('div', {
 });
 
 Flex.displayName = 'Flex';
-

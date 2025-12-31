@@ -1,26 +1,19 @@
-import { forwardRef } from 'react';
-import { css, cva, type RecipeVariantProps } from '../../../styled-system/css';
+import * as React from 'react';
+import { cva, type RecipeVariantProps } from '@styled-system/css';
+import { styled } from '@styled-system/jsx';
 
-const inputStyles = cva({
+const inputRecipe = cva({
   base: {
     width: '100%',
     px: '3',
     py: '2',
-    fontSize: 'md',
-    borderWidth: '1px',
-    borderStyle: 'solid',
     borderRadius: 'md',
-    outline: 'none',
+    fontSize: 'md',
     transition: 'all 0.2s',
-    bg: 'bg.surface',
-    color: 'text.primary',
-    borderColor: 'border.default',
-    _placeholder: {
-      color: 'text.tertiary',
-    },
     _focus: {
-      borderColor: 'primary.default',
-      boxShadow: '0 0 0 3px token(colors.brand.100)',
+      outline: 'none',
+      ring: '2px',
+      ringColor: 'primary.default',
     },
     _disabled: {
       opacity: 0.5,
@@ -28,48 +21,71 @@ const inputStyles = cva({
     },
   },
   variants: {
-    size: {
-      sm: { px: '2', py: '1', fontSize: 'sm' },
-      md: { px: '3', py: '2', fontSize: 'md' },
-      lg: { px: '4', py: '3', fontSize: 'lg' },
-    },
     variant: {
-      outline: {},
+      outline: {
+        border: '1px solid',
+        borderColor: 'border.default',
+        bg: 'bg.surface',
+        _hover: {
+          borderColor: 'border.emphasis',
+        },
+      },
       filled: {
         bg: 'bg.muted',
-        borderColor: 'transparent',
-        _focus: {
-          bg: 'bg.surface',
-          borderColor: 'primary.default',
+        border: '1px solid transparent',
+        _hover: {
+          bg: 'bg.subtle',
         },
+      },
+    },
+    size: {
+      sm: {
+        px: '2',
+        py: '1.5',
+        fontSize: 'sm',
+      },
+      md: {
+        px: '3',
+        py: '2',
+        fontSize: 'md',
+      },
+      lg: {
+        px: '4',
+        py: '3',
+        fontSize: 'lg',
       },
     },
     isInvalid: {
       true: {
-        borderColor: 'error.500',
+        borderColor: 'error.default',
         _focus: {
-          borderColor: 'error.500',
-          boxShadow: '0 0 0 3px token(colors.error.100)',
+          ringColor: 'error.default',
         },
       },
     },
   },
   defaultVariants: {
-    size: 'md',
     variant: 'outline',
+    size: 'md',
   },
 });
 
+export type InputVariants = RecipeVariantProps<typeof inputRecipe>;
+
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
-    RecipeVariantProps<typeof inputStyles> {}
+    InputVariants {}
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ size, variant, isInvalid, className, ...props }, ref) => {
+const StyledInput = styled('input', inputRecipe);
+
+export const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ variant, size, isInvalid, ...props }, ref) => {
     return (
-      <input
+      <StyledInput
         ref={ref}
-        className={css(inputStyles.raw({ size, variant, isInvalid }), className)}
+        variant={variant}
+        size={size}
+        isInvalid={isInvalid}
         {...props}
       />
     );

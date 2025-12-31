@@ -1,26 +1,44 @@
-import { css, cva } from '../../../styled-system/css';
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
-import { Icon } from '../Icon';
+import * as React from 'react';
+import { cva, type RecipeVariantProps } from '@styled-system/css';
+import { styled } from '@styled-system/jsx';
+import { CheckCircle, XCircle, AlertCircle, Info } from 'lucide-react';
 
-const toastStyles = cva({
+const toastRecipe = cva({
   base: {
     display: 'flex',
-    alignItems: 'start',
+    alignItems: 'center',
     gap: '3',
     p: '4',
-    borderRadius: 'lg',
+    borderRadius: 'md',
     boxShadow: 'lg',
     minWidth: '300px',
-    maxWidth: '500px',
-    bg: 'bg.surface',
-    borderWidth: '1px',
   },
   variants: {
     variant: {
-      success: { borderColor: 'success.500' },
-      error: { borderColor: 'error.500' },
-      warning: { borderColor: 'warning.500' },
-      info: { borderColor: 'brand.500' },
+      success: {
+        bg: 'success.50',
+        borderLeft: '4px solid',
+        borderColor: 'success.500',
+        color: 'success.900',
+      },
+      error: {
+        bg: 'error.50',
+        borderLeft: '4px solid',
+        borderColor: 'error.500',
+        color: 'error.900',
+      },
+      warning: {
+        bg: 'warning.50',
+        borderLeft: '4px solid',
+        borderColor: 'warning.500',
+        color: 'warning.900',
+      },
+      info: {
+        bg: 'brand.50',
+        borderLeft: '4px solid',
+        borderColor: 'brand.500',
+        color: 'brand.900',
+      },
     },
   },
   defaultVariants: {
@@ -28,62 +46,39 @@ const toastStyles = cva({
   },
 });
 
-const iconMap = {
+export type ToastVariants = RecipeVariantProps<typeof toastRecipe>;
+
+export interface ToastProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    ToastVariants {
+  title?: string;
+  description?: string;
+}
+
+const StyledToast = styled('div', toastRecipe);
+
+const icons = {
   success: CheckCircle,
-  error: AlertCircle,
-  warning: AlertTriangle,
+  error: XCircle,
+  warning: AlertCircle,
   info: Info,
 };
 
-const colorMap = {
-  success: '#22c55e',
-  error: '#ef4444',
-  warning: '#f59e0b',
-  info: '#0ea5e9',
-};
+export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
+  ({ variant = 'info', title, description, children, ...props }, ref) => {
+    const Icon = icons[variant];
 
-export interface ToastProps {
-  variant?: 'success' | 'error' | 'warning' | 'info';
-  title: string;
-  description?: string;
-  onClose?: () => void;
-}
+    return (
+      <StyledToast ref={ref} variant={variant} {...props}>
+        <Icon size={20} />
+        <div>
+          {title && <div style={{ fontWeight: 600 }}>{title}</div>}
+          {description && <div style={{ fontSize: '14px' }}>{description}</div>}
+          {children}
+        </div>
+      </StyledToast>
+    );
+  }
+);
 
-export const Toast: React.FC<ToastProps> = ({
-  variant = 'info',
-  title,
-  description,
-  onClose,
-}) => {
-  const IconComponent = iconMap[variant];
-
-  return (
-    <div className={toastStyles({ variant })}>
-      <Icon icon={IconComponent} color={colorMap[variant]} />
-      <div className={css({ flex: 1 })}>
-        <div className={css({ fontWeight: 'semibold', mb: '1' })}>{title}</div>
-        {description && (
-          <div className={css({ fontSize: 'sm', color: 'text.secondary' })}>
-            {description}
-          </div>
-        )}
-      </div>
-      {onClose && (
-        <button
-          onClick={onClose}
-          className={css({
-            p: '1',
-            borderRadius: 'md',
-            cursor: 'pointer',
-            border: 'none',
-            bg: 'transparent',
-            _hover: { bg: 'bg.muted' },
-          })}
-        >
-          <Icon icon={X} size="sm" />
-        </button>
-      )}
-    </div>
-  );
-};
-
+Toast.displayName = 'Toast';

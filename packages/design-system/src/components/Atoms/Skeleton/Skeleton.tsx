@@ -1,6 +1,8 @@
-import { css, cva, type RecipeVariantProps } from '../../../styled-system/css';
+import * as React from 'react';
+import { cva, type RecipeVariantProps } from '@styled-system/css';
+import { styled } from '@styled-system/jsx';
 
-const skeletonStyles = cva({
+const skeletonRecipe = cva({
   base: {
     bg: 'bg.muted',
     borderRadius: 'md',
@@ -8,36 +10,36 @@ const skeletonStyles = cva({
   },
   variants: {
     variant: {
-      text: { height: '4' },
-      circular: { borderRadius: 'full' },
-      rectangular: {},
+      text: {
+        height: '4',
+        width: '100%',
+      },
+      circular: {
+        borderRadius: 'full',
+      },
+      rectangular: {
+        width: '100%',
+        height: '100%',
+      },
     },
   },
   defaultVariants: {
-    variant: 'rectangular',
+    variant: 'text',
   },
 });
 
-export interface SkeletonProps extends RecipeVariantProps<typeof skeletonStyles> {
-  width?: string;
-  height?: string;
-  className?: string;
-}
+export type SkeletonVariants = RecipeVariantProps<typeof skeletonRecipe>;
 
-export const Skeleton: React.FC<SkeletonProps> = ({
-  variant,
-  width,
-  height,
-  className,
-}) => {
-  return (
-    <div
-      className={css(
-        skeletonStyles.raw({ variant }),
-        { width, height },
-        className
-      )}
-    />
-  );
-};
+export interface SkeletonProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    SkeletonVariants {}
 
+const StyledSkeleton = styled('div', skeletonRecipe);
+
+export const Skeleton = React.forwardRef<HTMLDivElement, SkeletonProps>(
+  ({ variant, ...props }, ref) => {
+    return <StyledSkeleton ref={ref} variant={variant} {...props} />;
+  }
+);
+
+Skeleton.displayName = 'Skeleton';

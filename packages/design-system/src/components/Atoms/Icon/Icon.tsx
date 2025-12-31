@@ -1,39 +1,49 @@
-import { forwardRef } from 'react';
-import { css } from '../../../styled-system/css';
-import type { LucideIcon } from 'lucide-react';
+import * as React from 'react';
+import { cva, type RecipeVariantProps } from '@styled-system/css';
+import { styled } from '@styled-system/jsx';
+import { Icon as LucideIcon, type IconNode } from 'lucide-react';
 
-export interface IconProps {
-  icon: LucideIcon;
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  color?: string;
-  className?: string;
+const iconRecipe = cva({
+  base: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
+  },
+  variants: {
+    size: {
+      xs: { w: '3', h: '3' },
+      sm: { w: '4', h: '4' },
+      md: { w: '5', h: '5' },
+      lg: { w: '6', h: '6' },
+      xl: { w: '8', h: '8' },
+    },
+    color: {
+      primary: { color: 'primary.default' },
+      secondary: { color: 'text.secondary' },
+      error: { color: 'error.default' },
+      success: { color: 'success.default' },
+      warning: { color: 'warning.default' },
+      text: { color: 'text.primary' },
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    color: 'text',
+  },
+});
+
+export type IconVariants = RecipeVariantProps<typeof iconRecipe>;
+
+export interface IconProps extends IconVariants, React.SVGProps<SVGSVGElement> {
+  icon: IconNode;
 }
 
-const sizeMap = {
-  xs: '12px',
-  sm: '16px',
-  md: '20px',
-  lg: '24px',
-  xl: '32px',
-};
-
-export const Icon = forwardRef<SVGSVGElement, IconProps>(
-  ({ icon: IconComponent, size = 'md', color, className }, ref) => {
-    return (
-      <IconComponent
-        ref={ref}
-        className={css(
-          {
-            flexShrink: 0,
-          },
-          className
-        )}
-        size={sizeMap[size]}
-        color={color}
-      />
-    );
+export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
+  ({ icon, size, color, ...props }, ref) => {
+    const StyledIcon = styled(LucideIcon, iconRecipe);
+    return <StyledIcon ref={ref} icon={icon} size={size} color={color} {...props} />;
   }
 );
 
 Icon.displayName = 'Icon';
-

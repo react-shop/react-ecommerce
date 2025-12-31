@@ -1,21 +1,21 @@
-import { css, cva, type RecipeVariantProps } from '../../../styled-system/css';
+import * as React from 'react';
+import { cva, type RecipeVariantProps } from '@styled-system/css';
+import { styled } from '@styled-system/jsx';
 
-const dividerStyles = cva({
+const dividerRecipe = cva({
   base: {
-    borderColor: 'border.default',
-    borderStyle: 'solid',
+    border: 'none',
+    bg: 'border.default',
   },
   variants: {
     orientation: {
       horizontal: {
-        borderBottomWidth: '1px',
         width: '100%',
-        height: 0,
+        height: '1px',
       },
       vertical: {
-        borderLeftWidth: '1px',
-        height: '100%',
-        width: 0,
+        width: '1px',
+        height: 'auto',
       },
     },
   },
@@ -24,11 +24,18 @@ const dividerStyles = cva({
   },
 });
 
-export interface DividerProps extends RecipeVariantProps<typeof dividerStyles> {
-  className?: string;
-}
+export type DividerVariants = RecipeVariantProps<typeof dividerRecipe>;
 
-export const Divider: React.FC<DividerProps> = ({ orientation, className }) => {
-  return <div className={css(dividerStyles.raw({ orientation }), className)} />;
-};
+export interface DividerProps
+  extends React.HTMLAttributes<HTMLHRElement>,
+    DividerVariants {}
 
+const StyledDivider = styled('hr', dividerRecipe);
+
+export const Divider = React.forwardRef<HTMLHRElement, DividerProps>(
+  ({ orientation, ...props }, ref) => {
+    return <StyledDivider ref={ref} orientation={orientation} {...props} />;
+  }
+);
+
+Divider.displayName = 'Divider';

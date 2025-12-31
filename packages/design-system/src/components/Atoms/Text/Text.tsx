@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled } from '../../../styled-system/jsx';
+import { styled } from '@styled-system/jsx';
 
 export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
   as?: 'p' | 'span' | 'div' | 'label';

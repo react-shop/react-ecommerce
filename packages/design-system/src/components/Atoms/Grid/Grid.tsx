@@ -1,8 +1,5 @@
-import { styled } from '../../../styled-system/jsx';
+import { styled } from '@styled-system/jsx';
 
-/**
- * Grid - A Box with display: grid
- */
 export const Grid = styled('div', {
   base: {
     display: 'grid',
@@ -10,4 +7,3 @@ export const Grid = styled('div', {
 });
 
 Grid.displayName = 'Grid';
-
