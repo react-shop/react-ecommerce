@@ -20,7 +20,7 @@ const config: StorybookConfig = {
     return mergeConfig(config, {
       resolve: {
         alias: {
-          '@lib/utils': path.resolve(__dirname, '../../../packages/design-system/src/lib/utils.ts'),
+          '@lib': path.resolve(__dirname, '../../../packages/design-system/src/lib'),
           '@components': path.resolve(__dirname, '../../../packages/design-system/src/components'),
         },
       },

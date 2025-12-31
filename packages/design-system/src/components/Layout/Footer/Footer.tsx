@@ -1,11 +1,11 @@
-import { Container } from "../../Atoms/Container/Container";
-import { Grid } from "../../Atoms/Grid/Grid";
-import { Stack } from "../../Atoms/Stack/Stack";
-import { Text } from "../../Atoms/Text/Text";
-import { Heading } from "../../Atoms/Heading/Heading";
-import { Input } from "../../Atoms/Input/Input";
-import { Button } from "../../Atoms/Button/Button";
-import { Flex } from "../../Atoms/Flex/Flex";
+import { Container } from "@components/Atoms/Container/Container";
+import { Grid } from "@components/Atoms/Grid/Grid";
+import { Stack } from "@components/Atoms/Stack/Stack";
+import { Text } from "@components/Atoms/Text/Text";
+import { Heading } from "@components/Atoms/Heading/Heading";
+import { Input } from "@components/Atoms/Input/Input";
+import { Button } from "@components/Atoms/Button/Button";
+import { Flex } from "@components/Atoms/Flex/Flex";
 import type { FooterProps } from "./types";
 
 export function Footer({
