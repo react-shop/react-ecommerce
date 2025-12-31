@@ -6,7 +6,7 @@ export const registerRequest = async (
   client: AxiosInstance,
   input: UseRegisterInput
 ): Promise<UseRegisterResponse> => {
-  const response = await client.post<UseRegisterResponse>(AUTH_ROUTES.REGISTER, input);
+  const response = await client.post<UseRegisterResponse>(AUTH_ROUTES.register, input);
   return response.data;
 };
 

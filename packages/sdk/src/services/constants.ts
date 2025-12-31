@@ -3,51 +3,43 @@
  * Centralized route definitions for all API endpoints
  */
 
+const API_PREFIX = "/api";
+
 export const AUTH_ROUTES = {
-  LOGIN: '/api/auth/login',
-  REGISTER: '/api/auth/register',
-  LOGOUT: '/api/auth/logout',
-  ME: '/api/users/me',
+  login: `${API_PREFIX}/auth/login`,
+  register: `${API_PREFIX}/auth/register`,
+  logout: `${API_PREFIX}/auth/logout`,
+  me: `${API_PREFIX}/users/me`,
 } as const;
 
 export const PRODUCT_ROUTES = {
-  LIST: '/api/products',
-  DETAIL: (id: string) => `/api/products/${id}`,
-  CREATE: '/api/products',
-  UPDATE: (id: string) => `/api/products/${id}`,
-  DELETE: (id: string) => `/api/products/${id}`,
+  list: `${API_PREFIX}/products`,
+  detail: (id: string) => `${API_PREFIX}/products/${id}`,
 } as const;
 
 export const CATEGORY_ROUTES = {
-  LIST: '/api/categories',
-  DETAIL: (id: string) => `/api/categories/${id}`,
-  CREATE: '/api/categories',
-  UPDATE: (id: string) => `/api/categories/${id}`,
-  DELETE: (id: string) => `/api/categories/${id}`,
+  list: `${API_PREFIX}/categories`,
+  detail: (id: string) => `${API_PREFIX}/categories/${id}`,
 } as const;
 
 export const CART_ROUTES = {
-  GET: '/api/cart',
-  ADD_ITEM: '/api/cart/items',
-  UPDATE_ITEM: (itemId: string) => `/api/cart/items/${itemId}`,
-  REMOVE_ITEM: (itemId: string) => `/api/cart/items/${itemId}`,
-  CLEAR: '/api/cart/clear',
+  base: `${API_PREFIX}/cart`,
+  items: `${API_PREFIX}/cart/items`,
+  item: (itemId: string) => `${API_PREFIX}/cart/items/${itemId}`,
+  clear: `${API_PREFIX}/cart/clear`,
 } as const;
 
 export const ORDER_ROUTES = {
-  LIST: '/api/orders',
-  DETAIL: (id: string) => `/api/orders/${id}`,
-  CREATE: '/api/orders',
-  UPDATE_STATUS: (id: string) => `/api/orders/${id}/status`,
-  CANCEL: (id: string) => `/api/orders/${id}/cancel`,
-  ALL: '/api/orders/all',
+  list: `${API_PREFIX}/orders`,
+  detail: (id: string) => `${API_PREFIX}/orders/${id}`,
+  status: (id: string) => `${API_PREFIX}/orders/${id}/status`,
+  cancel: (id: string) => `${API_PREFIX}/orders/${id}/cancel`,
+  all: `${API_PREFIX}/orders/all`,
 } as const;
 
 export const REVIEW_ROUTES = {
-  LIST: (productId: string) => `/api/reviews/product/${productId}`,
-  CREATE: '/api/reviews',
-  UPDATE: (id: string) => `/api/reviews/${id}`,
-  DELETE: (id: string) => `/api/reviews/${id}`,
-  MODERATE: (id: string) => `/api/reviews/${id}/moderate`,
+  list: (productId: string) => `${API_PREFIX}/reviews/product/${productId}`,
+  base: `${API_PREFIX}/reviews`,
+  detail: (id: string) => `${API_PREFIX}/reviews/${id}`,
+  moderate: (id: string) => `${API_PREFIX}/reviews/${id}/moderate`,
 } as const;
-

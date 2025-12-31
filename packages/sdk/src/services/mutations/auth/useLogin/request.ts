@@ -6,7 +6,7 @@ export const loginRequest = async (
   client: AxiosInstance,
   input: UseLoginInput
 ): Promise<UseLoginResponse> => {
-  const response = await client.post<UseLoginResponse>(AUTH_ROUTES.LOGIN, input);
+  const response = await client.post<UseLoginResponse>(AUTH_ROUTES.login, input);
   return response.data;
 };
 
