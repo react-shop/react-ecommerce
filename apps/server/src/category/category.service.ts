@@ -1,27 +1,20 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
-import { validate } from 'class-validator';
-
-import { Category } from '@category/category.entity';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateCategoryDto } from '@category/dto/create-category.dto';
 
 @Injectable()
 export class CategoryService {
-  constructor(
-    @InjectRepository(Category)
-    private readonly categoryRepository: Repository<Category>,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  async create(dto: CreateCategoryDto): Promise<Category> {
-    const { name, description } = dto;
-    const qb = await getRepository(Category)
-      .createQueryBuilder('category')
-      .where('category.name = :name', { name });
+  async create(dto: CreateCategoryDto) {
+    const { name, description, slug, image, parentId } = dto;
 
-    const category = await qb.getOne();
+    // Check if category already exists
+    const existingCategory = await this.prisma.category.findUnique({
+      where: { slug },
+    });
 
-    if (category) {
+    if (existingCategory) {
       const errors = { message: 'This category already been registered' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
@@ -29,27 +22,90 @@ export class CategoryService {
       );
     }
 
-    const newCategory = new Category();
-    newCategory.name = name;
-    newCategory.description = description;
+    // Create new category
+    const newCategory = await this.prisma.category.create({
+      data: {
+        name,
+        slug,
+        description,
+        image,
+        parentId,
+        isActive: true,
+        sortOrder: 0,
+      },
+      include: {
+        parent: true,
+        children: true,
+      },
+    });
 
-    const errors = await validate(newCategory);
-    if (errors.length > 0) {
-      const _errors = { name: 'Name is not valid.' };
-      throw new HttpException(
-        { message: 'Input data validation failed', _errors },
-        HttpStatus.BAD_REQUEST,
-      );
-    } else {
-      const savedCategory = await this.categoryRepository.save(newCategory);
-
-      return savedCategory;
-    }
+    return newCategory;
   }
 
-  async findAll(): Promise<Category[]> {
-    const categories = await this.categoryRepository.find();
+  async findAll() {
+    const categories = await this.prisma.category.findMany({
+      include: {
+        parent: true,
+        children: true,
+        productCategories: {
+          include: {
+            product: true,
+          },
+        },
+      },
+      orderBy: {
+        sortOrder: 'asc',
+      },
+    });
 
     return categories;
+  }
+
+  async findOne(id: string) {
+    return this.prisma.category.findUnique({
+      where: { id },
+      include: {
+        parent: true,
+        children: true,
+        productCategories: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+  }
+
+  async findBySlug(slug: string) {
+    return this.prisma.category.findUnique({
+      where: { slug },
+      include: {
+        parent: true,
+        children: true,
+        productCategories: {
+          include: {
+            product: true,
+          },
+        },
+      },
+    });
+  }
+
+  async update(id: string, dto: Partial<CreateCategoryDto>) {
+    return this.prisma.category.update({
+      where: { id },
+      data: dto,
+      include: {
+        parent: true,
+        children: true,
+      },
+    });
+  }
+
+  async delete(id: string) {
+    await this.prisma.category.delete({
+      where: { id },
+    });
+    return true;
   }
 }

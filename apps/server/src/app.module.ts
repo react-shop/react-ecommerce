@@ -8,7 +8,6 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
-import { AttributeModule } from './attribute/attribute.module';
 import { CategoryModule } from './category/category.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
@@ -32,7 +31,6 @@ import { AppController } from './app.controller';
     UserModule,
     AuthModule,
     ProductModule,
-    AttributeModule,
     CategoryModule,
     CartModule,
     OrderModule,
