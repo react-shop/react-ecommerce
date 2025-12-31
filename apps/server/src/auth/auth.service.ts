@@ -5,11 +5,11 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compareSync } from 'bcrypt';
+import { User } from '@prisma/client';
 
 import { AuthDto } from '@auth/dto/auth.input';
 import { UserService } from '@user/user.service';
 import { AuthType } from '@auth/dto/auth.interface';
-import { User } from '@user/user.entity';
 
 interface RegisterInput {
   email: string;
@@ -34,17 +34,11 @@ export class AuthService {
     }
 
     // Create new user
-    const fullName = [input.firstName, input.lastName]
-      .filter(Boolean)
-      .join(' ')
-      .trim() || input.email.split('@')[0];
-
     const user = await this.userService.create({
       email: input.email,
       password: input.password,
-      name: fullName,
-      username: input.email.split('@')[0],
-      role: 'CUSTOMER',
+      firstName: input.firstName,
+      lastName: input.lastName,
     });
 
     // Generate JWT tokens
@@ -83,7 +77,11 @@ export class AuthService {
   }
 
   public async generateJWT(user: User): Promise<string> {
-    const payload = { username: user.username, sub: user.id };
+    const payload = { 
+      email: user.email, 
+      sub: user.id,
+      role: user.role,
+    };
 
     return this.jwtService.signAsync(payload);
   }
