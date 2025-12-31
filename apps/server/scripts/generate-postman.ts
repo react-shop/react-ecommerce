@@ -10,14 +10,7 @@ interface PostmanRequest {
       mode: string;
       raw?: string;
     };
-    url: {
-      raw: string;
-      protocol: string;
-      host: string[];
-      port: string;
-      path: string[];
-      variable?: Array<{ key: string; value: string }>;
-    };
+    url: string;
   };
   event?: Array<{
     listen: string;
@@ -47,13 +40,14 @@ function generatePostmanCollection(): PostmanCollection {
   const collection: PostmanCollection = {
     info: {
       name: 'React Ecommerce REST API',
-      description: 'Complete REST API for ecommerce backend - Auth, Products, Cart, Orders, Reviews',
+      description:
+        'Complete REST API for ecommerce backend - Auth, Products, Cart, Orders, Reviews',
       schema: 'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
     },
     variable: [
       {
         key: 'baseUrl',
-        value: 'http://localhost:5000',
+        value: 'http://localhost:5001',
         type: 'string',
       },
       {
@@ -73,25 +67,21 @@ function generatePostmanCollection(): PostmanCollection {
         name: 'Register',
         request: {
           method: 'POST',
-          header: [
-            { key: 'Content-Type', value: 'application/json', type: 'text' },
-          ],
+          header: [{ key: 'Content-Type', value: 'application/json', type: 'text' }],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              email: 'user@example.com',
-              password: 'password123',
-              firstName: 'John',
-              lastName: 'Doe',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                email: 'user@example.com',
+                password: 'password123',
+                firstName: 'John',
+                lastName: 'Doe',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/auth/register',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'auth', 'register'],
-          },
+          url: '{{baseUrl}}/api/auth/register',
         },
         event: [
           {
@@ -115,23 +105,19 @@ function generatePostmanCollection(): PostmanCollection {
         name: 'Login',
         request: {
           method: 'POST',
-          header: [
-            { key: 'Content-Type', value: 'application/json', type: 'text' },
-          ],
+          header: [{ key: 'Content-Type', value: 'application/json', type: 'text' }],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              email: 'customer@example.com',
-              password: 'customer123',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                email: 'customer@example.com',
+                password: 'customer123',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/auth/login',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'auth', 'login'],
-          },
+          url: '{{baseUrl}}/api/auth/login',
         },
         event: [
           {
@@ -163,59 +149,37 @@ function generatePostmanCollection(): PostmanCollection {
         name: 'Get User by ID',
         request: {
           method: 'GET',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/users/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'users', ':id'],
-            variable: [{ key: 'id', value: 'user-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/users/:id',
         },
       },
       {
         name: 'Get User by Email',
         request: {
           method: 'GET',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/users/email/:email',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'users', 'email', ':email'],
-            variable: [{ key: 'email', value: 'user@example.com' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/users/email/:email',
         },
       },
       {
         name: 'Create User',
         request: {
           method: 'POST',
-          header: [
-            { key: 'Content-Type', value: 'application/json', type: 'text' },
-          ],
+          header: [{ key: 'Content-Type', value: 'application/json', type: 'text' }],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              email: 'newuser@example.com',
-              password: 'password123',
-              firstName: 'New',
-              lastName: 'User',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                email: 'newuser@example.com',
+                password: 'password123',
+                firstName: 'New',
+                lastName: 'User',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/users',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'users'],
-          },
+          url: '{{baseUrl}}/api/users',
         },
       },
     ],
@@ -230,13 +194,7 @@ function generatePostmanCollection(): PostmanCollection {
         request: {
           method: 'GET',
           header: [],
-          url: {
-            raw: '{{baseUrl}}/api/products',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'products'],
-          },
+          url: '{{baseUrl}}/api/products',
         },
       },
       {
@@ -244,14 +202,7 @@ function generatePostmanCollection(): PostmanCollection {
         request: {
           method: 'GET',
           header: [],
-          url: {
-            raw: '{{baseUrl}}/api/products/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'products', ':id'],
-            variable: [{ key: 'id', value: 'product-id-here' }],
-          },
+          url: '{{baseUrl}}/api/products/:id',
         },
       },
       {
@@ -264,23 +215,21 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              name: 'New Product',
-              slug: 'new-product',
-              description: 'Product description',
-              shortDesc: 'Short description',
-              price: 99.99,
-              sku: 'SKU-001',
-              status: 'active',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                name: 'New Product',
+                slug: 'new-product',
+                description: 'Product description',
+                shortDesc: 'Short description',
+                price: 99.99,
+                sku: 'SKU-001',
+                status: 'active',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/products',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'products'],
-          },
+          url: '{{baseUrl}}/api/products',
         },
       },
       {
@@ -293,36 +242,24 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              name: 'Updated Product Name',
-              price: 129.99,
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                name: 'Updated Product Name',
+                price: 129.99,
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/products/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'products', ':id'],
-            variable: [{ key: 'id', value: 'product-id-here' }],
-          },
+          url: '{{baseUrl}}/api/products/:id',
         },
       },
       {
         name: 'Delete Product',
         request: {
           method: 'DELETE',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/products/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'products', ':id'],
-            variable: [{ key: 'id', value: 'product-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/products/:id',
         },
       },
     ],
@@ -337,13 +274,7 @@ function generatePostmanCollection(): PostmanCollection {
         request: {
           method: 'GET',
           header: [],
-          url: {
-            raw: '{{baseUrl}}/api/categories',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'categories'],
-          },
+          url: '{{baseUrl}}/api/categories',
         },
       },
       {
@@ -351,14 +282,7 @@ function generatePostmanCollection(): PostmanCollection {
         request: {
           method: 'GET',
           header: [],
-          url: {
-            raw: '{{baseUrl}}/api/categories/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'categories', ':id'],
-            variable: [{ key: 'id', value: 'category-id-here' }],
-          },
+          url: '{{baseUrl}}/api/categories/:id',
         },
       },
       {
@@ -371,19 +295,17 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              name: 'Electronics',
-              description: 'Electronic devices and accessories',
-              slug: 'electronics',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                name: 'Electronics',
+                description: 'Electronic devices and accessories',
+                slug: 'electronics',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/categories',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'categories'],
-          },
+          url: '{{baseUrl}}/api/categories',
         },
       },
       {
@@ -396,35 +318,23 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              name: 'Updated Category Name',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                name: 'Updated Category Name',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/categories/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'categories', ':id'],
-            variable: [{ key: 'id', value: 'category-id-here' }],
-          },
+          url: '{{baseUrl}}/api/categories/:id',
         },
       },
       {
         name: 'Delete Category',
         request: {
           method: 'DELETE',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/categories/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'categories', ':id'],
-            variable: [{ key: 'id', value: 'category-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/categories/:id',
         },
       },
     ],
@@ -438,16 +348,8 @@ function generatePostmanCollection(): PostmanCollection {
         name: 'Get Cart',
         request: {
           method: 'GET',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/cart',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'cart'],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/cart',
         },
       },
       {
@@ -460,19 +362,17 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              productId: 'product-id-here',
-              quantity: 1,
-              variantId: null,
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                productId: 'product-id-here',
+                quantity: 1,
+                variantId: null,
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/cart/items',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'cart', 'items'],
-          },
+          url: '{{baseUrl}}/api/cart/items',
         },
       },
       {
@@ -485,51 +385,31 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              quantity: 3,
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                quantity: 3,
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/cart/items/:itemId',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'cart', 'items', ':itemId'],
-            variable: [{ key: 'itemId', value: 'cart-item-id-here' }],
-          },
+          url: '{{baseUrl}}/api/cart/items/:itemId',
         },
       },
       {
         name: 'Remove from Cart',
         request: {
           method: 'DELETE',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/cart/items/:itemId',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'cart', 'items', ':itemId'],
-            variable: [{ key: 'itemId', value: 'cart-item-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/cart/items/:itemId',
         },
       },
       {
         name: 'Clear Cart',
         request: {
           method: 'DELETE',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/cart',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'cart'],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/cart',
         },
       },
     ],
@@ -543,33 +423,16 @@ function generatePostmanCollection(): PostmanCollection {
         name: 'Get My Orders',
         request: {
           method: 'GET',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/orders?page=1&limit=10',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'orders'],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/orders?page=1&limit=10',
         },
       },
       {
         name: 'Get Order by ID',
         request: {
           method: 'GET',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/orders/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'orders', ':id'],
-            variable: [{ key: 'id', value: 'order-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/orders/:id',
         },
       },
       {
@@ -582,19 +445,17 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              shippingAddressId: 'address-id-here',
-              billingAddressId: 'address-id-here',
-              discountCode: null,
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                shippingAddressId: 'address-id-here',
+                billingAddressId: 'address-id-here',
+                discountCode: null,
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/orders',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'orders'],
-          },
+          url: '{{baseUrl}}/api/orders',
         },
       },
       {
@@ -607,51 +468,31 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              status: 'PROCESSING',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                status: 'PROCESSING',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/orders/:id/status',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'orders', ':id', 'status'],
-            variable: [{ key: 'id', value: 'order-id-here' }],
-          },
+          url: '{{baseUrl}}/api/orders/:id/status',
         },
       },
       {
         name: 'Cancel Order',
         request: {
           method: 'PUT',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/orders/:id/cancel',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'orders', ':id', 'cancel'],
-            variable: [{ key: 'id', value: 'order-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/orders/:id/cancel',
         },
       },
       {
         name: 'Get All Orders (Admin)',
         request: {
           method: 'GET',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/orders/admin/all?page=1&limit=10',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'orders', 'admin', 'all'],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/orders/admin/all?page=1&limit=10',
         },
       },
     ],
@@ -666,14 +507,7 @@ function generatePostmanCollection(): PostmanCollection {
         request: {
           method: 'GET',
           header: [],
-          url: {
-            raw: '{{baseUrl}}/api/reviews/product/:productId?status=APPROVED&minRating=3',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'reviews', 'product', ':productId'],
-            variable: [{ key: 'productId', value: 'product-id-here' }],
-          },
+          url: '{{baseUrl}}/api/reviews/product/:productId?status=APPROVED&minRating=3',
         },
       },
       {
@@ -686,20 +520,18 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              productId: 'product-id-here',
-              rating: 5,
-              title: 'Great product!',
-              comment: 'I love this product. Highly recommended!',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                productId: 'product-id-here',
+                rating: 5,
+                title: 'Great product!',
+                comment: 'I love this product. Highly recommended!',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/reviews',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'reviews'],
-          },
+          url: '{{baseUrl}}/api/reviews',
         },
       },
       {
@@ -712,37 +544,25 @@ function generatePostmanCollection(): PostmanCollection {
           ],
           body: {
             mode: 'raw',
-            raw: JSON.stringify({
-              rating: 4,
-              title: 'Good product',
-              comment: 'Updated review content',
-            }, null, 2),
+            raw: JSON.stringify(
+              {
+                rating: 4,
+                title: 'Good product',
+                comment: 'Updated review content',
+              },
+              null,
+              2,
+            ),
           },
-          url: {
-            raw: '{{baseUrl}}/api/reviews/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'reviews', ':id'],
-            variable: [{ key: 'id', value: 'review-id-here' }],
-          },
+          url: '{{baseUrl}}/api/reviews/:id',
         },
       },
       {
         name: 'Delete Review',
         request: {
           method: 'DELETE',
-          header: [
-            { key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' },
-          ],
-          url: {
-            raw: '{{baseUrl}}/api/reviews/:id',
-            protocol: 'http',
-            host: ['{{baseUrl}}'],
-            port: '',
-            path: ['api', 'reviews', ':id'],
-            variable: [{ key: 'id', value: 'review-id-here' }],
-          },
+          header: [{ key: 'Authorization', value: 'Bearer {{accessToken}}', type: 'text' }],
+          url: '{{baseUrl}}/api/reviews/:id',
         },
       },
     ],
@@ -756,7 +576,7 @@ async function main() {
 
   try {
     const collection = generatePostmanCollection();
-    
+
     const totalEndpoints = collection.item.reduce((sum, folder) => sum + folder.item.length, 0);
     console.log(`📝 Generated ${collection.item.length} folders with ${totalEndpoints} endpoints`);
 
@@ -767,7 +587,7 @@ async function main() {
     console.log(`📁 Location: ${outputPath}`);
     console.log('');
     console.log('📊 Endpoints by category:');
-    collection.item.forEach(folder => {
+    collection.item.forEach((folder) => {
       console.log(`  ${folder.name}: ${folder.item.length} endpoints`);
     });
     console.log('');
