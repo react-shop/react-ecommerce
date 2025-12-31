@@ -1,44 +1,16 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
-import { CheckCircle, XCircle, AlertCircle, Info } from 'lucide-react';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
+import { CheckCircle, XCircle, AlertTriangle, Info, X } from 'lucide-react';
 
-const toastRecipe = cva({
-  base: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '3',
-    p: '4',
-    borderRadius: 'md',
-    boxShadow: 'lg',
-    minWidth: '300px',
-  },
+const toast = tv({
+  base: 'flex items-start gap-3 p-4 rounded-lg shadow-lg border max-w-md',
   variants: {
     variant: {
-      success: {
-        bg: 'success.50',
-        borderLeft: '4px solid',
-        borderColor: 'success.500',
-        color: 'success.900',
-      },
-      error: {
-        bg: 'error.50',
-        borderLeft: '4px solid',
-        borderColor: 'error.500',
-        color: 'error.900',
-      },
-      warning: {
-        bg: 'warning.50',
-        borderLeft: '4px solid',
-        borderColor: 'warning.500',
-        color: 'warning.900',
-      },
-      info: {
-        bg: 'brand.50',
-        borderLeft: '4px solid',
-        borderColor: 'brand.500',
-        color: 'brand.900',
-      },
+      success: 'bg-success-50 border-success-200 text-success-900',
+      error: 'bg-error-50 border-error-200 text-error-900',
+      warning: 'bg-warning-50 border-warning-200 text-warning-900',
+      info: 'bg-blue-50 border-blue-200 text-blue-900',
     },
   },
   defaultVariants: {
@@ -46,37 +18,45 @@ const toastRecipe = cva({
   },
 });
 
-export type ToastVariants = RecipeVariantProps<typeof toastRecipe>;
+export type ToastVariants = VariantProps<typeof toast>;
 
-export interface ToastProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    ToastVariants {
-  title?: string;
-  description?: string;
+export interface ToastProps extends React.HTMLAttributes<HTMLDivElement>, ToastVariants {
+  onClose?: () => void;
+  showIcon?: boolean;
 }
-
-const StyledToast = styled('div', toastRecipe);
 
 const icons = {
   success: CheckCircle,
   error: XCircle,
-  warning: AlertCircle,
+  warning: AlertTriangle,
   info: Info,
 };
 
+const iconColors = {
+  success: 'text-success-600',
+  error: 'text-error-600',
+  warning: 'text-warning-600',
+  info: 'text-blue-600',
+};
+
 export const Toast = React.forwardRef<HTMLDivElement, ToastProps>(
-  ({ variant = 'info', title, description, children, ...props }, ref) => {
-    const Icon = icons[variant];
+  ({ className, variant = 'info', children, onClose, showIcon = true, ...props }, ref) => {
+    const IconComponent = icons[variant];
 
     return (
-      <StyledToast ref={ref} variant={variant} {...props}>
-        <Icon size={20} />
-        <div>
-          {title && <div style={{ fontWeight: 600 }}>{title}</div>}
-          {description && <div style={{ fontSize: '14px' }}>{description}</div>}
-          {children}
-        </div>
-      </StyledToast>
+      <div ref={ref} className={cn(toast({ variant }), className)} role="alert" {...props}>
+        {showIcon && <IconComponent className={cn('shrink-0', iconColors[variant])} size={20} />}
+        <div className="flex-1">{children}</div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="shrink-0 text-gray-500 hover:text-gray-700 transition-colors"
+            aria-label="Close"
+          >
+            <X size={16} />
+          </button>
+        )}
+      </div>
     );
   }
 );

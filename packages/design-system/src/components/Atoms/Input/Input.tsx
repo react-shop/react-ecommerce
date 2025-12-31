@@ -1,67 +1,21 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
 
-const inputRecipe = cva({
-  base: {
-    width: '100%',
-    px: '3',
-    py: '2',
-    borderRadius: 'md',
-    fontSize: 'md',
-    transition: 'all 0.2s',
-    _focus: {
-      outline: 'none',
-      ring: '2px',
-      ringColor: 'primary.default',
-    },
-    _disabled: {
-      opacity: 0.5,
-      cursor: 'not-allowed',
-    },
-  },
+const input = tv({
+  base: 'w-full rounded-md transition-all focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50',
   variants: {
     variant: {
-      outline: {
-        border: '1px solid',
-        borderColor: 'border.default',
-        bg: 'bg.surface',
-        _hover: {
-          borderColor: 'border.emphasis',
-        },
-      },
-      filled: {
-        bg: 'bg.muted',
-        border: '1px solid transparent',
-        _hover: {
-          bg: 'bg.subtle',
-        },
-      },
+      outline: 'border border-gray-300 bg-white hover:border-gray-400 focus:border-primary-500 focus:ring-primary-500',
+      filled: 'border border-transparent bg-gray-100 hover:bg-gray-200 focus:bg-white focus:border-primary-500 focus:ring-primary-500',
     },
     size: {
-      sm: {
-        px: '2',
-        py: '1.5',
-        fontSize: 'sm',
-      },
-      md: {
-        px: '3',
-        py: '2',
-        fontSize: 'md',
-      },
-      lg: {
-        px: '4',
-        py: '3',
-        fontSize: 'lg',
-      },
+      sm: 'px-2 py-1.5 text-sm',
+      md: 'px-3 py-2 text-base',
+      lg: 'px-4 py-3 text-lg',
     },
     isInvalid: {
-      true: {
-        borderColor: 'error.default',
-        _focus: {
-          ringColor: 'error.default',
-        },
-      },
+      true: 'border-error-500 focus:border-error-500 focus:ring-error-500',
     },
   },
   defaultVariants: {
@@ -70,22 +24,18 @@ const inputRecipe = cva({
   },
 });
 
-export type InputVariants = RecipeVariantProps<typeof inputRecipe>;
+export type InputVariants = VariantProps<typeof input>;
 
 export interface InputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'>,
     InputVariants {}
 
-const StyledInput = styled('input', inputRecipe);
-
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ variant, size, isInvalid, ...props }, ref) => {
+  ({ className, variant, size, isInvalid, ...props }, ref) => {
     return (
-      <StyledInput
+      <input
         ref={ref}
-        variant={variant}
-        size={size}
-        isInvalid={isInvalid}
+        className={cn(input({ variant, size, isInvalid }), className)}
         {...props}
       />
     );

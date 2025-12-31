@@ -1,31 +1,62 @@
 import * as React from 'react';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
 
-export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement> {
+const text = tv({
+  base: '',
+  variants: {
+    size: {
+      xs: 'text-xs',
+      sm: 'text-sm',
+      md: 'text-base',
+      lg: 'text-lg',
+      xl: 'text-xl',
+    },
+    weight: {
+      light: 'font-light',
+      normal: 'font-normal',
+      medium: 'font-medium',
+      semibold: 'font-semibold',
+      bold: 'font-bold',
+    },
+    align: {
+      left: 'text-left',
+      center: 'text-center',
+      right: 'text-right',
+    },
+    color: {
+      primary: 'text-gray-900',
+      secondary: 'text-gray-600',
+      tertiary: 'text-gray-500',
+      error: 'text-error-500',
+      success: 'text-success-500',
+      warning: 'text-warning-500',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    weight: 'normal',
+    align: 'left',
+    color: 'primary',
+  },
+});
+
+export type TextVariants = VariantProps<typeof text>;
+
+export interface TextProps extends React.HTMLAttributes<HTMLParagraphElement>, TextVariants {
   as?: 'p' | 'span' | 'div' | 'label';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
-  weight?: 'light' | 'normal' | 'medium' | 'semibold' | 'bold';
-  align?: 'left' | 'center' | 'right';
 }
 
-const StyledText = styled('p');
-
 export const Text = React.forwardRef<HTMLParagraphElement, TextProps>(
-  ({ as = 'p', size = 'md', weight = 'normal', align = 'left', children, ...props }, ref) => {
+  ({ className, as: Component = 'p', size, weight, align, color, ...props }, ref) => {
     return (
-      <StyledText
-        ref={ref}
-        as={as}
-        fontSize={size}
-        fontWeight={weight}
-        textAlign={align}
+      <Component
+        ref={ref as any}
+        className={cn(text({ size, weight, align, color }), className)}
         {...props}
-      >
-        {children}
-      </StyledText>
+      />
     );
   }
 );
 
 Text.displayName = 'Text';
-

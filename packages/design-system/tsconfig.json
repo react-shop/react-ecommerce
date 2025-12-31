@@ -8,11 +8,10 @@
       "@molecules/*": ["./src/components/Molecules/*"],
       "@organisms/*": ["./src/components/Organisms/*"],
       "@theme/*": ["./src/theme/*"],
-      "@utils/*": ["./src/utils/*"],
-      "@styled-system/*": ["./styled-system/*"]
+      "@lib/*": ["./src/lib/*"]
     }
   },
   "extends": "../tsconfig/react-library.json",
-  "include": ["src", "styled-system"],
+  "include": ["src"],
   "exclude": ["dist", "build", "node_modules"]
 }

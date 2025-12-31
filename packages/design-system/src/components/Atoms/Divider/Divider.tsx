@@ -1,22 +1,13 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
 
-const dividerRecipe = cva({
-  base: {
-    border: 'none',
-    bg: 'border.default',
-  },
+const divider = tv({
+  base: 'border-none bg-gray-200',
   variants: {
     orientation: {
-      horizontal: {
-        width: '100%',
-        height: '1px',
-      },
-      vertical: {
-        width: '1px',
-        height: 'auto',
-      },
+      horizontal: 'w-full h-px',
+      vertical: 'w-px h-auto',
     },
   },
   defaultVariants: {
@@ -24,17 +15,21 @@ const dividerRecipe = cva({
   },
 });
 
-export type DividerVariants = RecipeVariantProps<typeof dividerRecipe>;
+export type DividerVariants = VariantProps<typeof divider>;
 
 export interface DividerProps
   extends React.HTMLAttributes<HTMLHRElement>,
     DividerVariants {}
 
-const StyledDivider = styled('hr', dividerRecipe);
-
 export const Divider = React.forwardRef<HTMLHRElement, DividerProps>(
-  ({ orientation, ...props }, ref) => {
-    return <StyledDivider ref={ref} orientation={orientation} {...props} />;
+  ({ className, orientation, ...props }, ref) => {
+    return (
+      <hr
+        ref={ref}
+        className={cn(divider({ orientation }), className)}
+        {...props}
+      />
+    );
   }
 );
 

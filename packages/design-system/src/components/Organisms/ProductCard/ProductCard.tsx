@@ -1,157 +1,122 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
-import { Star } from 'lucide-react';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
+import { Badge } from '../../Atoms/Badge/Badge';
+import { PriceDisplay } from '../../Molecules/PriceDisplay/PriceDisplay';
+import { Rating } from '../../Molecules/Rating/Rating';
 
-const productCardRecipe = cva({
-  base: {
-    borderRadius: 'lg',
-    overflow: 'hidden',
-    transition: 'all 0.2s',
-    cursor: 'pointer',
-    bg: 'bg.surface',
-    _hover: {
-      boxShadow: 'lg',
-      transform: 'translateY(-2px)',
-    },
-  },
+const productCard = tv({
+  base: 'group relative overflow-hidden rounded-lg bg-white shadow-md hover:shadow-lg transition-shadow',
   variants: {
     variant: {
-      elevated: {
-        boxShadow: 'md',
-      },
-      outline: {
-        border: '1px solid',
-        borderColor: 'border.default',
-      },
+      default: '',
+      compact: '',
     },
   },
   defaultVariants: {
-    variant: 'elevated',
+    variant: 'default',
   },
 });
 
-export type ProductCardVariants = RecipeVariantProps<typeof productCardRecipe>;
+const imageContainer = tv({
+  base: 'relative aspect-square overflow-hidden bg-gray-100',
+});
+
+const image = tv({
+  base: 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300',
+});
+
+const content = tv({
+  base: 'p-4',
+  variants: {
+    variant: {
+      default: '',
+      compact: 'p-3',
+    },
+  },
+});
+
+export type ProductCardVariants = VariantProps<typeof productCard>;
 
 export interface ProductCardProps
   extends React.HTMLAttributes<HTMLDivElement>,
     ProductCardVariants {
+  image: string;
   title: string;
   price: number;
-  image: string;
+  originalPrice?: number;
   rating?: number;
-  discount?: number;
+  reviewCount?: number;
+  badge?: string;
   onAddToCart?: () => void;
 }
 
-const StyledProductCard = styled('div', productCardRecipe);
-
 export const ProductCard = React.forwardRef<HTMLDivElement, ProductCardProps>(
-  ({ title, price, image, rating, discount, onAddToCart, variant, ...props }, ref) => {
+  (
+    {
+      className,
+      variant,
+      image: imageSrc,
+      title,
+      price,
+      originalPrice,
+      rating,
+      reviewCount,
+      badge,
+      onAddToCart,
+      ...props
+    },
+    ref
+  ) => {
     return (
-      <StyledProductCard ref={ref} variant={variant} {...props}>
-        {/* Image */}
-        <div style={{ position: 'relative', aspectRatio: '1', overflow: 'hidden' }}>
-          <img
-            src={image}
-            alt={title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-          {discount && discount > 0 && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '8px',
-                right: '8px',
-                bg: 'error.500',
-                color: 'white',
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '12px',
-                fontWeight: 600,
-              }}
-            >
-              -{discount}%
+      <div ref={ref} className={cn(productCard({ variant }), className)} {...props}>
+        <div className={imageContainer()}>
+          <img src={imageSrc} alt={title} className={image()} />
+          {badge && (
+            <div className="absolute top-2 left-2">
+              <Badge variant="solid" colorScheme="error">
+                {badge}
+              </Badge>
             </div>
           )}
         </div>
 
-        {/* Content */}
-        <div style={{ padding: '16px' }}>
-          {/* Title */}
-          <h3
-            style={{
-              fontSize: '16px',
-              fontWeight: 600,
-              marginBottom: '8px',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap',
-            }}
-          >
-            {title}
-          </h3>
+        <div className={content({ variant })}>
+          <h3 className="text-base font-medium text-gray-900 line-clamp-2 mb-2">{title}</h3>
 
-          {/* Rating */}
           {rating !== undefined && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', marginBottom: '8px' }}>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <Star
-                  key={index}
-                  size={14}
-                  fill={index < Math.floor(rating) ? '#fbbf24' : 'none'}
-                  stroke={index < rating ? '#fbbf24' : '#d4d4d4'}
-                />
-              ))}
-              <span style={{ fontSize: '14px', color: 'var(--colors-text-secondary)', marginLeft: '4px' }}>
-                ({rating.toFixed(1)})
-              </span>
+            <div className="flex items-center gap-2 mb-2">
+              <Rating value={rating} size="sm" />
+              {reviewCount !== undefined && (
+                <span className="text-xs text-gray-500">({reviewCount})</span>
+              )}
             </div>
           )}
 
-          {/* Price */}
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '8px', marginBottom: '12px' }}>
-            <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'var(--colors-primary-default)' }}>
-              ${price.toFixed(2)}
-            </span>
-            {discount && discount > 0 && (
-              <span
-                style={{
-                  fontSize: '14px',
-                  textDecoration: 'line-through',
-                  color: 'var(--colors-text-secondary)',
-                }}
-              >
-                ${(price / (1 - discount / 100)).toFixed(2)}
-              </span>
+          <div className="flex items-center justify-between">
+            <PriceDisplay
+              price={price}
+              originalPrice={originalPrice}
+              size="md"
+              showDiscount={false}
+            />
+            {originalPrice && originalPrice > price && (
+              <Badge variant="solid" colorScheme="error">
+                -{Math.round(((originalPrice - price) / originalPrice) * 100)}%
+              </Badge>
             )}
           </div>
 
-          {/* Add to Cart Button */}
           {onAddToCart && (
             <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onAddToCart();
-              }}
-              style={{
-                width: '100%',
-                padding: '8px 16px',
-                bg: 'var(--colors-primary-default)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '6px',
-                fontSize: '14px',
-                fontWeight: 600,
-                cursor: 'pointer',
-                transition: 'all 0.2s',
-              }}
+              onClick={onAddToCart}
+              className="mt-3 w-full bg-primary-600 text-white py-2 rounded-md font-medium hover:bg-primary-700 transition-colors"
             >
               Add to Cart
             </button>
           )}
         </div>
-      </StyledProductCard>
+      </div>
     );
   }
 );

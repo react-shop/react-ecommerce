@@ -1,37 +1,22 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
 import { X } from 'lucide-react';
 
-const overlayRecipe = cva({
-  base: {
-    position: 'fixed',
-    inset: '0',
-    bg: 'rgba(0, 0, 0, 0.5)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 'modal',
-    padding: '4',
-  },
+const overlay = tv({
+  base: 'fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50',
 });
 
-const modalRecipe = cva({
-  base: {
-    bg: 'bg.surface',
-    borderRadius: 'lg',
-    boxShadow: '2xl',
-    maxHeight: '90vh',
-    overflow: 'auto',
-    position: 'relative',
-  },
+const modal = tv({
+  base: 'relative bg-white rounded-lg shadow-xl max-h-[90vh] overflow-y-auto',
   variants: {
     size: {
-      sm: { maxWidth: '400px', width: '100%' },
-      md: { maxWidth: '600px', width: '100%' },
-      lg: { maxWidth: '800px', width: '100%' },
-      xl: { maxWidth: '1200px', width: '100%' },
-      full: { maxWidth: '100%', width: '100%', height: '100%' },
+      sm: 'w-full max-w-sm',
+      md: 'w-full max-w-md',
+      lg: 'w-full max-w-lg',
+      xl: 'w-full max-w-xl',
+      '2xl': 'w-full max-w-2xl',
+      full: 'w-full max-w-7xl',
     },
   },
   defaultVariants: {
@@ -39,74 +24,72 @@ const modalRecipe = cva({
   },
 });
 
-export type ModalVariants = RecipeVariantProps<typeof modalRecipe>;
+export type ModalVariants = VariantProps<typeof modal>;
 
-export interface ModalProps extends ModalVariants {
+export interface ModalProps extends React.HTMLAttributes<HTMLDivElement>, ModalVariants {
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
   title?: string;
   showCloseButton?: boolean;
 }
 
-const StyledOverlay = styled('div', overlayRecipe);
-const StyledModal = styled('div', modalRecipe);
+export const Modal = React.forwardRef<HTMLDivElement, ModalProps>(
+  (
+    {
+      className,
+      isOpen,
+      onClose,
+      title,
+      showCloseButton = true,
+      size,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    React.useEffect(() => {
+      if (isOpen) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
 
-export const Modal = ({ isOpen, onClose, children, title, showCloseButton = true, size }: ModalProps) => {
-  React.useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
-    };
+      return () => {
+        document.body.style.overflow = '';
+      };
+    }, [isOpen]);
 
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden';
-    }
+    if (!isOpen) return null;
 
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen) return null;
-
-  return (
-    <StyledOverlay onClick={onClose}>
-      <StyledModal size={size} onClick={(e) => e.stopPropagation()}>
-        {(title || showCloseButton) && (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '16px',
-              borderBottom: '1px solid var(--colors-border-default)',
-            }}
-          >
-            {title && <h2 style={{ fontSize: '1.25rem', fontWeight: 600 }}>{title}</h2>}
-            {showCloseButton && (
-              <button
-                onClick={onClose}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: '4px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}
-              >
-                <X size={20} />
-              </button>
-            )}
-          </div>
-        )}
-        <div style={{ padding: '16px' }}>{children}</div>
-      </StyledModal>
-    </StyledOverlay>
-  );
-};
+    return (
+      <div className={overlay()} onClick={onClose}>
+        <div
+          ref={ref}
+          className={cn(modal({ size }), className)}
+          onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          {...props}
+        >
+          {(title || showCloseButton) && (
+            <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+              {title && <h2 className="text-xl font-semibold">{title}</h2>}
+              {showCloseButton && (
+                <button
+                  onClick={onClose}
+                  className="text-gray-500 hover:text-gray-700 transition-colors"
+                  aria-label="Close"
+                >
+                  <X size={24} />
+                </button>
+              )}
+            </div>
+          )}
+          <div className="p-6">{children}</div>
+        </div>
+      </div>
+    );
+  }
+);
 
 Modal.displayName = 'Modal';

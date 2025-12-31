@@ -1,58 +1,22 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
+import { cn } from '@lib/utils';
 import { ChevronDown } from 'lucide-react';
 
-const selectRecipe = cva({
-  base: {
-    position: 'relative',
-    width: '100%',
-  },
-});
-
-const selectInputRecipe = cva({
-  base: {
-    width: '100%',
-    px: '3',
-    py: '2',
-    pr: '10',
-    borderRadius: 'md',
-    fontSize: 'md',
-    appearance: 'none',
-    cursor: 'pointer',
-    transition: 'all 0.2s',
-    _focus: {
-      outline: 'none',
-      ring: '2px',
-      ringColor: 'primary.default',
-    },
-    _disabled: {
-      opacity: 0.5,
-      cursor: 'not-allowed',
-    },
-  },
+const select = tv({
+  base: 'w-full rounded-md transition-all focus:outline-none focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none',
   variants: {
     variant: {
-      outline: {
-        border: '1px solid',
-        borderColor: 'border.default',
-        bg: 'bg.surface',
-        _hover: {
-          borderColor: 'border.emphasis',
-        },
-      },
-      filled: {
-        bg: 'bg.muted',
-        border: '1px solid transparent',
-        _hover: {
-          bg: 'bg.subtle',
-        },
-      },
+      outline: 'border border-gray-300 bg-white hover:border-gray-400 focus:border-primary-500 focus:ring-primary-500',
+      filled: 'border border-transparent bg-gray-100 hover:bg-gray-200 focus:bg-white focus:border-primary-500 focus:ring-primary-500',
     },
     size: {
-      sm: { px: '2', py: '1.5', fontSize: 'sm' },
-      md: { px: '3', py: '2', fontSize: 'md' },
-      lg: { px: '4', py: '3', fontSize: 'lg' },
+      sm: 'px-2 py-1.5 pr-8 text-sm',
+      md: 'px-3 py-2 pr-10 text-base',
+      lg: 'px-4 py-3 pr-12 text-lg',
+    },
+    isInvalid: {
+      true: 'border-error-500 focus:border-error-500 focus:ring-error-500',
     },
   },
   defaultVariants: {
@@ -61,33 +25,28 @@ const selectInputRecipe = cva({
   },
 });
 
-export type SelectVariants = RecipeVariantProps<typeof selectInputRecipe>;
+export type SelectVariants = VariantProps<typeof select>;
 
 export interface SelectProps
   extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, 'size'>,
     SelectVariants {}
 
-const StyledSelectWrapper = styled('div', selectRecipe);
-const StyledSelect = styled('select', selectInputRecipe);
-
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-  ({ children, variant, size, ...props }, ref) => {
+  ({ className, variant, size, isInvalid, children, ...props }, ref) => {
     return (
-      <StyledSelectWrapper>
-        <StyledSelect ref={ref} variant={variant} size={size} {...props}>
+      <div className="relative inline-block w-full">
+        <select
+          ref={ref}
+          className={cn(select({ variant, size, isInvalid }), className)}
+          {...props}
+        >
           {children}
-        </StyledSelect>
+        </select>
         <ChevronDown
-          size={16}
-          style={{
-            position: 'absolute',
-            right: '12px',
-            top: '50%',
-            transform: 'translateY(-50%)',
-            pointerEvents: 'none',
-          }}
+          className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500"
+          size={size === 'sm' ? 16 : size === 'lg' ? 24 : 20}
         />
-      </StyledSelectWrapper>
+      </div>
     );
   }
 );

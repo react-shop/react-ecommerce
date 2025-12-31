@@ -1,30 +1,25 @@
 import * as React from 'react';
-import { cva, type RecipeVariantProps } from '@styled-system/css';
-import { styled } from '@styled-system/jsx';
+import { tv, type VariantProps } from 'tailwind-variants';
 import { Icon as LucideIcon, type IconNode } from 'lucide-react';
+import { cn } from '@lib/utils';
 
-const iconRecipe = cva({
-  base: {
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexShrink: 0,
-  },
+const icon = tv({
+  base: 'inline-flex items-center justify-center shrink-0',
   variants: {
     size: {
-      xs: { w: '3', h: '3' },
-      sm: { w: '4', h: '4' },
-      md: { w: '5', h: '5' },
-      lg: { w: '6', h: '6' },
-      xl: { w: '8', h: '8' },
+      xs: 'w-3 h-3',
+      sm: 'w-4 h-4',
+      md: 'w-5 h-5',
+      lg: 'w-6 h-6',
+      xl: 'w-8 h-8',
     },
     color: {
-      primary: { color: 'primary.default' },
-      secondary: { color: 'text.secondary' },
-      error: { color: 'error.default' },
-      success: { color: 'success.default' },
-      warning: { color: 'warning.default' },
-      text: { color: 'text.primary' },
+      primary: 'text-primary-600',
+      secondary: 'text-gray-600',
+      error: 'text-error-500',
+      success: 'text-success-500',
+      warning: 'text-warning-500',
+      text: 'text-gray-900',
     },
   },
   defaultVariants: {
@@ -33,16 +28,22 @@ const iconRecipe = cva({
   },
 });
 
-export type IconVariants = RecipeVariantProps<typeof iconRecipe>;
+export type IconVariants = VariantProps<typeof icon>;
 
-export interface IconProps extends IconVariants, React.SVGProps<SVGSVGElement> {
+export interface IconProps extends IconVariants, Omit<React.SVGProps<SVGSVGElement>, 'ref'> {
   icon: IconNode;
 }
 
 export const Icon = React.forwardRef<SVGSVGElement, IconProps>(
-  ({ icon, size, color, ...props }, ref) => {
-    const StyledIcon = styled(LucideIcon, iconRecipe);
-    return <StyledIcon ref={ref} icon={icon} size={size} color={color} {...props} />;
+  ({ icon: iconNode, size, color, className, ...props }, ref) => {
+    return (
+      <LucideIcon
+        ref={ref}
+        icon={iconNode}
+        className={cn(icon({ size, color }), className)}
+        {...props}
+      />
+    );
   }
 );
 
