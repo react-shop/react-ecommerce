@@ -51,7 +51,7 @@ The app will be available at `http://localhost:3000`
 ### Project Structure
 
 ```
-src/
+apps/web/
 ├── app/                 # Next.js App Router
 │   ├── layout.tsx       # Root layout with providers
 │   ├── page.tsx         # Home page
@@ -61,15 +61,18 @@ src/
 │   └── product/         # Product components
 ├── hooks/               # Custom React hooks
 ├── lib/                 # Utilities and helpers
-└── styles/              # Additional styles
+├── public/              # Static assets
+├── next.config.js
+├── tsconfig.json
+└── package.json
 ```
 
 ### Adding Pages
 
-Create new pages in `src/app/`:
+Create new pages in `app/`:
 
 ```typescript
-// src/app/products/page.tsx
+// app/products/page.tsx
 export default function ProductsPage() {
   return <div>Products</div>;
 }

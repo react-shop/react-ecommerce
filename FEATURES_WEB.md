@@ -328,26 +328,24 @@ NEXT_PUBLIC_GITHUB_CLIENT_ID=xxx
 
 ```
 apps/web/
-├── src/
-│   ├── app/              # Next.js App Router
-│   │   ├── (auth)/       # Auth routes group
-│   │   │   ├── login/
-│   │   │   └── register/
-│   │   ├── (shop)/       # Shop routes group
-│   │   │   ├── products/
-│   │   │   ├── cart/
-│   │   │   └── checkout/
-│   │   ├── layout.tsx
-│   │   └── page.tsx
-│   ├── components/       # React components
-│   │   ├── layout/       # Header, Footer, etc.
-│   │   ├── product/      # Product components
-│   │   ├── cart/         # Cart components
-│   │   └── ui/           # Shared UI components
-│   ├── hooks/            # Custom React hooks
-│   ├── lib/              # Utilities and helpers
-│   ├── styles/           # Global styles
-│   └── types/            # TypeScript types
+├── app/                  # Next.js App Router
+│   ├── (auth)/           # Auth routes group
+│   │   ├── login/
+│   │   └── register/
+│   ├── (shop)/           # Shop routes group
+│   │   ├── products/
+│   │   ├── cart/
+│   │   └── checkout/
+│   ├── layout.tsx
+│   ├── page.tsx
+│   └── globals.css
+├── components/           # React components
+│   ├── layout/           # Header, Footer, etc.
+│   ├── product/          # Product components
+│   ├── cart/             # Cart components
+│   └── ui/               # Shared UI components
+├── hooks/                # Custom React hooks
+├── lib/                  # Utilities and helpers
 ├── public/               # Static assets
 ├── next.config.js
 ├── tsconfig.json
