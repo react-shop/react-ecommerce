@@ -1,79 +1,217 @@
-# Turborepo starter
+# React Ecommerce Boilerplate
 
-This is an official Yarn v1 starter turborepo.
+A comprehensive, production-ready ecommerce boilerplate built with React, Next.js, NestJS, Prisma, and GraphQL. Designed as a Turborepo monorepo for easy code sharing between web, mobile, and admin applications.
 
-## What's inside?
+## Features
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
+- 🎨 **Design System** - PandaCSS-based component library with theming
+- 🔄 **GraphQL API** - Type-safe API with React Query hooks
+- 🛒 **Full Ecommerce** - Products, cart, checkout, orders, reviews
+- 🔐 **Authentication** - JWT + OAuth (Google, GitHub)
+- 📱 **Mobile Ready** - Architecture supports React Native
+- 🎯 **Admin Dashboard** - Product, order, and user management
+- 🚀 **Modern Stack** - Next.js 14, NestJS, Prisma, TypeScript
 
-### Apps and Packages
+## Quick Start
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `ui`: a stub React component library shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+### Prerequisites
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+- Node.js 18+
+- Yarn 1.x
+- PostgreSQL 14+
 
-### Utilities
+### Installation
 
-This turborepo has some additional tools already setup for you:
+```bash
+# Clone and install
+git clone <repository-url>
+cd react-ecommerce
+yarn install
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+# Setup database
+cd apps/server
+cp .env.example .env
+# Edit .env with your database credentials
 
-### Build
+# Run migrations
+yarn prisma migrate dev
 
-To build all apps and packages, run the following command:
+# Generate types
+yarn prisma generate
+cd ../../packages/services
+yarn codegen
 
-```
-cd my-turborepo
-yarn run build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-yarn run dev
-```
-
-### Installing packages
-
-```
-yarn workspace <workspace> add <package>
+# Start development
+cd ../..
+yarn dev
 ```
 
-### Remote Caching
+The backend API will be available at `http://localhost:3001/graphql`
 
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
+## Project Structure
 
 ```
-cd my-turborepo
-npx turbo login
+/apps
+  /web          → Customer-facing Next.js app
+  /admin        → Admin dashboard Next.js app
+  /server       → NestJS GraphQL API
+
+/packages
+  /design-system → PandaCSS component library
+  /services      → React Query + GraphQL hooks
+  /eslint-config-custom → Shared ESLint config
+  /tsconfig      → Shared TypeScript config
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+## Tech Stack
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
+**Frontend:**
+- Next.js 14 (App Router)
+- PandaCSS (Styling)
+- React Query (Data fetching)
+- GraphQL (API layer)
+- TypeScript
 
+**Backend:**
+- NestJS (Framework)
+- Prisma (ORM)
+- PostgreSQL (Database)
+- GraphQL (API)
+- JWT + OAuth (Auth)
+
+## Documentation
+
+- [Features & Implementation Guide](./FEATURES.md) - Comprehensive feature documentation
+- [API Documentation](http://localhost:3001/graphql) - GraphQL Playground (when server is running)
+- [Design System](./packages/design-system/README.md) - Component library documentation
+
+## Available Scripts
+
+```bash
+# Development
+yarn dev          # Start all apps in development mode
+yarn dev:server   # Start only the backend
+yarn dev:web      # Start only the web app
+
+# Building
+yarn build        # Build all apps
+yarn lint         # Lint all packages
+
+# Database
+yarn prisma:migrate  # Run database migrations
+yarn prisma:studio   # Open Prisma Studio
+yarn prisma:generate # Generate Prisma Client
+
+# Code Generation
+yarn codegen      # Generate GraphQL types
 ```
-npx turbo link
+
+## Key Features
+
+### Design System
+- Token-based theming (light/dark mode)
+- Responsive components
+- Ecommerce-specific components (ProductCard, PriceDisplay, Rating)
+- Zero-runtime CSS with PandaCSS
+
+### Backend API
+- Full CRUD for products, categories, orders, reviews
+- Cart management with database persistence
+- Order tracking and management
+- Review system with moderation
+- Role-based access control
+- OAuth integration (Google, GitHub)
+
+### Services Package
+- Type-safe GraphQL hooks
+- Automatic type generation
+- React Query integration
+- Optimistic updates
+- Error handling
+
+## Customization
+
+### Adding Components
+
+```typescript
+// packages/design-system/src/components/MyComponent/MyComponent.tsx
+import { styled } from '../../../styled-system/jsx';
+
+export const MyComponent = styled('div', {
+  base: {
+    padding: '4',
+    borderRadius: 'md',
+  },
+});
 ```
 
-## Useful Links
+### Adding GraphQL Queries
 
-Learn more about the power of Turborepo:
+```graphql
+# packages/services/src/graphql/custom.graphql
+query GetCustomData {
+  customData {
+    id
+    name
+  }
+}
+```
 
-- [Pipelines](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Then run `yarn codegen` to generate TypeScript types.
+
+### Extending Database
+
+```prisma
+// apps/server/prisma/schema.prisma
+model NewModel {
+  id   String @id @default(uuid())
+  name String
+}
+```
+
+Then run `yarn prisma migrate dev --name add_new_model`.
+
+## React Native Support
+
+The architecture is designed for React Native integration:
+
+1. Create a mobile app
+2. Install `@react-shop/services`
+3. Use the same GraphQL hooks
+4. Adapt UI components to React Native
+
+## Deployment
+
+### Docker
+
+```bash
+docker-compose up -d
+```
+
+### Environment Variables
+
+Required for production:
+- `DATABASE_URL`
+- `JWT_SECRET` & `JWT_REFRESH_SECRET`
+- `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET`
+- `GITHUB_CLIENT_ID` & `GITHUB_CLIENT_SECRET`
+- SMTP configuration for emails
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+MIT
+
+## Links
+
+- [Turborepo Documentation](https://turbo.build/repo/docs)
+- [Next.js Documentation](https://nextjs.org/docs)
+- [NestJS Documentation](https://docs.nestjs.com)
+- [Prisma Documentation](https://www.prisma.io/docs)
+- [PandaCSS Documentation](https://panda-css.com)

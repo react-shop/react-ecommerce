@@ -1,30 +1,43 @@
-## Getting Started
+# React Ecommerce Documentation
 
-First, run the development server:
+Welcome to the comprehensive documentation for the React Ecommerce Boilerplate.
 
-```bash
-yarn dev
-```
+## Documentation Index
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Getting Started
+- [Quick Start Guide](./getting_started.md) - Set up and run the project
+- [Project Structure](./project_structure.md) - Understanding the monorepo organization
+- [Environment Setup](./environment_setup.md) - Configure environment variables
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+### Backend
+- [Backend Overview](./backend.md) - NestJS + Prisma + GraphQL architecture
+- [Database Schema](./database_schema.md) - Complete database model reference
+- [GraphQL API](./graphql_api.md) - API queries and mutations reference
+- [Authentication](./authentication.md) - JWT + OAuth implementation
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+### Frontend Packages
+- [Design System](./design_system.md) - PandaCSS components and theming
+- [Services Package](./services_package.md) - React Query hooks and API client
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Features
+- [Product Management](./products.md) - Creating and managing products
+- [Cart System](./cart.md) - Shopping cart implementation
+- [Order Processing](./orders.md) - Order creation and management
+- [Reviews & Ratings](./reviews.md) - Product review system
+- [User Management](./users.md) - User profiles and addresses
 
-## Learn More
+### Development
+- [Adding New Features](./adding_features.md) - Extend the boilerplate
+- [Testing Guide](./testing.md) - Writing and running tests
+- [Deployment](./deployment.md) - Production deployment guide
 
-To learn more about Next.js, take a look at the following resources:
+### Reference
+- [API Reference](./api_reference.md) - Complete API documentation
+- [Type Definitions](./types.md) - TypeScript types reference
+- [Troubleshooting](./troubleshooting.md) - Common issues and solutions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn/foundations/about-nextjs) - an interactive Next.js tutorial.
+## Quick Links
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Main README](../../README.md)
+- [Features Overview](../../FEATURES.md)
+- [Implementation Status](../../IMPLEMENTATION_STATUS.md)
