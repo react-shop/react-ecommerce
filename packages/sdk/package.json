@@ -1,0 +1,32 @@
+{
+  "name": "@react-shop/sdk",
+  "version": "0.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "license": "MIT",
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.yml",
+    "lint": "TIMING=1 eslint \"**/*.ts*\""
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/typescript": "^4.0.0",
+    "@graphql-codegen/typescript-operations": "^4.0.0",
+    "@graphql-codegen/typescript-react-query": "^6.0.0",
+    "@types/react": "^18.2.0",
+    "eslint": "^8.0.0",
+    "eslint-config-custom": "*",
+    "graphql": "^16.8.0",
+    "tsconfig": "*",
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.17.0",
+    "axios": "^1.6.0",
+    "graphql-request": "^6.1.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  }
+}
+

@@ -1,0 +1,92 @@
+query GetOrders($skip: Int, $take: Int) {
+  orders(skip: $skip, take: $take) {
+    id
+    status
+    total
+    shippingAddress {
+      street
+      city
+      state
+      zip
+      country
+    }
+    items {
+      id
+      product {
+        id
+        name
+        images
+      }
+      quantity
+      price
+    }
+    createdAt
+    updatedAt
+  }
+}
+
+query GetOrder($id: String!) {
+  order(id: $id) {
+    id
+    status
+    subtotal
+    shippingCost
+    tax
+    total
+    shippingAddress {
+      street
+      city
+      state
+      zip
+      country
+    }
+    billingAddress {
+      street
+      city
+      state
+      zip
+      country
+    }
+    items {
+      id
+      product {
+        id
+        name
+        slug
+        images
+      }
+      variant {
+        id
+        sku
+        attributes
+      }
+      quantity
+      price
+    }
+    createdAt
+    updatedAt
+  }
+}
+
+mutation CreateOrder($input: CreateOrderInput!) {
+  createOrder(input: $input) {
+    id
+    status
+    total
+  }
+}
+
+mutation UpdateOrderStatus($id: String!, $status: OrderStatus!) {
+  updateOrderStatus(id: $id, status: $status) {
+    id
+    status
+  }
+}
+
+mutation CancelOrder($id: String!) {
+  cancelOrder(id: $id) {
+    id
+    status
+  }
+}
+

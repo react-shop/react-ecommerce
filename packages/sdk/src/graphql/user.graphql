@@ -1,0 +1,91 @@
+query GetProfile {
+  profile {
+    id
+    email
+    firstName
+    lastName
+    phone
+    addresses {
+      id
+      street
+      city
+      state
+      zip
+      country
+      isDefault
+    }
+    createdAt
+    updatedAt
+  }
+}
+
+mutation UpdateProfile($input: UpdateProfileInput!) {
+  updateProfile(input: $input) {
+    id
+    firstName
+    lastName
+    phone
+  }
+}
+
+mutation AddAddress($input: AddAddressInput!) {
+  addAddress(input: $input) {
+    id
+    street
+    city
+    state
+    zip
+    country
+    isDefault
+  }
+}
+
+mutation UpdateAddress($id: String!, $input: UpdateAddressInput!) {
+  updateAddress(id: $id, input: $input) {
+    id
+    street
+    city
+    state
+    zip
+    country
+    isDefault
+  }
+}
+
+mutation DeleteAddress($id: String!) {
+  deleteAddress(id: $id)
+}
+
+query GetWishlist {
+  wishlist {
+    id
+    products {
+      id
+      name
+      slug
+      price
+      images
+      averageRating
+      reviewCount
+    }
+  }
+}
+
+mutation AddToWishlist($productId: String!) {
+  addToWishlist(productId: $productId) {
+    id
+    products {
+      id
+    }
+  }
+}
+
+mutation RemoveFromWishlist($productId: String!) {
+  removeFromWishlist(productId: $productId) {
+    id
+    products {
+      id
+    }
+  }
+}
+
