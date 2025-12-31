@@ -158,7 +158,9 @@ export function Footer({
                   placeholder="Your email"
                   value={newsletterEmail}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    onNewsletterEmailChange((e.target as HTMLInputElement).value)
+                    onNewsletterEmailChange(
+                      (e.target as HTMLInputElement).value
+                    )
                   }
                   required
                   className="bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
