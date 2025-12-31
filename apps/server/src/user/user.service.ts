@@ -1,89 +1,155 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository } from 'typeorm';
-import { validate } from 'class-validator';
-
-import { User } from '@user/user.entity';
-import { Status, UserData } from '@user/user.interface';
-import { CreateUserDto } from '@user/dto';
+import { PrismaService } from '../prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
-  constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
-  ) {}
+  constructor(private readonly prisma: PrismaService) {}
 
-  async findByEmail(email: string): Promise<User> {
-    const user = await this.userRepository.findOne({ email: email });
+  async findByEmail(email: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { email },
+      include: {
+        addresses: true,
+        orders: true,
+        reviews: true,
+        wishlist: true,
+      },
+    });
 
     return user;
   }
 
-  async findById(id: string): Promise<UserData> {
-    const user = await this.userRepository.findOne(id);
+  async findById(id: string) {
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      include: {
+        addresses: true,
+        orders: true,
+        reviews: true,
+        wishlist: true,
+      },
+    });
 
     if (!user) {
       const errors = { message: 'User not found' };
-      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
 
     return user;
   }
 
-  async create(dto: CreateUserDto): Promise<UserData> {
-    // check uniqueness of username/email
-    const { username, email, password, name, confirmPassword } = dto;
-    const qb = await getRepository(User)
-      .createQueryBuilder('user')
-      .where('user.username = :username', { username })
-      .orWhere('user.email = :email', { email });
+  async create(data: {
+    email: string;
+    password: string;
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+  }) {
+    const { email, password, firstName, lastName, phone } = data;
 
-    const user = await qb.getOne();
+    // Check if user already exists
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
 
-    if (user) {
-      const errors = { message: 'Username and email must be unique.' };
+    if (existingUser) {
+      const errors = { message: 'Email must be unique.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
       );
     }
 
-    if (password !== confirmPassword) {
-      throw new HttpException({ message: 'The password must be equals' }, HttpStatus.BAD_REQUEST);
-    }
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    // create new user
-    const newUser = new User();
-    newUser.username = username;
-    newUser.email = email;
-    newUser.password = password;
-    newUser.name = name;
+    // Create new user
+    const newUser = await this.prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+        phone,
+        role: 'CUSTOMER',
+        isActive: true,
+        emailVerified: false,
+      },
+      include: {
+        addresses: true,
+      },
+    });
 
-    const errors = await validate(newUser);
-    if (errors.length > 0) {
-      const _errors = { message: 'Userinput is not valid.' };
-      throw new HttpException(
-        { message: 'Input data validation failed', _errors },
-        HttpStatus.BAD_REQUEST,
-      );
-    } else {
-      const savedUser = await this.userRepository.save(newUser);
-
-      return savedUser;
-    }
+    return newUser;
   }
 
-  async delete(id: string): Promise<UserData> {
-    const user = await this.userRepository.findOne(id);
+  async update(id: string, data: {
+    firstName?: string;
+    lastName?: string;
+    phone?: string;
+    avatar?: string;
+  }) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
 
     if (!user) {
       const errors = { message: 'User not found' };
-      throw new HttpException({ errors }, HttpStatus.BAD_REQUEST);
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
 
-    await this.userRepository.update(id, { status: Status.DISABLED });
+    const updatedUser = await this.prisma.user.update({
+      where: { id },
+      data,
+      include: {
+        addresses: true,
+      },
+    });
+
+    return updatedUser;
+  }
+
+  async deactivate(id: string) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      const errors = { message: 'User not found' };
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
+
+    await this.prisma.user.update({
+      where: { id },
+      data: { isActive: false },
+    });
 
     return user;
+  }
+
+  async delete(id: string) {
+    const user = await this.prisma.user.findUnique({ where: { id } });
+
+    if (!user) {
+      const errors = { message: 'User not found' };
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
+
+    await this.prisma.user.delete({ where: { id } });
+
+    return user;
+  }
+
+  async findAll(skip = 0, take = 20, role?: string) {
+    const where = role ? { role: role as any } : {};
+
+    return this.prisma.user.findMany({
+      where,
+      skip,
+      take,
+      include: {
+        addresses: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
   }
 }
