@@ -10,6 +10,8 @@ import {
   Badge,
   Skeleton,
   ProductCard,
+  Flex,
+  Stack,
 } from "@react-shop/design-system";
 import { useProducts } from "@react-shop/sdk";
 
@@ -19,12 +21,12 @@ export default function HomePage() {
   return (
     <Container>
       {/* Hero Section */}
-      <div style={{ padding: "4rem 0", textAlign: "center" }}>
+      <div className="py-16 text-center">
         <Badge variant="subtle">New Arrivals</Badge>
-        <Heading as="h1" size="6xl" style={{ margin: "1rem 0" }}>
+        <Heading as="h1" size="6xl" className="my-4">
           Welcome to React Ecommerce
         </Heading>
-        <Text size="xl" color="secondary" style={{ marginBottom: "2rem" }}>
+        <Text size="xl" color="secondary" className="mb-8">
           Discover the best products at unbeatable prices
         </Text>
         <Button size="lg" variant="solid">
@@ -33,8 +35,8 @@ export default function HomePage() {
       </div>
 
       {/* Products Section */}
-      <div style={{ padding: "4rem 0" }}>
-        <Heading as="h2" size="3xl" style={{ marginBottom: "2rem" }}>
+      <div className="py-16">
+        <Heading as="h2" size="3xl" className="mb-8">
           Featured Products
         </Heading>
 
@@ -48,30 +50,29 @@ export default function HomePage() {
         )}
 
         {isLoading && (
-          <Grid columns={4} gap="6">
+          <Grid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[...Array(8)].map((_, i) => (
               <Card key={i}>
                 <Skeleton
                   variant="rectangular"
-                  style={{ height: "200px", marginBottom: "1rem" }}
+                  className="h-[200px] mb-4"
                 />
-                <Skeleton variant="text" style={{ marginBottom: "0.5rem" }} />
-                <Skeleton variant="text" style={{ width: "60%" }} />
+                <Skeleton variant="text" className="mb-2" />
+                <Skeleton variant="text" className="w-3/5" />
               </Card>
             ))}
           </Grid>
         )}
 
         {products && products.length > 0 && (
-          <Grid columns={4} gap="6">
+          <Grid className="grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {products.map((product) => (
               <ProductCard
                 key={product.id}
                 title={product.title}
                 price={product.price}
                 image={product.images?.[0]?.url || "/placeholder-product.jpg"}
-                rating={product.averageRating || 0}
-                discount={product.discount}
+                rating={0}
               />
             ))}
           </Grid>
@@ -85,60 +86,47 @@ export default function HomePage() {
       </div>
 
       {/* Test Design System Components */}
-      <div style={{ padding: "4rem 0", borderTop: "1px solid #e5e5e5" }}>
-        <Heading as="h2" size="2xl" style={{ marginBottom: "2rem" }}>
+      <div className="py-16 border-t border-gray-200">
+        <Heading as="h2" size="2xl" className="mb-8">
           Design System Test
         </Heading>
 
-        <Grid columns={3} gap="4">
+        <Grid className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <Card>
             <Heading as="h3" size="lg">
               Buttons
             </Heading>
-            <div
-              style={{
-                display: "flex",
-                gap: "1rem",
-                marginTop: "1rem",
-                flexWrap: "wrap",
-              }}
-            >
+            <Flex className="gap-4 mt-4 flex-wrap">
               <Button variant="solid">Solid</Button>
               <Button variant="outline">Outline</Button>
               <Button variant="ghost">Ghost</Button>
-            </div>
+            </Flex>
           </Card>
 
           <Card>
             <Heading as="h3" size="lg">
               Badges
             </Heading>
-            <div
-              style={{
-                display: "flex",
-                gap: "1rem",
-                marginTop: "1rem",
-                flexWrap: "wrap",
-              }}
-            >
+            <Flex className="gap-4 mt-4 flex-wrap">
               <Badge variant="solid">Solid</Badge>
               <Badge variant="subtle">Subtle</Badge>
               <Badge variant="outline">Outline</Badge>
-            </div>
+            </Flex>
           </Card>
 
           <Card>
             <Heading as="h3" size="lg">
               Typography
             </Heading>
-            <div style={{ marginTop: "1rem" }}>
+            <Stack className="mt-4">
               <Text size="sm">Small text</Text>
               <Text size="md">Medium text</Text>
               <Text size="lg">Large text</Text>
-            </div>
+            </Stack>
           </Card>
         </Grid>
       </div>
     </Container>
   );
 }
+

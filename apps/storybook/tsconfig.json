@@ -1,0 +1,16 @@
+{
+  "extends": "../../packages/tsconfig/react-library.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "target": "ES2020",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./stories/*"]
+    }
+  },
+  "include": ["stories", ".storybook"],
+  "exclude": ["node_modules", "dist", "storybook-static"]
+}
+
