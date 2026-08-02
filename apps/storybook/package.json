@@ -22,7 +22,7 @@
     "@tailwindcss/postcss": "^4.1.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "postcss": "^8.4.32",
+    "postcss": "^8.5.18",
     "storybook": "^8.6.18",
     "tailwindcss": "^4.1.0",
     "tsconfig": "workspace:*",
